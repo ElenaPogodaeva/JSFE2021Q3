@@ -1,0 +1,36 @@
+/* Стили для welcome-section */
+.welcome-section {
+    background-image: url("../assets/img/welcome-section/welcome-bg.jpg");
+    background-position: right;
+    background-repeat:  no-repeat;
+    padding-top:115px;
+    padding-bottom: 245px;
+}
+.welcome-section__title {
+    margin-bottom: 75px;
+}
+.welcome-section__content {
+    max-width: 598px;
+    width: 100%;
+}
+
+.welcome-section__text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 33px;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    margin: 0 0 75px;
+}
+
+.welcome-section__button {
+    /*display:inline-block;
+    vertical-align: middle;*/
+    width: 360px;
+    height: 75px;
+    font-weight: 200;
+    color: #FFFFFF;
+    background: $dark-red;
+	border-radius: 10px;
+}
