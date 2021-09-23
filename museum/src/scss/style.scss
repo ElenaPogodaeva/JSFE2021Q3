@@ -1,0 +1,147 @@
+/*Обнуление*/
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+:focus,
+:active {
+    outline: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    min-width: 320px;
+}
+body{
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input::-ms-clear {
+    display: none;
+}
+button {
+    cursor: pointer;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
+}
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+/*--------------------*/
+
+$bg-dark: #030303;
+$dark-red: #710707;
+$font-gold: #9d8665;
+$font1: 80px;
+$font2: 32px;
+
+@import "header";
+
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 38px;
+    color: #000000;
+}
+
+.container {
+    max-width: 1470px;
+    margin: 0 auto;
+    padding: 0px 15px;
+}
+.section {
+    padding: 75px 0;
+}
+.dark-section {
+    background-color: $bg-dark;
+}
+.section-title {
+    font-family: 'Forum', cursive;
+    font-size: 80px;
+    line-height: 90px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+.dark-section-title {
+    color: #FFFFFF;
+}
+.white-section-title {
+    color: $font-gold;
+}
+.underline-title {
+    position: relative;
+    margin-bottom: 103px;
+  }
+  .underline-title::after {
+    content: "";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: $dark-red;
+  }
+
+
+.button {
+    font-size: 22px;
+    line-height: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px;
+    transition: background 0.3s ease 0s;
+}
+
+.button:hover {
+    background: $font-gold;
+}

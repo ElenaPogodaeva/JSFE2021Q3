@@ -1,4 +1,5 @@
-import image from './images/lazy.png';
+//import image from './images/lazy.png';
+import './scss/style.scss'
 
 const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
