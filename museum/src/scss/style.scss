@@ -78,6 +78,7 @@ h6 {
 $bg-dark: #030303;
 $dark-red: #710707;
 $font-gold: #9d8665;
+$gray: #c4c4c4;
 $font1: 80px;
 $font2: 32px;
 
@@ -85,6 +86,7 @@ $font2: 32px;
 @import "welcome";
 @import "visiting";
 @import "explore";
+@import "video";
 
 /* Общие стили */
 body {

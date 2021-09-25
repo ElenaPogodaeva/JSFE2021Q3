@@ -1,5 +1,7 @@
 //import image from './images/lazy.png';
 import './scss/style.scss'
+import './js/video.js';
+
 
 const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();

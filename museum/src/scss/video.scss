@@ -1,0 +1,114 @@
+/* Стили для video-section */
+
+.video-section__video {
+  margin-bottom: 40px;
+  
+}
+.video {
+  position: relative;
+}
+.video-section__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 75px;
+}
+.video-section__text {
+    font-weight: 300;
+    max-width: 720px;
+    /*padding-left: 115px;*/
+}
+.progress {
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+}
+.video-progress {
+    background: linear-gradient(to right, #710707 0%, #710707 54%, #c4c4c4 54%, #c4c4c4 100%);
+    height: 8px;
+    width: 929px;
+    margin:0 50px;
+  }
+  .volume-progress {
+    background: linear-gradient(to right, #710707 0%, #710707 40%, #c4c4c4 40%, #c4c4c4 100%);
+    height: 8px;
+    width: 155px;
+    margin:0 50px;
+  } 
+
+  .progress::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    -webkit-appearance: none;
+    cursor: ew-resize;
+    background: #FFFFFF;
+  }
+  /*
+  video::-webkit-media-controls-panel {
+    background-color: #34495e;
+	border-radius: 0 0 10px 10px;
+    
+	height: 90px;
+  } */
+
+.video__control {
+    width: 1440px;
+    padding: 25px 25px 25px 30px;
+    display: flex;
+    align-items: center;
+    height: 85px;
+    background-color:#000;
+    margin-top: -12px;
+}
+
+.video__play {
+    background: url("../assets/svg/video/4.svg") center no-repeat;
+    width: 220px;
+    height: 220px;
+    position: absolute;
+    top:50%;
+    left:50%;
+}
+.slider__wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 42px;
+  margin-bottom: 40px;
+}
+
+.slider__control {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  justify-content: center;
+}
+
+.control {
+
+}
+
+.control__arrow-prev {
+  background:url("../assets/svg/video/5.svg") center no-repeat;
+  width: 10px;
+  height: 12px;
+}
+.control__arrow-next {
+  background:url("../assets/svg/video/6.svg") center no-repeat;
+  width: 10px;
+  height: 12px;
+}
+.control__dot {
+  width: 12px;
+  height: 12px;
+  background-color: #999999;
+  border-radius: 50%;
+  
+}
+.control__dot_active {
+  background-color: #333333;
+}
+
+.control__arrow-next {
+
+}
