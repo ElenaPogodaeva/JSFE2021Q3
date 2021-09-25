@@ -1,0 +1,68 @@
+/* Стили для explore-section */
+
+.explore-section__container {
+    display: flex;
+    
+}
+.explore-section__content {
+    padding-right: 60px;
+}
+
+.explore-section__text {
+    margin: 0 0 25px;
+    font-weight: 300;
+    color: #FFFFFF;
+}
+.explore-section__text:last-child {
+    margin-bottom: 0;
+}
+.explore-section__img {
+    padding-top: 15px;
+    position: relative;
+    width: 720px;
+    height: 715px;
+}
+.explore-section__img1 {
+    width: 720px;
+    height: 700px;
+}
+.explore-section__img2 {    
+    position: absolute;
+    top:15;
+    left:0;
+    width: 440px;
+    height: 700px;
+    z-index: 10;
+}
+.explore__slider {
+    position: absolute;
+    top:15px;
+    left: 420px;
+    width: 39px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    span {
+        content: "";
+        flex: 0 0 39px;
+        width: 39px;
+        height: 39px;
+        border-radius: 50%;
+        border:5px solid #FFFFFF;
+    }
+    &::before {
+        content: "";
+        width: 5px;
+        background-color: #FFFFFF;
+        flex: 1 1 auto;
+    }
+    &::after {
+        content: "";
+        width: 5px;
+        height: 10px;
+        background-color: #FFFFFF;
+        flex: 1 1 auto;
+    }
+}
