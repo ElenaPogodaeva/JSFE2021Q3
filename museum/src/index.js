@@ -2,6 +2,8 @@
 import './scss/style.scss'
 import './js/video.js';
 
+//import galleryFn from  './js/gallery.js';
+import loadImages from './js/gallery.js';
 
 const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
@@ -19,3 +21,4 @@ async function render() {
 }
 
 render();
+window.onload = loadImages;
