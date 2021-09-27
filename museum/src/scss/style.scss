@@ -32,6 +32,9 @@ body {
     height: 100%;
     min-width: 320px;
 }
+html {
+    scroll-behavior: smooth;
+}
 body{
     line-height: 1;
     font-size: 14px;
@@ -109,7 +112,8 @@ body {
     padding: 0px 15px;
 }
 .section {
-    padding: 75px 0;
+   padding: 75px 0;
+
 }
 .dark-section {
     background-color: $bg-dark;

@@ -23,19 +23,22 @@
 				<nav class="menu__body">
 					<ul class="menu__list">
 						<li>
-							<a class="menu__link menu__link_active" href="#">Visiting</a>
+							<a class="menu__link menu__link_active" href="#visiting">Visiting</a>
 						</li>
 						<li>
-							<a class="menu__link" href="#">Explore</a>
+							<a class="menu__link" href="#explore">Explore</a>
 						</li>
 						<li>
-							<a class="menu__link" href="#">Video</a>
+							<a class="menu__link" href="#video">Video</a>
 						</li>
 						<li>
-							<a class="menu__link" href="#">Tickets</a>
+							<a class="menu__link" href="#gallery">Gallery</a>
 						</li>
 						<li>
-							<a class="menu__link" href="#">Contacts</a>
+							<a class="menu__link" href="#tickets">Tickets</a>
+						</li>
+						<li>
+							<a class="menu__link" href="#contacts">Contacts</a>
 						</li>
 					</ul>
 				</nav>
@@ -45,14 +48,37 @@
 	<main class="main">
 		<section class="section dark-section welcome-section">
 			<div class="container">
-				<div class="welcome-section__content">
-					<h1 class="section-title dark-section-title welcome-section__title">Welcome <br>to the Louvre</h1>
-					<p class="welcome-section__text">From the castle to the museum</p>
-					<a href="#" class="welcome-section__button button">Discover the Louvre</a>
+				<div class="welcome-section__wrapper">
+					<div class="welcome-section__content">
+						<h1 class="section-title dark-section-title welcome-section__title">Welcome <br>to the Louvre
+						</h1>
+						<h2 class="welcome-section__subtitle">From the castle to the museum</h2>
+						<a href="tour7.html" class="welcome-section__button button" target="_blank">Discover the Louvre</a>
+					</div>
+					<div class="welcome-section__slider main-slider">
+						<div class="main-slider__img">
+							<img src="assets/img/welcome-section/1.jpg" alt="slider1">
+						</div>
+						<div class="main-slider__controls">
+							<div class="main-slider__number">
+								01 | 05
+							</div>
+							<div class="main-slider__dots">
+								<div class="main-slider__dot main-slider__dot_active"></div>
+								<div class="main-slider__dot"></div>
+								<div class="main-slider__dot"></div>
+								<div class="main-slider__dot"></div>
+								<div class="main-slider__dot"></div>
+							</div>
+							<button class="main-slider__arrow-prev"></button>
+							<button class="main-slider__arrow-next"></button>
+					
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
-		<section class="section visiting-section">
+		<section class="section visiting-section" id="visiting">
 			<div class="container">
 				<h2 class="section-title white-section-title underline-title">Virtual tour</h2>
 				<div class="visiting-section__cards">
@@ -95,7 +121,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="section dark-section explore-section">
+		<section class="section dark-section explore-section" id="explore">
 			<div class="container explore-section__container">
 				<div class="explore-section__content">
 					<h2 class="section-title dark-section-title underline-title">Picture explore</h2>
@@ -117,7 +143,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="section video-section">
+		<section class="section video-section" id="video">
 			<div class="container">
 				<div class="video-section__content">
 					<h2 class="section-title white-section-title">Video journey</h2>
@@ -181,7 +207,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="section dark-section gallery-section">
+		<section class="section dark-section gallery-section" id="gallery">
 			<div class="container gallery-section__container">
 				<h2 class="section-title dark-section-title gallery-section__title">Art Gallery</h2>
 
@@ -192,7 +218,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="section tickets-section">
+		<section class="section tickets-section" id="tickets">
 			<div class="container">
 				<h2 class="section-title white-section-title underline-title">Buy tickets</h2>
 				<div class="tickets-section__content">
@@ -290,7 +316,7 @@
 		<div class="parallax">
 
 		</div>
-		<section class="section contacts-section">
+		<section class="section contacts-section" id="contacts">
 			<div class="container">
 				<h2 class="section-title white-section-title underline-title">Contacts</h2>
 				<div class="contacts-section__content">

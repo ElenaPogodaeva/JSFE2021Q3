@@ -1,20 +1,81 @@
 /* Стили для welcome-section */
 .welcome-section {
-    background-image: url("../assets/img/welcome-section/welcome-bg.jpg");
-    background-position: right;
-    background-repeat:  no-repeat;
-    padding-top:115px;
-    padding-bottom: 245px;
-}
-.welcome-section__title {
-    margin-bottom: 75px;
-}
-.welcome-section__content {
-    max-width: 598px;
-    width: 100%;
+    padding:0 0 60px 0 !important; 
 }
 
-.welcome-section__text {
+.welcome-section__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.welcome-section__title {
+    margin-bottom: 25px;
+}
+.welcome-section__content {
+    position: absolute;
+    top:159px;
+    left:0;
+    max-width: 598px;
+    width: 100%;
+    z-index: 10;
+}
+.welcome-section__slider {
+    position: relative;
+  /*  position: absolute;
+    top:0;
+    right:0;
+    width: 1000px;
+    height: 750px;*/
+}
+
+
+.main-slider__controls {
+    position: absolute;
+    right: 0;
+    bottom:-60px;
+    background-color: $bg-dark;
+    display: flex;
+    align-items: center;
+    padding:40px 75px;
+   
+}
+.main-slider__number {
+    font-size: 22px;
+    line-height: 40px;
+    color:white;
+    text-transform: uppercase;
+}
+.main-slider__dots {
+    display: flex;
+    margin-right: 60px;
+    margin-left: 55px;
+}
+.main-slider__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 0;
+    margin-right: 25px;
+    background-color: #fff;
+    &:last-child{
+        margin-right: 0;
+    }
+    &_active {
+        background-color:#D2B183;
+    }
+}
+.main-slider__arrow-prev {
+    background: url("../assets/svg/welcome/prev.svg") center no-repeat;
+    width: 30px;
+    height: 8px;
+    margin-right: 20px;
+}
+.main-slider__arrow-next {
+    background: url("../assets/svg/welcome/next.svg") center no-repeat;
+    width: 30px;
+    height: 8px;
+}
+.welcome-section__subtitle {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     font-size: 28px;

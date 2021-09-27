@@ -1,7 +1,7 @@
 /* Стили для header */
 .header {
     background: $bg-dark;
-    padding: 75px 0;
+    padding: 59px 0;
 }
 .header__container {
     display: flex;
@@ -34,7 +34,7 @@
 	justify-content: space-between;
 	align-items: center;
     li {
-        padding: 0px 38px;
+        padding: 0px 27.5px;
         &:last-child {
             padding-right: 0;
         }
