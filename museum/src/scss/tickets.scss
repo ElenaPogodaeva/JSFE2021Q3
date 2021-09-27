@@ -1,0 +1,401 @@
+/* Стили для tickets-section */
+
+.tickets-section__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.tickets-section__img {
+    width: 720px;
+    height: 550px;
+}
+.ticket-type {
+    padding-left: 60px;
+    padding-right: 215px;
+}
+.tickets-section__subtitle {
+    font-weight: bold;
+    line-height: 33px;
+    font-size: 28px;
+    color: #000000;
+}
+.ticket-type__title {
+    margin-bottom: 50px;
+}
+
+.label-container {
+  display: block;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 300;
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 17px;
+  width: 17px;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  margin-top:3px;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.label-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+.label-container .checkmark:after {
+   top: 3px;
+   left: 3px;
+   width: 7px;
+   height: 7px;
+   border-radius: 50%;
+   background: #000000;
+}
+.amount {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.amount__title {
+    margin-bottom: 11px;
+}
+ .amount__total {
+    letter-spacing: 1.65px;
+    margin-bottom: 60px;
+    margin-top: 40px;
+ }
+.amount__subtitle {
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 26px;
+    color: #000000;
+    margin-bottom: 15px;
+    align-self: flex-start;
+}
+
+.amount__wrapper {
+    margin-bottom: 10px;
+}
+
+.amount__type {
+    border: 3px solid #000000;
+    padding: 2px 11px;
+}
+
+.amount__button {
+    width: 175px;
+    height: 50px;
+    font-weight: 300;
+    color: #FFFFFF;
+    background: #000000;
+	border-radius: 2px;
+}
+.number {
+    all: unset;
+    width: 75px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+
+.amount button {
+    width: 18px;
+    height: 38px;
+    font-size: 32px;
+    line-height: 37px;
+    background: transparent;
+    color: #000000;
+}
+
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    top:0;
+    left:0;
+    opacity: 0;
+    visibility: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: all 0.3s ease 0s;
+}
+.popup:target {
+    opacity: 1;
+    visibility: visible;
+}
+.popup:target .popup__content {
+    opacity: 1;
+    transform: translate(0px, 0px);
+}
+.popup__body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+}
+.popup__content{
+    position: relative;
+    background-color: #fff;
+    padding:91px 40px;
+    transform: translate(-100%, 0px);
+    opacity: 0;
+    transition: all 0.8s ease 0s;
+}
+.popup__close {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top:30px;
+    right: 30px;
+    color:#000000;
+    background: url("../assets/svg/form/Close.svg");
+}
+// Form
+
+
+.tickets-section__form {
+    max-width: 400px;
+    
+}
+
+.form {
+
+}
+
+.form__logo {
+    background: url("../assets/svg/form/logo.svg");
+    width: 85px;
+    height: 41px;
+}
+
+.form__title {
+    font-family: 'Forum', cursive;
+    font-size: 50px;
+    line-height: 55px;
+    text-transform: uppercase;
+    color: $font-gold;
+}
+
+.form__subtitle {
+    font-size: 18px;
+    line-height: 21px;
+    color:$dark-red;
+    margin-bottom: 73px;
+    position: relative;
+    &::after {
+       content: "";
+       position: absolute;
+       bottom: -10px;
+       left: 0;
+       width: 100%;
+       height: 3px;
+       background-color:#740C11;
+       opacity: 0.9;
+    }
+}
+
+.form__row {
+    display: flex;
+    column-gap: 20px;
+
+}
+.form__action {
+
+}
+
+input {
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+    background: #FFFFFF;
+    border: 1px solid #030303;
+    padding:12px 13px 12px 45px;
+    margin-bottom: 20px;
+    height: 45px;
+}
+input::placeholder {
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+  }
+.form__date {
+    background: url("../assets/svg/form/date.svg") 15px center no-repeat;
+    width: 190px;
+  
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+   // color: transparent;
+  //@debug  opacity: 1;
+    background: url(../assets/svg/form/arrow.svg)  center no-repeat;
+}
+input[type=time]::-webkit-calendar-picker-indicator {
+    // color: transparent;
+   //@debug  opacity: 1;
+     background: url(../assets/svg/form/arrow.svg)  center no-repeat;
+ }
+
+/*
+::-webkit-datetime-edit { color: transparent; }
+:focus::-webkit-datetime-edit { color: #000; }*/
+
+input[type=date]::before,input[type=time]::before {
+	
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+}
+input[type=date]::before {
+	content: attr(placeholder) "Date";
+}
+input[type=time]::before {
+	content: attr(placeholder) "Time";
+}
+input[type=date], input[type=time] {
+	color: #ffffff;
+}
+input[type=date]:focus,
+input[type=date]:valid,
+input[type=time]:focus,
+input[type=time]:valid
+ {
+	color: #030303;
+}
+input[type=date]:focus::before,
+input[type=date]:valid::before,
+input[type=time]:focus::before,
+input[type=time]:valid::before
+ {
+	content: "" !important;
+} 
+
+.form__time {
+    background: url("../assets/svg/form/time.svg") 15px center no-repeat;
+    width: 190px;
+}
+
+.form__name {
+    background: url("../assets/svg/form/name.svg") 15px center no-repeat;
+    width: 100%;
+
+}
+
+.form__email {
+    background: url("../assets/svg/form/email.svg") 15px center no-repeat;
+    width: 100%;
+}
+
+.form__phone {
+    background: url("../assets/svg/form/tel.svg") 15px center no-repeat;
+    width: 100%;
+}
+.form__select {
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+    background: #FFFFFF;
+    border: 1px solid #030303;
+    padding:12px 13px 12px 45px;
+    margin-bottom: 20px;
+    height: 45px;
+    width: 100%;
+    -webkit-appearance: none; 
+    background: url("../assets/svg/form/arrow.svg") 365px center no-repeat;
+    position: relative;
+}
+.select__wrapper {
+    position: relative;
+}
+.select__wrapper::after {
+    position: absolute;
+    content: "";
+    background: url("../assets/svg/form/ballot.svg") center no-repeat;
+    width: 15px;
+    height: 15px;
+    top:14px;
+    left:15px;
+    display: block;
+}
+.entry-ticket {
+    border: 1px solid #030303;
+    padding: 10px 15px 15px 15px;
+}
+.entry-ticket__title {
+    font-family: 'Forum', cursive;
+    font-size: 18px;
+    line-height: 20px;
+    text-transform: capitalize;
+    color: $font-gold;
+    position: relative;
+    margin-bottom: 25px;
+    &::after {
+       content: "";
+       position: absolute;
+       bottom: -5px;
+       left: 0;
+       width: 100%;
+       height: 3px;
+       background-color:#740C11;
+       opacity: 0.9;
+    }
+}
+.entry-ticket__text {
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+}
+.entry-ticket__type {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.entry-ticket__count {
+    padding: 2px 12px;
+    height: 25px;
+}
+.entry-ticket__count .number {
+    all: unset;
+    width: 35px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+  }
+
+  .entry-ticket__count button {
+    width: 35px;
+    font-size: 32px;
+    line-height: 37px;
+    background: #030303;
+    color: #FFFFFF;
+}
