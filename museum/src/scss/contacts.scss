@@ -1,0 +1,26 @@
+/* Стили для contacts-section */
+
+.contacts-section__content {
+    display: flex;
+}
+.contacts-section__text {
+  //  padding-top: 10px;
+    padding-right: 198px;
+}
+.contacts-section__text p{
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 26px;
+    margin:0 0 25px;
+}
+.contacts-section__subtitle {
+    font-size: 28px;
+    line-height: 33px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 50px;
+}
+.contacts-section__img {
+    width: 960px;
+    height: 620px;
+}
