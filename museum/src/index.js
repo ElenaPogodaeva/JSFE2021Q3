@@ -1,6 +1,7 @@
 //import image from './images/lazy.png';
 import './scss/style.scss'
 import './js/video.js';
+import './js/script.js';
 //import galleryFn from  './js/gallery.js';
 import loadImages from './js/gallery.js';
 /*
