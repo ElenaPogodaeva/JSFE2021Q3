@@ -1,0 +1,89 @@
+/* Стили для footer */
+
+.footer {
+    background: $bg-dark;
+    padding: 75px 0px 50px;
+}
+
+.footer__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: 50px;
+}
+.footer__logo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items:center;
+}
+
+.footer-menu {
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    flex: 1 1 auto;
+    padding-left: 145px;
+    column-gap: 153px;
+}
+.footer-menu__column {
+    
+}
+.footer-menu__link {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 22px;
+    line-height: 50px;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    transition: color 0.3s ease 0s;
+}
+.footer-menu__link:hover {
+	color:  $font-gold;
+}
+
+.footer__social {
+    align-self: flex-end;
+}
+.social {
+}
+.social__list {
+    display:flex;
+}
+.social__list li {
+    padding:0px 12px;
+}
+.social__link {
+    display: block;
+    width: 48px;
+    height: 48px;
+}
+.social__link_1 {
+    background: url("../assets/svg/footer/Youtube.svg") center no-repeat;
+}
+.social__link_2 {
+    background: url("../assets/svg/footer/Instagram.svg") center no-repeat;
+}
+.social__link_3 {
+    background: url("../assets/svg/footer/Facebook.svg") center no-repeat;
+}
+.social__link_4 {
+    background: url("../assets/svg/footer/Twitter.svg") center no-repeat;
+}
+.social__link_5 {
+    background: url("../assets/svg/footer/Pinterest.svg") center no-repeat;
+}
+
+.footer__wrapper {
+    border-top: 3px solid #666666;
+}
+.footer__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 50px;
+    font-weight: 200;
+    font-size: 22px;
+    line-height: 22px;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+}

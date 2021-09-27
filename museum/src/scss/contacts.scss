@@ -6,11 +6,16 @@
 .contacts-section__text {
   //  padding-top: 10px;
     padding-right: 198px;
-}
-.contacts-section__text p{
     font-weight: 300;
     font-size: 22px;
     line-height: 26px;
+}
+.contacts-section__text a{
+    display: block;
+    margin:0 0 25px;
+    color:#000000;
+}
+.contacts-section__text p{
     margin:0 0 25px;
 }
 .contacts-section__subtitle {
