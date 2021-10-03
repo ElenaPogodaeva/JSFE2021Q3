@@ -2,10 +2,11 @@
 
 .explore-section__container {
     display: flex;
-    
+   
 }
 .explore-section__content {
     padding-right: 60px;
+    flex:1 1 auto;
 }
 
 .explore-section__text {
@@ -21,14 +22,18 @@
     position: relative;
     width: 720px;
     height: 715px;
+    flex: 0 0 720px;
 }
 .explore-section__img1 {
     width: 720px;
     height: 700px;
+   // flex: 0 0 100%;
+ //  width: 440px / 720px * 100%;
+  // height: auto;
 }
 .explore-section__img2 {    
     position: absolute;
-    top:15;
+    top:15px;
     left:0;
     width: 440px;
     height: 700px;

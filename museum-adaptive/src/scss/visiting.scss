@@ -1,10 +1,33 @@
 /* Стили для visiting-section */
+.visiting-section {
+    @media(max-width:768px) {
+		padding-bottom: 80px !important;
+	}
+}
 .visiting-section__cards {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: 60px;
+   // column-gap: 60px;
+    justify-content: space-between;
     row-gap: 78px;
+    @media(max-width:1353px) {
+		justify-content: space-around;
+	}
+    @media(max-width:1024px) {
+        justify-content: space-between;
+		max-width: 768px;
+        margin:0 auto;
+        row-gap: 60px;
+	}
+    @media(max-width:768px) {
+		max-width: 616px;
+        margin:0 auto;
+        row-gap: 40px;
+	}
+    @media(max-width:595px) {
+		flex-direction: column;
+	}
 }
 .visiting-section__card {
     
@@ -13,7 +36,6 @@
 .card {
     display: block;
     color: inherit;
-   
     &:hover {
         .card__title{
             &::before {
@@ -38,6 +60,9 @@
         width: 300px;
         height: 2px;
         background-color: $dark-red;
+        @media(max-width:1024px) {
+            width: 150px;
+        }
     }
     &::before {
         content: "";
@@ -50,12 +75,29 @@
         opacity: 0;
         transition: all 0.8s ease 0s;
     }
+    @media(max-width:1024px) {
+		font-size: 28px;
+        line-height: 31px;
+        letter-spacing: 3px;
+	}
+    @media(max-width:768px) {
+		font-size: 22px;
+        line-height: 34px;   
+	}
 }
 
 .card__img {
     width: 440px;
     height: 285px;
     margin-bottom: 25px;
+    @media(max-width:1024px) {
+		width: 330px;
+        height: 215px;
+	}
+    @media(max-width:768px) {
+		width: 280px;
+        height: 180px;
+	}
 }
 
 .card__subtitle {
@@ -63,10 +105,22 @@
     font-size: 22px;
     line-height: 26px;
     margin-bottom: 10px;
+    @media(max-width:1024px) {
+		font-size: 20px;
+        line-height: 23px;
+	}
+    @media(max-width:768px) {
+		font-size: 18px;
+        line-height: 21px;
+	}
 }
 
 .card__info {
     font-weight: 200;
     font-size: 18px;
     line-height: 21px;
+    @media(max-width:1024px) {
+		font-size: 16px;
+        line-height: 19px;
+	}
 }

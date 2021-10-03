@@ -84,6 +84,8 @@ $font-gold: #9d8665;
 $gray: #c4c4c4;
 $font1: 80px;
 $font2: 32px;
+$padding:75px;
+
 
 @import "header";
 @import "welcome";
@@ -95,6 +97,9 @@ $font2: 32px;
 @import "parallax";
 @import "contacts";
 @import "footer";
+
+
+
 
 /* Общие стили */
 body {
@@ -110,6 +115,15 @@ body {
     max-width: 1470px;
     margin: 0 auto;
     padding: 0px 15px;
+    @media(max-width:1024px) {
+		max-width: 1014px;
+	}
+    @media(max-width:768px) {
+		max-width: 758px;
+	}
+    @media(max-width:420px) {
+		max-width: 410px;
+	}
 }
 .wrapper {
     min-height: 100%;
@@ -121,10 +135,17 @@ body {
 .main {
     flex: 1 1 auto;
 }
-
+img {
+    max-width: 100%;
+}
 .section {
    padding: 75px 0;
-
+   @media(max-width:1024px) {
+    padding: 60px 0;
+   }
+   @media(max-width:768px) {
+    padding: 40px 0;
+   }
 }
 .dark-section {
     background-color: $bg-dark;
@@ -133,8 +154,19 @@ body {
     font-family: 'Forum', cursive;
     font-size: 80px;
     line-height: 90px;
+   // line-height: calc(90 / 80 * 100%);
     letter-spacing: 5px;
     text-transform: uppercase;
+    @media(max-width:1470px) {
+		font-size:calc(50px + (80 - 50)*((100vw - 1024px)/(1470 - 1024)));
+	}
+    @media(max-width:1024px) {
+        line-height: 75px;
+    }
+    @media(max-width:768px) {
+        font-size: 40px;
+        line-height: 60px;
+    }
 }
 .dark-section-title {
     color: #FFFFFF;
@@ -145,6 +177,12 @@ body {
 .underline-title {
     position: relative;
     margin-bottom: 103px;
+    @media(max-width:1024px) {
+        line-height: 83px;
+    }
+    @media(max-width:768px) {
+        line-height: 63px;
+    }
   }
   .underline-title::after {
     content: "";
@@ -154,6 +192,9 @@ body {
     width: 100%;
     height: 3px;
     background-color: $dark-red;
+    @media(max-width:1024px) {
+        bottom: -20px;
+    }
   }
 
 
@@ -165,6 +206,11 @@ body {
     align-items: center;
     letter-spacing: 2px;
     transition: background 0.3s ease 0s;
+    @media(max-width:1024px) {
+		font-size: 20px;
+        line-height: 23px;
+	}
+    
 }
 
 .button:hover {
