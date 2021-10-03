@@ -167,6 +167,10 @@ img {
         font-size: 40px;
         line-height: 60px;
     }
+    @media(max-width:420px) {
+        font-size: 28px;
+        line-height: 40px;
+    }
 }
 .dark-section-title {
     color: #FFFFFF;

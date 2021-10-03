@@ -1,6 +1,9 @@
 /* Стили для welcome-section */
 .welcome-section {
     padding:0 0 60px 0 !important; 
+    @media(max-width:768px) {
+		padding-bottom: 0 !important; 
+	}
 }
 
 .welcome-section__wrapper {
@@ -8,9 +11,15 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    @media(max-width:768px) {
+		flex-direction: column;
+	}
 }
 .welcome-section__title {
     margin-bottom: 25px;
+    @media(max-width:768px) {
+		text-align: center;
+	}
 }
 
 .welcome-section__subtitle {
@@ -28,6 +37,14 @@
     @media(max-width:1024px) {
 		margin-bottom: 50px;
 	}
+    @media(max-width:768px) {
+		font-size: 20px;
+        line-height: 23px;
+	}
+    @media(max-width:420px) {
+		font-size: 16px;
+        line-height: 19px;
+	}
 }
 .welcome-section__content {
     position: absolute;
@@ -38,7 +55,14 @@
     z-index: 10;
     @media(max-width:1024px) {
 		top:50px;
+        max-width: 445px;
 	}
+
+    @media(max-width:768px) {
+		position: static;
+        text-align: center;
+	}
+   
 }
 .welcome-section__slider {
     position: relative;
@@ -47,12 +71,17 @@
     right:0;
     width: 1000px;
     height: 750px;*/
-    flex-basis: 69%;
+    flex-basis: 70%;
     img {
         max-width: 100%;
+
     }
 }
-
+.main-slider__img {
+    @media(max-width:768px) {
+        width: 100%;
+	}
+}
 
 .main-slider__controls {
     position: absolute;
@@ -67,17 +96,40 @@
     @media(max-width:1024px) {
 		width: 700px;
 	}
+    @media(max-width:768px) {
+		position: static;
+        height: 100px;
+        width: 100%;
+        padding:30px 0px;
+        justify-content: center;
+	}
+    @media(max-width:420px) {
+        height: 80px;
+        padding:20px 0;
+	}
 }
 .main-slider__number {
     font-size: 22px;
     line-height: 40px;
     color:white;
     text-transform: uppercase;
+    @media(max-width:1024px) {
+		font-size: 20px;
+	}
+    @media(max-width:420px) {
+		font-size: 16px;
+	}
 }
 .main-slider__dots {
     display: flex;
     margin-right: 60px;
     margin-left: 55px;
+    @media(max-width:1024px) {
+		margin:0 45px;
+	}
+    @media(max-width:420px) {
+		margin:0 25px;
+	}
 }
 .main-slider__dot {
     width: 16px;
@@ -91,17 +143,30 @@
     &_active {
         background-color:#D2B183;
     }
+    @media(max-width:1024px) {
+        width: 12px;
+        height: 12px;
+	}
+    @media(max-width:420px) {
+        width: 7px;
+        height: 7px;
+        margin-right: 10px;
+	}
 }
 .main-slider__arrow-prev {
     background: url("../assets/svg/welcome/prev.svg") center no-repeat;
     width: 30px;
     height: 8px;
     margin-right: 20px;
+    @media(max-width:420px) {
+        margin-right: 15px;
+	}
 }
 .main-slider__arrow-next {
     background: url("../assets/svg/welcome/next.svg") center no-repeat;
     width: 30px;
     height: 8px;
+    
 }
 
 
@@ -117,5 +182,8 @@
     @media(max-width:1024px) {
         width: 300px;
         height: 60px;
+	}
+    @media(max-width:768px) {
+		display: none !important;
 	}
 }
