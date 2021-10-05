@@ -4,14 +4,47 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    @media(max-width:715px) {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}
+.tickets-section__wrapper{
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 60px;
+    @media(max-width:1245px) {
+        justify-content: flex-end;
+      }
+      @media(max-width:1024px) {
+      //  padding-left: 30px;
+      }
+      @media(max-width:715px) {
+        padding-left: 0px;
+        padding-top: 40px;
+     }
 }
 .tickets-section__img {
+    flex: 0 0 720px / 1470px * 100%;
     width: 720px;
-    height: 550px;
+   // height: 550px;
+    @media(max-width:1024px) {
+        width: 700px;
+         height: 440px;
+      }
+      @media(max-width:850px) {
+         width: 444px;
+         height: 340px;
+      }
 }
 .ticket-type {
-    padding-left: 60px;
-    padding-right: 215px;
+   // padding-left: 60px;
+  //  padding-right: 215px;
+  @media(max-width:1245px) {
+    display: none;
+  }
 }
 .tickets-section__subtitle {
     font-weight: bold;
@@ -78,15 +111,41 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+   
 }
 
 .amount__title {
     margin-bottom: 11px;
+    @media(max-width:1024px) {
+        align-self: flex-start;
+      }
+      @media(max-width:1024px) {
+        margin-bottom: 25px;
+      }
+      @media(max-width:768px) {
+        margin-bottom: 39px;
+      }
+      @media(max-width:715px) {
+        align-self: center;
+        font-size: 16px;
+        line-height: 19px;
+      }
 }
  .amount__total {
     letter-spacing: 1.65px;
     margin-bottom: 60px;
     margin-top: 40px;
+    @media(max-width:1024px) {
+        align-self: flex-start;
+      }
+      @media(max-width:768px) {
+        margin-bottom: 40px;
+      }
+      @media(max-width:715px) {
+        align-self: center;
+        font-size: 16px;
+        line-height: 19px;
+      }
  }
 .amount__subtitle {
     font-weight: 300;
@@ -95,10 +154,18 @@
     color: #000000;
     margin-bottom: 15px;
     align-self: flex-start;
+    @media(max-width:715px) {
+        
+        font-size: 16px;
+        line-height: 19px;
+      }
 }
 
 .amount__wrapper {
     margin-bottom: 10px;
+    @media(max-width:1024px) {
+        width:100%;
+      }
 }
 
 .amount__type {
