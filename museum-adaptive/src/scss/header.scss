@@ -37,13 +37,7 @@
     position:relative;
     z-index: 100;
 }
-.menu__img {
-	display: none;
-	@media (max-width: 768px) {
-		display: flex;
-		flex-wrap: wrap;
-	}
-}
+
 .menu__list {
     display: flex;
 	flex-wrap: wrap;
@@ -150,9 +144,9 @@
         font-weight: 300;
 		font-size: 20px;
 		line-height: 23px;
-	//	display: flex;
-	//	align-items: center;
-	//	justify-content: space-between;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	//	padding-right: 37px;
 	span {
 		background: url("../assets/svg/header/arrow.svg") center no-repeat;

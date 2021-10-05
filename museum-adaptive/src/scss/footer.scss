@@ -24,6 +24,9 @@
     flex: 1 1 auto;
     padding-left: 145px;
     column-gap: 153px;
+    @media(max-width:1090px) {
+        padding-left: 45px;
+      }
 }
 .footer-menu__column {
     
@@ -48,6 +51,7 @@
 }
 .social__list {
     display:flex;
+    flex-wrap: wrap;
 }
 .social__list li {
     padding:0px 12px;
