@@ -4,7 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    @media(max-width:715px) {
+    @media(max-width:760px) {
         flex-direction: column;
         align-items: center;
     }
@@ -21,7 +21,7 @@
       @media(max-width:1024px) {
       //  padding-left: 30px;
       }
-      @media(max-width:715px) {
+      @media(max-width:760px) {
         padding-left: 0px;
         padding-top: 40px;
      }
@@ -34,7 +34,7 @@
         width: 700px;
          height: 440px;
       }
-      @media(max-width:850px) {
+      @media(max-width:880px) {
          width: 444px;
          height: 340px;
       }
@@ -111,7 +111,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-   
+    @media(max-width:1024px) {
+        padding-right: 39px;
+      }
+      @media(max-width:768px) {
+        padding-right: 49px;
+      }
+      @media(max-width:760px) {
+        padding-right: 0px;
+      }
 }
 
 .amount__title {
@@ -137,8 +145,11 @@
     margin-top: 40px;
     @media(max-width:1024px) {
         align-self: flex-start;
+        margin-top: 0px;
+        margin-bottom: 69px;
       }
       @media(max-width:768px) {
+        margin-top: 15px;
         margin-bottom: 40px;
       }
       @media(max-width:715px) {
@@ -165,6 +176,7 @@
     margin-bottom: 10px;
     @media(max-width:1024px) {
         width:100%;
+        margin-bottom: 25px;
       }
 }
 

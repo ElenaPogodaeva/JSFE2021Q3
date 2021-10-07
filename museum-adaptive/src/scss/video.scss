@@ -1,8 +1,11 @@
 /* Стили для video-section */
 
-.video-section {
+.section.video-section {
   @media(max-width:768px) {
-    padding-bottom: 80px !important;
+    padding-bottom: 80px;
+  }
+  @media(max-width:420px) {
+    padding-bottom: 40px;
   }
 }
 .video-section__video {
@@ -26,6 +29,12 @@
     margin-bottom: 75px;
     @media(max-width:1024px) {
       margin-bottom: 40px;
+    }
+    @media(max-width:768px) {
+      margin-bottom: 20px;
+    }
+    @media(max-width:420px) {
+      margin-bottom: 20px;
     }
 }
 .video-section__text {

@@ -1,7 +1,10 @@
 /* Стили для visiting-section */
-.visiting-section {
+.section.visiting-section {
     @media(max-width:768px) {
-		padding-bottom: 80px !important;
+		padding-bottom: 80px;
+	}
+    @media(max-width:420px) {
+		padding-bottom: 40px;
 	}
 }
 .visiting-section__cards {
@@ -82,7 +85,12 @@
 	}
     @media(max-width:768px) {
 		font-size: 22px;
-        line-height: 34px;   
+        line-height: 24px;   
+	}
+    @media(max-width:420px) {
+        letter-spacing: 5px;
+		font-size: 18px;
+        line-height: 20px;   
 	}
 }
 

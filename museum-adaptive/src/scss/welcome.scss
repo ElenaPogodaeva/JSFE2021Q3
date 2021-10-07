@@ -15,10 +15,21 @@
 		flex-direction: column;
 	}
 }
-.welcome-section__title {
+.section-title.welcome-section__title {
     margin-bottom: 25px;
+    @media(max-width: 1024px) {
+		line-height: 90px;
+	}
+    @media(max-width:918px) {
+        line-height: 60px;
+	}
     @media(max-width:768px) {
+        line-height: 60px;
 		text-align: center;
+	}
+    @media(max-width:420px) {
+        line-height: 40px;
+		
 	}
 }
 
