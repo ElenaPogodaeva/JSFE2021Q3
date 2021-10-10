@@ -29,31 +29,32 @@
 					<nav class="menu__body">
 						<ul class="menu__list">
 							<li>
-								<a class="menu__link menu__link_active" href="#visiting">Visiting<span class = "menu__link-bg"></span></a>
-								
+								<a class="menu__link menu__link_active" href="#visiting">Visiting<span
+										class="menu__link-bg"></span></a>
+
 							</li>
 							<li>
-								<a class="menu__link" href="#explore">Explore<span class = "menu__link-bg"></span></a>
-								
+								<a class="menu__link" href="#explore">Explore<span class="menu__link-bg"></span></a>
+
 							</li>
 							<li>
-								<a class="menu__link" href="#video">Video<span class = "menu__link-bg"></span></a>
-								
+								<a class="menu__link" href="#video">Video<span class="menu__link-bg"></span></a>
+
 							</li>
 							<li>
-								<a class="menu__link" href="#gallery">Gallery<span class = "menu__link-bg"></span></a>
+								<a class="menu__link" href="#gallery">Gallery<span class="menu__link-bg"></span></a>
 							</li>
 							<li>
-								<a class="menu__link" href="#tickets">Tickets<span class = "menu__link-bg"></span></a>
+								<a class="menu__link" href="#tickets">Tickets<span class="menu__link-bg"></span></a>
 							</li>
 							<li>
-								<a class="menu__link" href="#contacts">Contacts<span class = "menu__link-bg"></span></a>
+								<a class="menu__link" href="#contacts">Contacts<span class="menu__link-bg"></span></a>
 							</li>
 						</ul>
 						<div class="menu__img">
 							<img class="menu__img-top" src="assets/img/header/1.jpg" alt="image1">
-							<img  src="assets/img/header/2.jpg" alt="image2">
-							<img  src="assets/img/header/3.jpg" alt="image3">
+							<img src="assets/img/header/2.jpg" alt="image2">
+							<img src="assets/img/header/3.jpg" alt="image3">
 						</div>
 						<div class="menu__footer">
 							<ul class="social__list">
@@ -83,7 +84,7 @@
 				<div class="container">
 					<div class="welcome-section__wrapper">
 
-				
+
 						<div class="welcome-section__content">
 							<h1 class="section-title dark-section-title welcome-section__title">Welcome <br>to the
 								Louvre
@@ -93,23 +94,44 @@
 								Louvre</a>
 						</div>
 
-						<div class="welcome-section__slider main-slider">
-							
-								<div class=" main-slider__img">
-									<img src="assets/img/welcome-section/1.jpg" alt="slider1">
+						<div class="welcome-section__slider  main-slider">
+							<div class="swiper">
+
+								<div class="swiper-wrapper">
+									<div class="swiper-slide main-slider__img">
+										<img src="assets/img/welcome-section/1.jpg" alt="slider1">
+									</div>
+									<div class="swiper-slide main-slider__img">
+										<img src="assets/img/welcome-section/2.jpg" alt="slider1">
+									</div>
+									<div class="swiper-slide main-slider__img">
+										<img src="assets/img/welcome-section/3.jpg" alt="slider1">
+									</div>
+									<div class="swiper-slide main-slider__img">
+										<img src="assets/img/welcome-section/4.jpg" alt="slider1">
+									</div>
+									<div class="swiper-slide main-slider__img">
+										<img src="assets/img/welcome-section/5.jpg" alt="slider1">
+									</div>
 								</div>
-			
-							
+
+							</div>
+
+
+
 							<div class="main-slider__controls">
-								<div class="main-slider__number">
-									01 | 05
+								<div class="main-slider__fraction">
+									<div class="main-slider__current">1</div>
+									<div class="main-slider__separator">|</div>
+									<div class="main-slider__total">1</div>
 								</div>
-								<div class="main-slider__dots">
-									<div class="main-slider__dot main-slider__dot_active"></div>
+
+								<div class="swiper-pagination main-slider__dots">
+									<!--<div class="main-slider__dot main-slider__dot_active"></div>
 									<div class="main-slider__dot"></div>
 									<div class="main-slider__dot"></div>
 									<div class="main-slider__dot"></div>
-									<div class="main-slider__dot"></div>
+									<div class="main-slider__dot"></div> -->
 								</div>
 								<button class="main-slider__arrow-prev"></button>
 								<button class="main-slider__arrow-next"></button>
@@ -118,6 +140,7 @@
 
 						</div>
 					</div>
+
 				</div>
 			</section>
 			<section class="section visiting-section" id="visiting">
@@ -165,6 +188,14 @@
 			</section>
 			<section class="section dark-section explore-section" id="explore">
 				<div class="container explore-section__container">
+				
+				
+				
+				
+				
+				
+				
+				
 					<div class="explore-section__content">
 						<h2 class="section-title dark-section-title underline-title">Picture explore</h2>
 						<p class="explore-section__text">Las Meninas is a 1656 painting by Diego Velázquez, the leading
@@ -172,23 +203,37 @@
 						<p class="explore-section__text">It was cleaned in 1984 to remove a "yellow veil" of dust that
 							had
 							gathered since the previous restoration in the 19th century.</p>
-						<p class="explore-section__text explore-section__text_none">The cleaning provoked furious protests, not because the picture
+						<p class="explore-section__text explore-section__text_none">The cleaning provoked furious
+							protests, not because the picture
 							had
 							been damaged in any way, but because it looked different.</p>
 
 					</div>
-					<div class="explore-section__img">
-						<img class="explore-section__img1" src="assets/img/explore-section/1.jpg" alt="Las Meninas">
-						<img class="explore-section__img2" src="assets/img/explore-section/2.jpg" alt="Las Meninas">
-						<div class="explore__slider">
-							<span></span>
+					<div class="explore-section__img-container">
+						<div class="explore-section__img">
+							<img src="assets/img/explore-section/after.jpg" alt="Las Meninas">
 						</div>
-
+						<div class="explore-section__img img-comp-overlay">
+							<img src="assets/img/explore-section/before.jpg" alt="Las Meninas">
+						</div>
+						
 					</div>
 				</div>
 			</section>
 			<section class="section video-section" id="video">
+				
 				<div class="container">
+
+					
+
+
+
+
+
+
+
+
+
 					<div class="video-section__content">
 						<h2 class="section-title white-section-title">Video journey</h2>
 						<p class="video-section__text">Enter and visit one of the most famous museums in the world and
@@ -196,57 +241,68 @@
 							masterpieces such as Mona Lisa or Hammurabi's Code</p>
 					</div>
 					<div class="video-section__video video">
-						<div class="video__wrapper">
-							<video class = "viewer" src="assets/video/video0.mp4" poster="assets/video/poster.jpg"></video>
-							<button class="video__play"></button>
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="video__wrapper">
+									<video class="swiper-slide viewer" src="assets/video/video0.mp4"
+										poster="assets/video/poster.jpg"></video>
+									<button class="video__play"></button>
+								</div>
+							
+								<div class="video__control">
+									<button class="play"></button>
+									<input type="range" name="progressVideo" value="54" min="0" max="100" step="1"
+										class="progress video-progress">
+									<button class="volume"></button>
+									<input type="range" name="volume" value="40" min="0" max="100" step="1"
+										class="progress volume-progress">
+									<button class="fullscreen"></button>
+								</div>
+							</div>
 						</div>
-
-						<div class="video__control">
-							<button class="play"></button>
-							<input type="range" name = "progressVideo" value="54" min="0" max="100" step="1" class="progress video-progress">
-							<button class="volume"></button>
-							<input type="range" name = "volume" value="40" min="0" max="100" step="1" class="progress volume-progress">
-							<button class="fullscreen"></button>
-						</div>
-
-
 					</div>
-					<div class="video-section__slider slider">
-						<div class="slider__wrapper">
-							<div class="slider__item">
+					<div class="video-section__slider  video-slider">
+
+						<div class="slider__wrapper swiper-wrapper">
+							<div class="slider__item swiper-slide">
+								<iframe width="452" height="254" src="https://www.youtube.com/embed/zp1BXPX8jcU"
+									title="YouTube video player"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen loading="lazy"></iframe>
+							</div>
+							<div class="slider__item swiper-slide">
 								<iframe width="452" height="254" src="https://www.youtube.com/embed/aWmJ5DgyWPI"
 									title="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 									allowfullscreen loading="lazy"></iframe>
 							</div>
 
-							<div class="slider__item">
+							<div class="slider__item swiper-slide">
 								<iframe width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo"
 									title="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 									allowfullscreen loading="lazy"></iframe>
 							</div>
-							<div class="slider__item slider__item_none">
+							<div class="slider__item slider__item_none swiper-slide">
 								<iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY"
 									title="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 									allowfullscreen loading="lazy"></iframe>
 							</div>
+							<div class="slider__item slider__item_none swiper-slide">
+								<iframe width="452" height="254" src="https://www.youtube.com/embed/2OR0OCr6uRE"
+									title="YouTube video player"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen loading="lazy"></iframe>
+							</div>
+					
 						</div>
 
 						<div class="slider__control control">
 							<button class="control__arrow-prev">
 							</button>
-							<div class="control__dot control__dot_active">
-							</div>
-							<div class="control__dot">
-							</div>
-							<div class="control__dot">
-							</div>
-							<div class="control__dot">
-							</div>
-							<div class="control__dot">
-							</div>
+							<div class="swiper-pagination control__dots"></div>
+
 							<button class="control__arrow-next">
 							</button>
 						</div>
@@ -256,6 +312,7 @@
 			<section class="section dark-section gallery-section" id="gallery">
 				<div class="container gallery-section__container">
 					<h2 class="section-title dark-section-title gallery-section__title">Art Gallery</h2>
+
 
 					<div class="picture-container">
 						<div class="picture-inner-container">
@@ -270,45 +327,47 @@
 					<div class="tickets-section__content">
 						<img class="tickets-section__img" src="assets/img/tickets-section/1.jpg" alt="">
 						<div class="tickets-section__wrapper">
-						<div class="ticket-type">
-							<h3 class="tickets-section__subtitle ticket-type__title">Ticket Type</h3>
-							<label class="label-container">Permanent exhibition
-								<input type="radio" checked="checked" name="radio">
-								<span class="checkmark"></span>
-							</label>
-							<label class="label-container">Temporary exhibition
-								<input type="radio" name="radio">
-								<span class="checkmark"></span>
-							</label>
-							<label class="label-container">Combined Admission
-								<input type="radio" name="radio">
-								<span class="checkmark"></span>
-							</label>
-						</div>
-						<div class="amount" id="amount">
-							<h3 class="tickets-section__subtitle amount__title">Amount</h3>
-							<div class="amount__wrapper">
-								<h4 class="amount__subtitle">Basic 18+</h4>
-								<div class="amount__type">
-									<button type="button" onclick="this.nextElementSibling.stepDown()">&minus;</button>
-									<input type="number" min="0" max="20" value="1" readonly class="number">
-									<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
-								</div>
+							<div class="ticket-type">
+								<h3 class="tickets-section__subtitle ticket-type__title">Ticket Type</h3>
+								<label class="label-container">Permanent exhibition
+									<input type="radio" checked="checked" name="radio">
+									<span class="checkmark"></span>
+								</label>
+								<label class="label-container">Temporary exhibition
+									<input type="radio" name="radio">
+									<span class="checkmark"></span>
+								</label>
+								<label class="label-container">Combined Admission
+									<input type="radio" name="radio">
+									<span class="checkmark"></span>
+								</label>
 							</div>
-							<div class="amount__wrapper">
-								<h4 class="amount__subtitle">Senior 65+</h4>
-								<div class="amount__type">
-									<button type="button" onclick="this.nextElementSibling.stepDown()">&minus;</button>
-									<input type="number" min="0" max="20" value="1" readonly class="number">
-									<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+							<div class="amount" id="amount">
+								<h3 class="tickets-section__subtitle amount__title">Amount</h3>
+								<div class="amount__wrapper">
+									<h4 class="amount__subtitle">Basic 18+</h4>
+									<div class="amount__type">
+										<button type="button"
+											onclick="this.nextElementSibling.stepDown()">&minus;</button>
+										<input type="number" min="0" max="20" value="1" readonly class="number">
+										<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+									</div>
 								</div>
+								<div class="amount__wrapper">
+									<h4 class="amount__subtitle">Senior 65+</h4>
+									<div class="amount__type">
+										<button type="button"
+											onclick="this.nextElementSibling.stepDown()">&minus;</button>
+										<input type="number" min="0" max="20" value="1" readonly class="number">
+										<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+									</div>
+								</div>
+
+								<h3 class="tickets-section__subtitle amount__total">Total €220</h3>
+								<a href="#popup" class="amount__button button" id="amount-button">Buy Now</a>
+
 							</div>
-
-							<h3 class="tickets-section__subtitle amount__total">Total €220</h3>
-							<a href="#popup" class="amount__button button" id="amount-button">Buy Now</a>
-
 						</div>
-					  </div>
 					</div>
 					<div class="popup" id="popup">
 						<div class="popup__body">

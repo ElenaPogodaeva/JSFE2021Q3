@@ -41,7 +41,7 @@
 .explore-section__text:last-child {
     margin-bottom: 0;
 }
-.explore-section__img {
+.explore-section__img-container {
    // padding-top: 15px;
     position: relative;
     width: 720px;
@@ -51,10 +51,36 @@
         margin:0 auto;
      }
      @media(max-width:768px) {
-        width: 100%;
-        height: auto;
+      //  width: 100%;
+      //  height: auto;
      }
 }
+
+.explore-section__img {
+    position: absolute;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    img {
+        display: block;
+        width: 720px;
+        height: 700px;
+        max-width: none;
+    }
+}
+
+.img-comp-slider {
+    position: absolute;
+    z-index: 9;
+    cursor: ew-resize;
+    /*set the appearance of the slider:*/
+    width: 40px;
+    height: 40px;
+    background-color: #2196F3;
+    opacity: 0.7;
+    border-radius: 50%;
+  }
+
 .explore-section__img1 {
     width: 720px;
     height: 700px;
