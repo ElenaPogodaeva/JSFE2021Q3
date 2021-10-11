@@ -60,10 +60,26 @@
    // width: 456px;
     width: calc(33.3% - 18px);
     max-width: 100%;
+
+
+    
+    opacity: 0;
+    transition: all 1s;
+    transform: translateY(30%) scale(0.95); 
+  
     @media(max-width:768px) {
         width: calc(50% - 12px);
     }
 }
+
+.gallery-img {
+    &.active {
+        opacity: 1;
+        transform: translateY(0%) scale(1);
+    }
+   
+}
+
 .picture-inner-container {
     img:nth-child(3n+1)  { 
         order: 1;

@@ -16,7 +16,7 @@ function loadImages() {
   shuffle(sources);
   sources.map((item, index) => {
     const img = document.createElement('img');
-    img.classList.add('gallery-img')
+    img.classList.add('gallery-img');
     img.src = item;
     img.alt = `galery${index + 1}`;
     pictureInnerContainer.append(img);

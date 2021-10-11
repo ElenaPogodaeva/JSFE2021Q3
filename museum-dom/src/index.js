@@ -5,12 +5,13 @@ import './js/menu.js';
 import './js/script.js';
 import './js/player.js';
 import './js/swiper.js';
+//import './js/scroll.js';
 //import Swiper from './js/swiper-bundle.min.js';
 //import playVideo from './js/player.js';
 //import galleryFn from  './js/gallery.js';
 import loadImages from './js/gallery.js';
 import initComparisons from './js/explore.js';
-
+import animOnScroll from './js/scroll.js';
 
 import Swiper, { Navigation, Pagination } from 'swiper';
   // import Swiper and modules styles
@@ -205,5 +206,7 @@ var galleryTop = new Swiper('.gallery-top', {
 window.onload = function() {
   loadImages();
   initComparisons();
+  
 }
+animOnScroll();
 //window.onload = initComparisons;
