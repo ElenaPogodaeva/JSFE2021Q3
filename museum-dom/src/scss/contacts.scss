@@ -3,7 +3,8 @@
 .contacts-section__content {
     display: flex;
     @media (max-width: 1000px) {
-        flex-direction: column;
+      //  flex-direction: column;
+      display: block;
     }
 }
 .contacts-section__text {
@@ -66,16 +67,23 @@
 }
 .contacts-section__img {
     flex: 0 0 960px / 1470px * 100%;
+    position: relative;
    // width: 960px;
-   // height: 620px;
+    height: 620px;
+  // width: calc(100vw - 330px);
+  // height: calc(65vw - 212px);
    @media (max-width: 1280px) {
     width: 694px;
    // height: 620px;
    }
    @media (max-width: 1000px) {
-    width: 100%;
+     margin-top: 25px;
+     max-width: 100%;
+     
    }
    @media (max-width: 768px) {
-    margin-top: 25px;
+    
+    width: 728px;
+    height: 476px;
    }
 }
