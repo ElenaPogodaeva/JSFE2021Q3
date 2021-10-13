@@ -12,6 +12,9 @@
 		rel="stylesheet">
 	<!-- <link rel="stylesheet" href="style.css"> -->
 	<link rel="icon" href="assets/favicon.ico">
+
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
 </head>
 
 <body>
@@ -190,12 +193,6 @@
 				<div class="container explore-section__container">
 				
 				
-				
-				
-				
-				
-				
-				
 					<div class="explore-section__content">
 						<h2 class="section-title dark-section-title underline-title">Picture explore</h2>
 						<p class="explore-section__text">Las Meninas is a 1656 painting by Diego Velázquez, the leading
@@ -231,11 +228,11 @@
 							masterpieces such as Mona Lisa or Hammurabi's Code</p>
 					</div>
 					<div class="video-section__video video">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
+						
+							
 								<div class="video__wrapper">
-									<video class="swiper-slide viewer" src="assets/video/video0.mp4"
-										poster="assets/video/poster.jpg"></video>
+									<video class="viewer" src="assets/video/video0.mp4"
+										poster="assets/img/video-section/poster0.jpg"></video>
 									<button class="video__play"></button>
 								</div>
 							
@@ -248,8 +245,8 @@
 										class="progress volume-progress">
 									<button class="fullscreen"></button>
 								</div>
-							</div>
-						</div>
+							
+						
 					</div>
 					<div class="video-section__slider  video-slider">
 
@@ -291,7 +288,7 @@
 						<div class="slider__control control">
 							<button class="control__arrow-prev">
 							</button>
-							<div class="swiper-pagination control__dots"></div>
+							<div class="control__dots"></div>
 
 							<button class="control__arrow-next">
 							</button>
@@ -320,15 +317,15 @@
 							<div class="ticket-type">
 								<h3 class="tickets-section__subtitle ticket-type__title">Ticket Type</h3>
 								<label class="label-container">Permanent exhibition
-									<input type="radio" checked="checked" name="radio">
+									<input type="radio" checked="checked" name="ticket-type" value="20">
 									<span class="checkmark"></span>
 								</label>
 								<label class="label-container">Temporary exhibition
-									<input type="radio" name="radio">
+									<input type="radio" name="ticket-type" value="25">
 									<span class="checkmark"></span>
 								</label>
 								<label class="label-container">Combined Admission
-									<input type="radio" name="radio">
+									<input type="radio" name="ticket-type" value="40">
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -337,23 +334,23 @@
 								<div class="amount__wrapper">
 									<h4 class="amount__subtitle">Basic 18+</h4>
 									<div class="amount__type">
-										<button type="button"
+										<button class = "count-change" type="button"
 											onclick="this.nextElementSibling.stepDown()">&minus;</button>
-										<input type="number" min="0" max="20" value="1" readonly class="number">
-										<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+										<input id = "basic" type="number" min="0" max="20" value="1" readonly class="number">
+										<button class = "count-change" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
 									</div>
 								</div>
 								<div class="amount__wrapper">
 									<h4 class="amount__subtitle">Senior 65+</h4>
 									<div class="amount__type">
-										<button type="button"
+										<button class = "count-change" type="button"
 											onclick="this.nextElementSibling.stepDown()">&minus;</button>
-										<input type="number" min="0" max="20" value="1" readonly class="number">
-										<button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
+										<input id = "senior" type="number" min="0" max="20" value="1" readonly class="number">
+										<button class = "count-change" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
 									</div>
 								</div>
 
-								<h3 class="tickets-section__subtitle amount__total">Total €220</h3>
+								<h3 class="tickets-section__subtitle amount__total">Total € <span class = "price">30</span></h3>
 								<a href="#popup" class="amount__button button" id="amount-button">Buy Now</a>
 
 							</div>
@@ -435,7 +432,11 @@
 							<a href="tel:+330140205050">phone: +33(0) 1 40 20 50 50</a>
 							<a href="mailto:info@louvre.fr">mail: info@louvre.fr</a>
 						</div>
-						<img class="contacts-section__img" src="assets/img/contacts-section/1.jpg" alt="Map">
+						<div class="contacts-section__img">
+							<!--<img  src="assets/img/contacts-section/1.jpg" alt="Map">-->
+							<div id="map"></div>
+						</div>
+					
 					</div>
 				</div>
 			</section>
