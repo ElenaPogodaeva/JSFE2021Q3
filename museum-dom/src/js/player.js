@@ -19,6 +19,8 @@ export default function playVideo() {
   const mute = player.querySelector('.volume');
   const fullscreen = player.querySelector('.fullscreen');
   const videoContainer = player.querySelector('.video__wrapper');
+  const iframes = document.querySelectorAll('.swiper-slide iframe');
+
 
   function tooglePlay() {
     const method = video.paused ? 'play' : 'pause';
@@ -180,7 +182,11 @@ function changeVideo() {
  
   playButton.style.display = 'block';
   
- 
+  iframes.forEach(iframe => {
+    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+
+  });
+//iframes[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
    // progressBar.value = 0;
    
 }
@@ -207,6 +213,22 @@ document.addEventListener('keydown', function(e) {
   else if (e.code === 'KeyF'){
     toogleFullScreen();
   }
+  else if ((e.code === 'Comma')&&(e.shiftKey)) {
+    if (video.playbackRate === 2) {
+      video.playbackRate = 2;
+    }
+    else {
+      video.playbackRate = video.playbackRate + 0.25;
+    }
+  }
+  else if ((e.code === 'Period')&&(e.shiftKey)) {
+    if (video.playbackRate === 0.5) {
+      video.playbackRate = 0.5;
+    }
+    else {
+      video.playbackRate = video.playbackRate - 0.25;
+    }
+  }
 });
 
 
@@ -222,5 +244,6 @@ fullscreen.addEventListener('click', toogleFullScreen);
 
 
 videoSlider.on('slideChange', changeVideo);
+
 
 }
