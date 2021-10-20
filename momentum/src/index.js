@@ -15,4 +15,4 @@ async function render() {
   document.body.appendChild(myImage);
 }
 
-render();
+//render();
