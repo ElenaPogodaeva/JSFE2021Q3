@@ -15,7 +15,7 @@ import initComparisons from './js/explore.js';
 import animOnScroll from './js/scroll.js';
 import calcPrice from './js/tickets.js';
 import formValidation from './js/form.js';
-
+import * as scrollFn from  './js/scrolltop.js';
 
 
 import Swiper, { Navigation, Pagination } from 'swiper';
@@ -141,3 +141,6 @@ animOnScroll();
 calcPrice();
 formValidation();
 //window.onload = initComparisons;
+
+window.onscroll = function() {scrollFn.scrollFunction()};
+scrollFn.scrollOnTop();
