@@ -3,8 +3,8 @@ export default function showDateTime() {
   const dateText = document.querySelector(".date");
   const greeting = document.querySelector(".greeting");
 
-  const date = new Date();
-  const hours = date.getHours();
+  //const date = new Date();
+  //const hours = date.getHours();
 
   function showTime() {
     const date = new Date();
@@ -27,6 +27,8 @@ export default function showDateTime() {
   }
 
   function getTimeOfDay() {
+    const date = new Date();
+    const hours = date.getHours();
     const timesOfDay = ["night", "morning", "afternoon", "evening"];
     return timesOfDay[Math.floor(hours / 6)];
   }

@@ -2,6 +2,7 @@
 //import './js/time.js';
 //import './js/greeting.js';
 import showDateTime from './js/greeting.js';
+import changeBg from './js/slider.js';
 /*const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
   img.onload = () => res(img);
@@ -19,3 +20,4 @@ async function render() {
 
 render(); */
 showDateTime();
+changeBg();
