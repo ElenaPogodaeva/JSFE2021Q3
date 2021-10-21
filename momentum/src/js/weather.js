@@ -47,7 +47,7 @@ export default function showWeather() {
   }
   //error.textContent = 'Error';
   console.log(error);
-  document.addEventListener("DOMContentLoaded", getWeather);
+  //document.addEventListener("DOMContentLoaded", getWeather);
   city.addEventListener("change", setCity);
 
   function setLocalStorage() {
