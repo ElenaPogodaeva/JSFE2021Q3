@@ -1,6 +1,8 @@
-import image from './images/lazy.png';
-
-const createImage = (src) => new Promise((res, rej) => {
+//import image from './images/lazy.png';
+//import './js/time.js';
+//import './js/greeting.js';
+import showDateTime from './js/greeting.js';
+/*const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
   img.onload = () => res(img);
   img.onerror = rej;
@@ -15,4 +17,5 @@ async function render() {
   document.body.appendChild(myImage);
 }
 
-//render();
+render(); */
+showDateTime();
