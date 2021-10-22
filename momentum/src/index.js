@@ -1,10 +1,14 @@
 //import image from './images/lazy.png';
 //import './js/time.js';
-//import './js/quotes.js';
+//import './js/audioplayer';
+//import './assets/sounds/';
 import showDateTime from './js/greeting.js';
 import changeBg from './js/slider.js';
 import showWeather from './js/weather.js';
 import showQuotes from './js/quotes.js';
+
+import audioPlay from'./js/audioplayer.js';
+//import playList from "./js/playList.js";
 /*const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
   img.onload = () => res(img);
@@ -25,3 +29,4 @@ showDateTime();
 changeBg();
 showWeather();
 showQuotes();
+audioPlay();

@@ -17,6 +17,8 @@ body {
   color: #fff;
   text-align: center;
   background:  rgba(0, 0, 0, 0.5);/* url("../assets/img/bg.jpg") center/cover,*/
+  background-position: center center;
+  background-size: cover;
   background-blend-mode: multiply;
   transition: background-image 1s ease-in-out;
 }
@@ -283,4 +285,24 @@ body {
     font-size: 32px;
     padding: 5px;
   }
+}
+
+
+
+.player-progress {
+  flex: 10;
+  position: relative;
+  display: flex;
+  flex-basis: 100%;
+  height: 5px;
+  transition: height 0.3s;
+  background: rgba(0,0,0,0.5);
+  cursor: ew-resize;
+}
+
+.progress-filled {
+  width: 50%;
+  background: #ffc600;
+  flex: 0;
+  flex-basis: 50%;
 }

@@ -55,5 +55,5 @@ export default function changeBg() {
   window.addEventListener("load", setBg);
   slideNext.addEventListener("click", getSlideNext);
   slidePrev.addEventListener("click", getSlidePrev);
-  //setBg();
+  
 }
