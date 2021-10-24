@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,35 +9,43 @@
   <link rel="stylesheet" href="css/style.css" />
   <title>momentum</title>
 </head>
+
 <body>
   <header class="header">
     <div class="player">
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
-      </div>
-      <ul class="play-list"></ul>
-    </div>
-    <div class="player">
-      <div class="header-player-container">
-        <div class="header-title">Title</div>
-        <div class="header-player">
-          <div class="player-controls"></div>
-          <div class="player-progress">
-          <!--  <input type="range" value="0" min="0" max="100" step="1" class="progress">-->
-          <div class="progress-filled"></div>
+      <div class="header-player">
+        <div class="player-title">Title dfgddfgdfgdfgdgdgdgdf</div>
+        
+          <div class="header-player-container">
+            <div class="player-controls">
+              <button class="play-prev player-icon"></button>
+              <button class="play player-icon"></button>
+              <button class="play-next player-icon"></button>
+            </div>
+    
+            <div class="player-progress">
+              <div class="progress">
+                <div class="progress-filled"></div>
+              </div>
+              <!--  <input type="range" value="0" min="0" max="100" step="1" class="progress">-->
+              <div class="player-timer">
+                <div class="current-time"></div>
+                <div class="duration"></div>
+              </div>
+            </div>
+            <div class="player-volume">
+              <button class="volume player-icon"></button>
+              <input type="range" name="volume" value="0.5" min="0" max="1" step="0.05"
+                        class="volume-progress">
+            </div>
           </div>
-          <div class="player-volume"></div>
-        </div>
+        
+        
       </div>
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
-      </div>
+      
       <ul class="play-list"></ul>
     </div>
+
     <div class="weather">
       <input type="text" class="city" />
       <i class="weather-icon owf"></i>
@@ -68,6 +77,7 @@
       <div class="author"></div>
     </div>
   </footer>
- <!-- <script src="js/script.js"></script>-->
+  <!-- <script src="js/script.js"></script>-->
 </body>
+
 </html>
