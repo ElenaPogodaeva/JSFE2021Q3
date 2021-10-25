@@ -10,14 +10,17 @@ export default function changeBg() {
   const inputTags = document.querySelector(".settings-input");
   let tags = ''; 
 
+let photoArray = [];
+let photoNum = 0;
 
   let randomNum;
 
-  function getRandomNum() {
+  function getRandomNum(min, max) {
     // return Math.random()*20 + 1;
-    randomNum = Math.floor(Math.random() * 20) + 1;
+    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  getRandomNum();
+  getRandomNum(1, 20);
+
   function getTimeOfDay() {
     const date = new Date();
     const hours = date.getHours();
@@ -29,30 +32,26 @@ export default function changeBg() {
   function setBg(src) {
     const img = new Image();
     img.src = src;
+    
     //const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
     img.onload = () => {
+      
       body.style.backgroundImage = `url(${img.src})`;
     };
   }
 
   function getGutHubLink() {
     const timeOfDay = getTimeOfDay();
-    //const num = getRandomNum().toString();
+   
     const bgNum = randomNum.toString().padStart(2, "0");
-    // const bgNum = '15'.padStart(2, '0');
-
-   // const img = new Image();
-    // const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
-
+  
+   
     const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
     setBg(src);
-    //const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
-   // img.onload = () => {
-   //   body.style.backgroundImage = `url(${img.src})`;
-   // };
+    
 
     console.log(randomNum);
-   // console.log(img.src);
+   
   }
 
 
@@ -81,7 +80,7 @@ export default function changeBg() {
   }
 
 
-  async function getLinkToImage(tags) {
+  async function getImgFromUnsplash(tags) {
     if (tags === '') {
       tags = getTimeOfDay();
       
@@ -92,7 +91,6 @@ export default function changeBg() {
     const data = await res.json();
 
 console.log(url);
-console.log(tag);
     // const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
 
     const src = data.urls.regular;
@@ -103,29 +101,108 @@ console.log(tag);
     console.log(data.urls.regular);
 }
 
+async function getImgFromFlickr(tag) {
+  let url;
+  if (tag === '') {
+    tag = getTimeOfDay();
+    let id;
+    switch (tag) {
+      case "night":
+        id = "72157720062587146";
+        break;
+      case "morning":
+        id = "72157720069530982";
+        break;
+      case "afternoon":
+        id = "72157720111881805"; 
+        break;
+      case "evening":
+        id = "72157720111880160";
+       break;
+    }
+    url = `https://www.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=76f2ad1b1c2bc03737c9a268bb694c82&gallery_id=${id}&extras=url_h&format=json&nojsoncallback=1`;
+ 
+  }
+  else {
+    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=76f2ad1b1c2bc03737c9a268bb694c82&tags=${tag}&extras=url_h&format=json&nojsoncallback=1`;
+    console.log(url);
+  }
+ // const timeOfDay = getTimeOfDay();
+ // const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=76f2ad1b1c2bc03737c9a268bb694c82&tags=${tag}&extras=url_l&format=json&nojsoncallback=1`;
+ //const url = `https://www.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=0f15ff623f1198a1f7f52550f8c36057&gallery_id=72157717349231213&extras=url_h&format=json&nojsoncallback=1`;
+ 
+ const res = await fetch(url); //${timeOfDay}
+  const data = await res.json();
+  console.log(data.photos.photo.filter(item => item.url_h))
+  return data.photos.photo.filter(item => item.url_h);
+
+//console.log(arr);
+  // const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
+
+  //const src = arr[0].url_l;
+ // console.log(arr[0].url_l);
+  //const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
+ // setBg(src);
+
+ // body.style.backgroundImage = `url(${data.urls.regular})`;
+ // console.log(data.urls.regular);
+}
+
+async function setImgFromFlickr() {
+ 
+  ///  photoArray = getImgFromFlickr(tags);
+  if (photoArray.length === 0) {
+    photoArray = await getImgFromFlickr(tags);
+  }
+
+  const index = Math.floor(Math.random() *  photoArray.length);
+ // const index = getRandomNum(0, photoArray.length - 1);
+  console.log(index);
+    setBg(photoArray[index].url_h);
+   
+  
+ // else {
+ //   setBg(photoArray[1].url_h);
+ // }
+ // photoArray = await getImgFromFlickr(tags);
+  console.log(photoArray[index].url_h);
+  
+ // setBg(photoArray[0].url_h);
+}
+
+
 function showNextSlide() {
   if (photo === 'GitHub') {
     getSlideNext();
   }
   else if (photo === 'Unsplash API') {
-    getLinkToImage(tags);
+    getImgFromUnsplash(tags);
+  }
+  else if (photo === 'Flickr API') {
+    setImgFromFlickr();
   }
 }
+
+
+
+
 function showPrevSlide() {
   if (photo === 'GitHub') {
     getSlidePrev();
   }
   else if (photo === 'Unsplash API') {
-    getLinkToImage(tags);
+    getImgFromUnsplash(tags);
   }
 }
 
 function setSrcValue() {
   const photoSrcChecked = document.querySelector('input[name=photo-source]:checked');
-   photo = photoSrcChecked.value;  
+   photo = photoSrcChecked.value;
+  
    console.log(photo);
    
 }
+
 
 
   window.addEventListener("load", getGutHubLink);
@@ -135,6 +212,7 @@ function setSrcValue() {
 
   inputTags.addEventListener("change", () => {
     tags = inputTags.value;
+    photoArray = [];
     console.log(tags);
   });
 
