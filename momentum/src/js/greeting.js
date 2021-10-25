@@ -2,27 +2,48 @@ export default function showDateTime() {
   const time = document.querySelector(".time");
   const dateText = document.querySelector(".date");
   const greeting = document.querySelector(".greeting");
+  
+
+  const greetingTranslation = [
+    {
+      "en": "Good night",
+      "ru": "Доброй ночи",
+    },
+    {
+     "en": "Good morning",
+      "ru": "Доброе утро",
+    },
+    {
+      "en": "Good afternoon",
+      "ru": "Добрый день",
+    },
+    {
+      "en": "Good evening",
+      "ru": "Добрый вечер",
+    },
+  ];
 
   //const date = new Date();
   //const hours = date.getHours();
 
-  function showTime() {
+  function showTime(lang = "en") {
     const date = new Date();
     const currentTime = date.toLocaleTimeString();
     time.textContent = currentTime;
-    showDate();
-    showGreeting();
+    showDate(lang);
+    showGreeting(lang);
     setTimeout(showTime, 1000);
   }
 
-  function showDate() {
+  function showDate(lang = "ru") {
     const date = new Date();
     const options = {
       weekday: "long",
       month: "long",
       day: "numeric",
     };
-    const currentDate = date.toLocaleDateString("en-US", options);
+    
+    const currentDate = date.toLocaleDateString(lang, options);
     dateText.textContent = currentDate;
   }
 
@@ -33,13 +54,22 @@ export default function showDateTime() {
     return timesOfDay[Math.floor(hours / 6)];
   }
 
-  function showGreeting() {
-    const timeOfDay = getTimeOfDay();
-    const greetingText = `Good ${timeOfDay}`;
+  function showGreeting(lang = "ru") {
+   // const timeOfDay = getTimeOfDay();
+   const date = new Date();
+   const hours = date.getHours();
+   const index = Math.floor(hours / 6);
+   
+   const greetingText = greetingTranslation[index][lang];
+   // const greetingText = `Good ${timeOfDay}`;
     greeting.textContent = greetingText;
   }
 
   showTime();
+
+
+
+
 
   function setLocalStorage() {
     const name = document.querySelector(".name");
