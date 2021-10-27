@@ -490,8 +490,9 @@ margin-bottom: 15px;
   left:0;
   bottom:45px;
   max-width: 450px;
-  height: 600px;
+  height: 650px;
   padding: 20px;
+  padding-bottom: 0;
   background-color:#fff;
   color: #000;
   overflow: auto;
@@ -534,7 +535,7 @@ margin-bottom: 15px;
   display: block;
   position: relative;
   /*padding-left: 40px;*/
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   cursor: pointer;
   font-size: 18px;
   line-height: 21px;
@@ -583,10 +584,6 @@ margin-bottom: 15px;
    border-radius: 50%;
    background: #BC9CFF;
 }
-
-
-
-
 
 .checkmark-toggle {
   content: '';
