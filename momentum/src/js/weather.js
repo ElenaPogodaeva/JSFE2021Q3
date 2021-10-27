@@ -25,7 +25,7 @@ export default function showWeather() {
   ];
   city.value = "Минск";
   city.textContent = "Минск";
-  async function getWeather(lang = "ru") {
+  async function getWeather(lang = "en") {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=19b49def7b99621ed575529c92f7ba37&units=metric`;
    
     const res = await fetch(url);
@@ -68,10 +68,9 @@ export default function showWeather() {
     const langChecked = document.querySelector('input[name=lang]:checked');
     const lang = langChecked.value; 
     getWeather(lang);
-    console.log(lang);
+   // console.log(lang);
   }
   //error.textContent = 'Error';
-  console.log(error);
   document.addEventListener("DOMContentLoaded", getWeather);
   city.addEventListener("change", setCity);
 

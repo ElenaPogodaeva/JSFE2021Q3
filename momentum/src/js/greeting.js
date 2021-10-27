@@ -2,7 +2,12 @@ export default function showDateTime() {
   const time = document.querySelector(".time");
   const dateText = document.querySelector(".date");
   const greeting = document.querySelector(".greeting");
-  
+  const langInput  = document.querySelectorAll('input[name=lang]');
+  const name = document.querySelector(".name");
+  name.placeholder = "Enter name";
+
+  //const langChecked = document.querySelector('input[name=lang]:checked');
+  //const lang = langChecked.value;
 
   const greetingTranslation = [
     {
@@ -23,19 +28,32 @@ export default function showDateTime() {
     },
   ];
 
-  //const date = new Date();
+
+  const date = new Date();
+  let timoutId;
   //const hours = date.getHours();
 
+  
   function showTime(lang = "en") {
     const date = new Date();
     const currentTime = date.toLocaleTimeString();
     time.textContent = currentTime;
-    showDate(lang);
-    showGreeting(lang);
+   // showDate(lang);
+   // showGreeting(lang);
     setTimeout(showTime, 1000);
+    
   }
 
-  function showDate(lang = "ru") {
+
+ // showDate(lang);
+ // showGreeting(lang);
+  //setTimeout(showTime, 1000);
+  
+
+
+
+
+  function showDate(lang = "en") {
     const date = new Date();
     const options = {
       weekday: "long",
@@ -54,7 +72,7 @@ export default function showDateTime() {
     return timesOfDay[Math.floor(hours / 6)];
   }
 
-  function showGreeting(lang = "ru") {
+  function showGreeting(lang = "en") {
    // const timeOfDay = getTimeOfDay();
    const date = new Date();
    const hours = date.getHours();
@@ -66,8 +84,26 @@ export default function showDateTime() {
   }
 
   showTime();
+  showDate();
+  showGreeting();
 
+  function setLang() {
+    // city.value = 'Минск';
+    //city.textContent = 'Минск';
+    const langChecked = document.querySelector('input[name=lang]:checked');
+    const lang = langChecked.value;
+    if (lang === 'ru') {
+      name.placeholder = 'Введите имя';
+    }
+    else {
+      name.placeholder = 'Enter name';
+    }
 
+    showDate(lang);
+    showGreeting(lang);
+  }
+
+  langInput.forEach(el => el.addEventListener("change", setLang));
 
 
 

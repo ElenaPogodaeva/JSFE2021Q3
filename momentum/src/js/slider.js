@@ -49,16 +49,8 @@ let photoNum = 0;
     const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
     setBg(src);
     
-
-    console.log(randomNum);
    
   }
-
-
-  
-
-  
-
 
 
   function getSlideNext() {
@@ -90,7 +82,7 @@ let photoNum = 0;
     const res = await fetch(url); //${timeOfDay}
     const data = await res.json();
 
-console.log(url);
+
     // const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
 
     const src = data.urls.regular;
@@ -98,7 +90,6 @@ console.log(url);
     setBg(src);
 
    // body.style.backgroundImage = `url(${data.urls.regular})`;
-    console.log(data.urls.regular);
 }
 
 async function getImgFromFlickr(tag) {
@@ -125,7 +116,7 @@ async function getImgFromFlickr(tag) {
   }
   else {
     url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=76f2ad1b1c2bc03737c9a268bb694c82&tags=${tag}&extras=url_h&format=json&nojsoncallback=1`;
-    console.log(url);
+  
   }
  // const timeOfDay = getTimeOfDay();
  // const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=76f2ad1b1c2bc03737c9a268bb694c82&tags=${tag}&extras=url_l&format=json&nojsoncallback=1`;
@@ -133,19 +124,12 @@ async function getImgFromFlickr(tag) {
  
  const res = await fetch(url); //${timeOfDay}
   const data = await res.json();
-  console.log(data.photos.photo.filter(item => item.url_h))
+
   return data.photos.photo.filter(item => item.url_h);
 
 //console.log(arr);
   // const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
 
-  //const src = arr[0].url_l;
- // console.log(arr[0].url_l);
-  //const src = `https://raw.githubusercontent.com/ElenaPogodaeva/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`
- // setBg(src);
-
- // body.style.backgroundImage = `url(${data.urls.regular})`;
- // console.log(data.urls.regular);
 }
 
 async function setImgFromFlickr() {
@@ -157,7 +141,7 @@ async function setImgFromFlickr() {
 
   const index = Math.floor(Math.random() *  photoArray.length);
  // const index = getRandomNum(0, photoArray.length - 1);
-  console.log(index);
+  
     setBg(photoArray[index].url_h);
    
   
@@ -165,7 +149,6 @@ async function setImgFromFlickr() {
  //   setBg(photoArray[1].url_h);
  // }
  // photoArray = await getImgFromFlickr(tags);
-  console.log(photoArray[index].url_h);
   
  // setBg(photoArray[0].url_h);
 }
@@ -193,14 +176,15 @@ function showPrevSlide() {
   else if (photo === 'Unsplash API') {
     getImgFromUnsplash(tags);
   }
+  else if (photo === 'Flickr API') {
+    setImgFromFlickr();
+  }
 }
 
 function setSrcValue() {
   const photoSrcChecked = document.querySelector('input[name=photo-source]:checked');
    photo = photoSrcChecked.value;
   
-   console.log(photo);
-   
 }
 
 
@@ -213,7 +197,6 @@ function setSrcValue() {
   inputTags.addEventListener("change", () => {
     tags = inputTags.value;
     photoArray = [];
-    console.log(tags);
   });
 
   slideNext.addEventListener("click", showNextSlide);

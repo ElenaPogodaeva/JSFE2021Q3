@@ -46,21 +46,7 @@ export default function audioPlay() {
     durationTime.textContent = playList[playNum].duration; 
     playerTitle.textContent = playList[playNum].title;
   }
- /* function playAudio() {
-    audio.src = playList[playNum].src;
-    audio.currentTime = 0;
-    if (!isPlay) {
-      audio.play();
-      isPlay = true;
-    } else {
-      audio.pause();
-      isPlay = false;
-      // progressBar.value = audio.currentTime;
-    }
-    toggleBtn();
-    //durationTime.textContent = playList[playNum].duration; 
-   // playerTitle.textContent = playList[playNum].title;
-  }*/
+ 
   function togglePlay() {
    // audio.src = playList[playNum].src;
    // audio.currentTime = 0;
@@ -72,11 +58,9 @@ export default function audioPlay() {
     } else {
       audio.pause();
       isPlay = false;
-      // progressBar.value = audio.currentTime;
+      
     }
     toggleBtn();
-   // console.log(playNum);
-  //  showActiveItem();
     
   }
 
@@ -88,18 +72,7 @@ export default function audioPlay() {
       button.classList.remove("pause");
       playItems[playNum].classList.remove("item-active");
     }
-  }/*
-  function toggleMuteBtn() {
-    if (isMute) {
-      muteButton.classList.add("mute");
-    } else {
-      muteButton.classList.remove("mute");
-    }
-  }*/
-
-
-
-
+  }
 
   function showActiveItem() {
     playItems.forEach((el) => {
@@ -146,7 +119,7 @@ export default function audioPlay() {
     } else {
       playNum = 0;
     }
-  //  console.log(playNum);
+  
     playAudio();
   }
   function playPrev() {
@@ -155,7 +128,7 @@ export default function audioPlay() {
     } else {
       playNum = playList.length - 1;
     }
-  //  console.log(playNum);
+  
     playAudio();
   }
 
@@ -169,10 +142,8 @@ export default function audioPlay() {
   function handleProgress() {
     const percent = (Math.floor(audio.currentTime) / Math.floor(audio.duration)) * 100;
     
-   // progressBar.value = percent; 
       progressBar.style.width = `${percent}%`;
       currTime.textContent = audioTime(audio.currentTime);
-    //  console.log(audio.duration);
   }
 
   function scrub(e) {
@@ -196,26 +167,6 @@ export default function audioPlay() {
     }
 
 
-  /*  function changeVolume() {
-        const volume = volumeScale.value / 100;
-        audio.volume = volume;
-     //   if (audio.muted) {
-       //     audio.muted = false;
-           // mute.style.backgroundImage = `url(../assets/svg/video/pause.svg)`;
-      //  }
-      if (volume == 0) {
-        isMute = true;
-      }
-      else {
-        isMute = false;
-      }
-        handleRangeUpdate();
-        toggleMuteBtn();
-      
-    } */
-
-
-
     function changeVolume() {
       const volume = volumeScale.value;
       audio.volume = volume;
@@ -230,10 +181,7 @@ export default function audioPlay() {
          // mute.style.backgroundImage = `url(../assets/svg/video/pause.svg)`;
     //  }
       handleRangeUpdate();
-     // updateMuteButton();
-   /*   else {
-          mute.style.backgroundImage = `url(../assets/svg/video/2.svg)`;
-      }*/
+    
   }
   
     function toggleMuteBtn() {
@@ -243,19 +191,7 @@ export default function audioPlay() {
         muteButton.classList.remove("mute");
       }
     }
-    /*
-    function toggleMute() {
-      if (!isMute) {
-         audio.muted = true;
-         isMute = true;
-      }
-      else {
-         audio.muted = false;
-         isMute = false;
-      }
-      toggleMuteBtn();
-     }
-  */
+    
   
      function toggleMute() {
       if (!audio.muted) {
@@ -268,7 +204,6 @@ export default function audioPlay() {
         volumeScale.value = 0.5;
         audio.volume = volumeScale.value;
         handleRangeUpdate();
-        console.log(audio.volume);
       }
   
         // video.muted = !video.muted;
@@ -278,14 +213,11 @@ export default function audioPlay() {
          else volumeScale.value = video.volume;*/
      }
   
-
-
-
     function handleRangeUpdate() {
       // video[this.name] = this.value;
        const value = volumeScale.value;
        volumeScale.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value * 100}%, #c4c4c4 ${value * 100}%, #c4c4c4 100%)`;
-       console.log(volumeScale.value);
+  
      //  console.log(this.name);
    }
 
@@ -296,10 +228,7 @@ progress.addEventListener('mousedown', () => mousedown = true);
 progress.addEventListener('mouseup', () => mousedown = false);
 
   audio.addEventListener('timeupdate', handleProgress);
- // progressBar.addEventListener('input', function() {
- //   const value = this.value;
- //   this.style.background = `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${value}%, #fff ${value}%, white 100%)`
- // });
+ 
  volumeScale.addEventListener('input', changeVolume);
 
 

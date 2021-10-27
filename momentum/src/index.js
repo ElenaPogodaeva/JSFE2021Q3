@@ -1,6 +1,6 @@
 //import image from './images/lazy.png';
 //import './js/time.js';
-//import './js/audioplayer';
+import './js/settings';
 //import './assets/sounds/';
 import showDateTime from './js/greeting.js';
 import changeBg from './js/slider.js';

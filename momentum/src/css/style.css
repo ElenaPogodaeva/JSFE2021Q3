@@ -96,7 +96,8 @@ body {
 
 .player-icon,
 .slider-icon,
-.change-quote {
+.change-quote,
+.settings-icon {
   width: 32px;
   height: 32px;
   background-size: 32px 32px;
@@ -112,13 +113,15 @@ body {
 
 .player-icon:hover,
 .slider-icon:hover,
-.change-quote:hover {
+.change-quote:hover,
+.settings-icon:hover {
   opacity: 1;
 }
 
 .player-icon:active,
 .slider-icon:active,
-.change-quote:active {
+.change-quote:active,
+.settings-icon:active {
   border: 0;
   outline: 0;  
   transform: scale(1.1);
@@ -149,6 +152,11 @@ body {
 }
 .mute {
   background-image: url("../assets/svg/mute.svg");
+}
+
+.settings-icon {
+  background-image: url("../assets/svg/settings.svg");
+ 
 }
 
 .weather {
@@ -279,7 +287,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 30vh;
+  height: 35vh;
   min-height: 160px;  
   padding: 20px;
 }
@@ -466,4 +474,170 @@ margin-bottom: 15px;
     justify-content: space-between;
     margin-right: 0;
   }
+}
+
+.footer-row {
+  align-self: flex-start;
+  position: relative;
+  
+}
+
+.settings {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 2;
+  left:0;
+  bottom:45px;
+  max-width: 450px;
+  height: 650px;
+  padding: 20px;
+  padding-bottom: 0;
+  background-color:#fff;
+  color: #000;
+  overflow: auto;
+  transition: all 0.5s ease 0s;
+}
+
+.settings-active {
+  opacity: 1;
+  visibility: visible;
+}
+.settings-container {
+  padding-bottom: 20px;
+}
+.settings-title {
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 20px;
+  line-height: 22px;
+}
+.settings-tags {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings-text {
+  font-size: 18px;
+  line-height: 21px;
+  margin-right: 15px;
+}
+.settings-input {
+  font-size: 18px;
+    line-height: 21px;
+    color: #030303;
+    background: #FFFFFF;
+    border: 1px solid #030303;
+    padding:12px 13px 12px 45px;
+    height: 35px;
+}
+.label-container {
+  display: block;
+  position: relative;
+  /*padding-left: 40px;*/
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 300;
+
+  text-align: left;
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+.checkmark-radio {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 20px; /*17*/
+  width: 20px;
+  border: 2px solid #BC9CFF;
+  border-radius: 50%;
+  margin-top:3px;
+}
+
+.checkmark-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.label-container input:checked ~ .checkmark-radio:after {
+    display: block;
+  }
+
+.label-container .checkmark-radio:after {
+   top: 4px;
+   left: 4px;
+   width: 8px;
+   height: 8px;
+   border-radius: 50%;
+   background: #BC9CFF;
+}
+
+.checkmark-toggle {
+  content: '';
+  width: 35px;
+  height: 20px;
+  border: 2px solid #b5b4b8;
+  border-radius: 10px;
+ 
+  background: #FFFFFF;
+  position: absolute;
+  top:0;
+  right: 0;
+ 
+  transition: all 0.3s ease 0s;
+}
+
+.checkmark-toggle:after {
+    content: "";
+    position: absolute;
+   
+}
+
+.label-container input:checked ~ .checkmark-toggle:after {
+    display: block;
+  }
+
+.label-container .checkmark-toggle:after {
+  content: '';
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+	
+		background: #b5b4b8;
+		position: absolute;
+		top:2px;
+		left: 4px;
+		
+		transition: all 0.3s ease 0s;
+}
+.label-container input:checked ~ .checkmark-toggle {
+  border-color: #BC9CFF;
+}
+.label-container input:checked ~ .checkmark-toggle:after {
+  background: #BC9CFF;
+  display: block;
+  left:16px;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.time, .date, .greeting-container, .player,
+.weather, .quote-block, .change-quote {
+  transition: all 0.5s ease 0s;
 }
