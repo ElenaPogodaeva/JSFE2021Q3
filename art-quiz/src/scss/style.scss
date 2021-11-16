@@ -1,0 +1,300 @@
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  min-width: 320px;
+}
+html {
+  scroll-behavior: smooth;
+}
+body{
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input::-ms-clear {
+  display: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+/*--------------------*/
+
+$bg-dark: #030303;
+$dark-red: #660033;
+$font-gold: #9d8665;
+$gray: #c4c4c4;
+$font1: 80px;
+$font2: 32px;
+$padding:75px;
+
+
+/* Общие стили */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: $dark-red;
+}
+body._lock {
+  overflow: hidden;
+}
+.main-screen, .categories, .question-pictures {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px 15px;
+  
+  @media(max-width:1024px) {
+  max-width: 1014px;
+}
+  @media(max-width:768px) {
+  max-width: 758px;
+}
+  @media(max-width:420px) {
+  max-width: 410px;
+}
+}
+.wrapper {
+  min-height: 100%;
+ // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.logo {
+    background-image: url('../assets/svg/logo.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    height: 150px;
+    margin: 0;
+    padding-top: 20px;
+    width: 250px;
+}
+
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  padding-top: 100px;
+}
+.menu__pictures {
+  background-image: url('../assets/img/pictures-quiz.jpg');
+}
+.menu__img {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 415px;
+  width: 415px;
+ 
+}
+
+.menu__artists {
+  background-image: url('../assets/img/artists-quiz.jpg');
+}
+
+.menu__text {
+  align-self: flex-end;
+  margin-right: 4.4%;
+  min-width: 260px;
+}
+.text {
+  font-size: 36px;
+  line-height: 44px;
+  text-transform: uppercase;
+}
+.text__bold {
+  font-weight: 700;
+}
+.artists, .pictures {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: box-shadow 1s ease;
+  width: 415px;
+
+}
+.text {
+
+		
+}
+.buttons-container {
+  padding-top: 100px;
+}
+.button {
+  font-size: 18px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  width: 150px;
+  height: 50px;
+  background: $dark-red;
+}
+.button-settings {
+}
+
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.categories__title {
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.categories__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.categories__item  {
+
+}
+
+.category-item {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-item__header {
+  background-color: #7b6a58;
+  border-top-left-radius: 40px;
+  padding: 40px 10px 5px 20px;
+  height: 80px;
+  position: relative;
+}
+
+.category-item__title {
+
+    color: #fff;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    height: 80px;
+    letter-spacing: 1.5px;
+    line-height: 17px;
+    margin: 0;
+    text-transform: capitalize;
+
+}
+
+.category-item__total {
+  color: #661004;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 36px;
+  position: absolute;
+  right: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  top: 32px;
+}
+.category-item__img {
+  width: 250px;
+  & img {
+    width: 250px;
+  }
+}
+
+.question-pictures-text {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 37px;
+    max-width: 400px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.plug {
+  width: 186px;
+}
