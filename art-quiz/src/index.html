@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,97 +11,95 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-   
-        <div class="wrapper">
-            <main class="main">
-                <div class="container">
-                    <div class="main-screen">
-                        <div class="logo main-screen__logo"></div>
-                        <div class="main-screen__menu menu">
-                            <div class="artists">
-                                <div class="menu__img menu__artists"></div>
-                                <h2 class="menu__text text">
-                                    <span class="text__bold">Artists</span>
-                                    Quiz
-                                </h2>
-                            </div>
-                            <div class="pictures">
-                                <div class="menu__img menu__pictures"></div>
-                                <h2 class="menu__text text">
-                                    <span class="text__bold">Pictures</span>
-                                    Quiz
-                                </h2>
-                            </div>
+
+    <div class="wrapper">
+        <main class="main">
+            <div class="container">
+                <div class="main-screen">
+                    <div class="logo main-screen__logo"></div>
+                    <div class="main-screen__menu menu">
+                        <div class="artists" id="author">
+                            <div class="menu__img menu__artists"></div>
+                            <h2 class="menu__text text">
+                                <span class="text__bold">Artists</span>
+                                Quiz
+                            </h2>
                         </div>
-                        <div class="buttons-container">
-                            <button class="button button-settings">Settings</button>
+                        <div class="pictures" id="picture">
+                            <div class="menu__img menu__pictures"></div>
+                            <h2 class="menu__text text">
+                                <span class="text__bold">Pictures</span>
+                                Quiz
+                            </h2>
                         </div>
                     </div>
-                    <div class="categories">
-                        <div class="logo categories__logo"></div>
-                        <div class="row">
-                            <button class="button home-button">Home</button>
-                            <h2 class="categories__title">Categories</h2>
-                            <div class="plug"></div>
+                    <div class="buttons-container">
+                        <button class="button button-settings">Settings</button>
+                    </div>
+                </div>
+                <div class="categories">
+                    <div class="logo categories__logo"></div>
+                    <div class="row">
+                        <button class="button home-button">Home</button>
+                        <h2 class="categories__title">Categories</h2>
+                        <div class="plug"></div>
+                    </div>
+                    <div class="categories__items">
+
+                    </div>
+                </div>
+                <div class="question" id="question">
+                    <div class="row">
+                        <button class="button home-button">Home</button>
+                        <h2 class="question-author-text">Categories</h2>
+                        <button class="button categories-button">Score</button>
+                    </div>
+                    <div class="question-picture">
+                        <div class="picture-container">
+
                         </div>
-                        <div class="categories__items">
-                            <div class="categories__item category-item">
-                                <div class="category-item__header">
-                                    <div class="category-item__title">01</div>
-                                    <div class="category-item__total">2</div>
-                                </div>
-                                <div class="category-item__img">
-                                    
-                                </div>
-                            </div>
-                           <div class="categories__item category-item" id = "1">
-                                <div class="category-item__header">
-                                    <div class="category-item__title">01</div>
-                                    <div class="category-item__total">2</div>
-                                </div>
-                                <div class="category-item__img">
-                                    
-                                </div>
-                            </div>
-                        <!--    <div class="categories__item category-item">
-                                <div class="category-item__header">
-                                    <div class="category-item__title">01</div>
-                                    <div class="category-item__total">2</div>
-                                </div>
-                                <div class="category-item__img">
-                                   
-                                </div>
-                            </div>
-                            <div class="categories__item category-item">
-                                <div class="category-item__header">
-                                    <div class="category-item__title">01</div>
-                                    <div class="category-item__total">2</div>
-                                </div>
-                                <div class="category-item__img">
-                                    
-                                </div>
-                            </div>-->
+                        <div class="progress-bar">
+
                         </div>
                     </div>
                     <div class="question-author">
-                        <div class="row">
-                            <button class="button home-button">Home</button>
-                            <h2 class="question-author-text">Categories</h2>
-                            <button class="button categories-button">Score</button>
+                        <div class="question-author__picture">
+
                         </div>
-                        <div class="picture-container">
-                            
+                        <ul class="question-author__answers answers">
+                            <li class="answers__item">13333</li>
+                            <li class="answers__item">23333</li>
+                            <li class="answers__item">3333</li>
+                            <li class="answers__item">43333</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal" id="modal">
+                    <div class="modal__body">
+                        <div class="modal__content">
+                            <div class="modal__answer">
+                            </div>
+                            <img src="" class="modal__img" alt="img"></img>
+                            <h2 class="text modal__title"></h2>
+                            <p class="text modal__author"></p>
+                            <p class="text modal__year"></p>
+
+                            <button class="button button-next">Next</button>
+
                         </div>
                     </div>
                 </div>
-                
-               
-            </main>
-            <footer class="footer">
+            </div>
 
-            </footer>
-        </div>
-    
+
+        </main>
+        <footer class="footer">
+
+        </footer>
+    </div>
+
 </body>
+
 </html>
