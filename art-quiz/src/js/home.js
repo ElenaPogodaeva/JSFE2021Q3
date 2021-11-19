@@ -1,22 +1,22 @@
 const mainScreen = document.querySelector(".main-screen");
-const question = document.querySelector('.question-author-text');
+const question = document.querySelector(".question-author-text");
 const artists = document.querySelector(".artists");
 const pictures = document.querySelector(".pictures");
 const categoriesContainer = document.querySelector(".categories__items");
-const pictureInnerContainer = document.querySelector('.picture-container');
-const popup = document.querySelector('.popup');
+const pictureInnerContainer = document.querySelector(".picture-container");
 
 artists.addEventListener("click", setQuestions);
 
 pictures.addEventListener("click", setQuestions);
 
-//import images from './image.js';
-
-//const dataLength = images.length;
+//const dataLength = data.length;
 
 let questions;
 let newQuestions;
-
+let isCorrect = false;
+let correctAnswer;
+let categoryId = 0;
+let questionId = 0;
 
 function chunkArray(array, chunk) {
   const newArray = [];
@@ -45,29 +45,24 @@ async function fetchData(url) {
   return result;
 }
 
-
-
 function renderCategory(questions) {
-  let displayCategory = '';
+  let displayCategory = "";
   const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
 
   questions.map((item, index) => {
-    const img = document.createElement('img');
-   
-   // const categoryItem = document.createElement('div');
-   // categoryItem.classList.add('category-item');
-   // categoryItem.setAttribute('id', index);
+    const img = document.createElement("img");
 
-  //  img.classList.add('category-item__img');
+    // const categoryItem = document.createElement('div');
+    // categoryItem.classList.add('category-item');
+    // categoryItem.setAttribute('id', index);
+
+    //  img.classList.add('category-item__img');
     img.src = `${src}${item[0].imageNum}.jpg`;
-    
-   
-   // img.alt = `category-img${index + 1}`;
-   // categoryItem.append(img);
 
-  
-   
-/*
+    // img.alt = `category-img${index + 1}`;
+    // categoryItem.append(img);
+
+    /*
    const categoryHeader = document.createElement('div');
    categoryHeader.classList.add('category-item__header');
 
@@ -85,8 +80,7 @@ function renderCategory(questions) {
   
   categoriesContainer.appendChild(categoryItem);*/
 
-  displayCategory +=  
-  `<div class="categories__item category-item" id = "${index}">
+    displayCategory += `<div class="categories__item category-item" id = "${index}">
      <div class="category-item__header">
        <div class="category-item__title">01</div>
        <div class="category-item__total">2</div>
@@ -94,20 +88,53 @@ function renderCategory(questions) {
      <div class="category-item__img">
        <img src = ${img.src}>     
      </div>
-   </div>`
+   </div>`;
 
+    //  categoriesContainer.appendChild(displayCategory);
+  });
 
- //  categoriesContainer.appendChild(displayCategory);
-   });
-
-   categoriesContainer.innerHTML = displayCategory;
+  categoriesContainer.innerHTML = displayCategory;
+  renderProgressBar();
 }
 
+function renderQuestion() {
+  //let categoryId = 0;
+  // console.log('catid'+this.id)
+  // console.log(questionsArr[categoryId][questionId]);
+  let author = newQuestions[categoryId][questionId].author;
+
+  question.textContent = `Какую картину нарисовал ${author}?`;
+
+  correctAnswer = newQuestions[categoryId][questionId].imageNum;
+
+  const answers = new Set();
+  answers.add(correctAnswer);
+  // let result = [];
+  while (answers.size < 4) {
+    let i = getRandom(0, questions.length - 1);
+
+    answers.add(questions[i].imageNum);
+  }
+
+  const arrayAnswers = Array.from(answers);
+  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
+
+  shuffle(arrayAnswers);
+  pictureInnerContainer.innerHTML = "";
+  arrayAnswers.map((item, index) => {
+    const img = document.createElement("img");
+    img.classList.add("question-picture__item");
+    img.src = `${src}${item}.jpg`;
+    // img.setAttribute('id', index);
+    img.setAttribute("data-answer", item);
+    img.alt = `picture${index + 1}`;
+    pictureInnerContainer.append(img);
+  });
+}
 
 
 async function setQuestions() {
   try {
-
     const quizType = this.id;
     const src = `./assets/data/data.json`;
 
@@ -116,15 +143,13 @@ async function setQuestions() {
     const questionsByAuthor = [];
     const questionsByName = [];
 
-  
-    if (quizType === 'author') {
+    if (quizType === "author") {
       questions = data.slice(0, 120);
-    }
-    else {
+    } else {
       questions = data.slice(120);
     }
     console.log(questions);
-/*
+    /*
     data.forEach((item, index) => {
       if (index % 2 === 0) {
         questionsByAuthor.push({
@@ -142,11 +167,11 @@ async function setQuestions() {
     });
 */
 
-     newQuestions = chunkArray(questions, 10);
-     renderCategory(newQuestions);
-  
-   // const newQuestions = chunkArray(questionsByName, 10);
-/*
+    newQuestions = chunkArray(questions, 10);
+    renderCategory(newQuestions);
+
+    // const newQuestions = chunkArray(questionsByName, 10);
+    /*
     if (quizType === '1') {
       renderCategory(questions);
       return questionsByAuthor;//renderCategory(newQuestionsByAuthor);
@@ -154,19 +179,20 @@ async function setQuestions() {
     else {
       return questionsByName;//renderCategory(newQuestionsByName);
     }*/
-  //  renderCategory(questions);
-  /*  const questions = {
+    //  renderCategory(questions);
+    /*  const questions = {
       questionsByAuthor: newQuestionsByAuthor,
       questionsByName: newQuestionsByName,
     };
   
     console.log(questions);
     return questions;*/
-
   } catch (error) {
     alert(error);
   }
 }
+
+
 
 
 
@@ -187,4 +213,3 @@ function renderCategory() {
 }*/
 
 //getQuizType();
-
