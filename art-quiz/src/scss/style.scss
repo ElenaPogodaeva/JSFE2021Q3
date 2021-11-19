@@ -135,6 +135,10 @@ img {
   flex: 1 1 auto;
 }
 
+.hide {
+  display: none;
+}
+
 .logo {
   background-image: url("../assets/svg/logo.svg");
   background-position: 50%;
@@ -238,6 +242,14 @@ img {
   flex-direction: column;
   position: relative;
   z-index: 100;
+  & img {
+    filter: grayscale(100%); 
+  }
+}
+.category-item-played {
+  & img {
+    filter: none;
+  }
 }
 
 .category-item__header {
@@ -410,6 +422,36 @@ img {
   background-repeat: no-repeat;
   margin-bottom: 20px;
 }
+
+.modal__cong {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 44px;
+  margin-top: 25px;
+  margin-bottom: 65px;
+}
+
+.modal__result {
+  font-weight: bold;
+  font-size: 96px;
+  line-height: 117px;
+  margin-bottom: 50px;
+}
+.modal__good {
+  width: 200px;
+  height: 160px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("../assets/img/congrats.png");
+  margin-bottom: 110px;
+}
+.modal__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
 .wrong {
   background-image: url("../assets/svg/wrong.svg");
 }

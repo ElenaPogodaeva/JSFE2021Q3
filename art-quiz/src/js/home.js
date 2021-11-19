@@ -2,6 +2,8 @@ const mainScreen = document.querySelector(".main-screen");
 const question = document.querySelector(".question-author-text");
 const artists = document.querySelector(".artists");
 const pictures = document.querySelector(".pictures");
+const categories = document.querySelector(".categories");
+const questionContainer = document.querySelector(".question");
 const categoriesContainer = document.querySelector(".categories__items");
 const pictureInnerContainer = document.querySelector(".picture-container");
 
@@ -15,8 +17,10 @@ let questions;
 let newQuestions;
 let isCorrect = false;
 let correctAnswer;
-let categoryId = 0;
+let categoryId;
 let questionId = 0;
+let questionsAmount;
+let correctAnswersAmount = 0;
 
 function chunkArray(array, chunk) {
   const newArray = [];
@@ -94,7 +98,6 @@ function renderCategory(questions) {
   });
 
   categoriesContainer.innerHTML = displayCategory;
-  renderProgressBar();
 }
 
 function renderQuestion() {
@@ -166,10 +169,12 @@ async function setQuestions() {
       }
     });
 */
-
+    questionsAmount = 10;
     newQuestions = chunkArray(questions, 10);
     renderCategory(newQuestions);
 
+    mainScreen.classList.add('hide');
+    categories.classList.remove('hide');
     // const newQuestions = chunkArray(questionsByName, 10);
     /*
     if (quizType === '1') {
@@ -201,16 +206,67 @@ function renderProgressBar() {
   progressBar.innerHTML = displayProgress;
 }
 
+function showResult() {
+  const modalContent = document.querySelector('.modal__content');
+  modalContent.innerHTML = '';
+
+  const modalCong = document.createElement('div');
+  modalCong.classList.add('modal__cong', 'text');
+  modalCong.textContent = 'Congratulations!'
+
+  const modalResult = document.createElement('div');
+  modalResult.classList.add('modal__result', 'text');
+  modalResult.textContent = `${correctAnswersAmount} / ${questionsAmount}`
+
+
+  const modalGood = document.createElement('div');
+  modalGood.classList.add('modal__good');
+
+  const modalWrapper = document.createElement('div');
+  modalWrapper.classList.add('modal__wrapper');
+
+  const modalButtonNext = document.createElement('button');
+  modalButtonNext.classList.add('button', 'button-next-quiz');
+  modalButtonNext.textContent = 'Next Quiz';
+
+  const modalButtonHome = document.createElement('button');
+  modalButtonHome.classList.add('button', 'modal-button-home');
+  modalButtonHome.textContent = 'Home';
+
+  modalContent.append(modalCong);
+  modalContent.append(modalResult);
+  modalContent.append(modalGood);
+  modalContent.append(modalWrapper);
+  modalWrapper.append(modalButtonNext);
+  modalWrapper.append(modalButtonHome);
+
+  modal.classList.add("open");
+  modalButtonNext.addEventListener('click', () => {
+    modal.classList.remove("open");
+    questionContainer.classList.add('hide');
+    categories.classList.remove('hide');
+  })
+
+  modalButtonHome.addEventListener('click', () => {
+    modal.classList.remove("open");
+    questionContainer.classList.add('hide');
+    mainScreen.classList.remove('hide');
+  })
+
+}
+
+
+
 function showCorrectAnswer() {
   // const modal = document.querySelector('.modal');
-  // const modalContent = document.querySelector('.modal__content');
+   const modalContent = document.querySelector('.modal__content');
   // const modalBody = document.querySelector('.modal__body');
-
+/*
   const modalImg = document.querySelector(".modal__img");
   const modalTitle = document.querySelector(".modal__title");
   const modalAuthor = document.querySelector(".modal__author");
   const modalYear = document.querySelector(".modal__year");
-
+*/
   const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
 
   const answer = newQuestions[categoryId][questionId].imageNum;
@@ -218,16 +274,17 @@ function showCorrectAnswer() {
   const author = newQuestions[categoryId][questionId].author;
   const year = newQuestions[categoryId][questionId].year;
 
-  modalImg.src = `${src}${answer}.jpg`;
-
+ /* modalImg.src = `${src}${answer}.jpg`;
   modalTitle.textContent = `${name}`;
   modalAuthor.textContent = `${author}`;
-  modalYear.textContent = `${year}`;
-  /*
-  const modalBody = document.createElement('div');
-  modalBody.classList.add('modal__body');
-  const modalContent = document.createElement('div');
-  modalContent.classList.add('modal__content');
+  modalYear.textContent = `${year}`; */
+  
+  //const modalBody = document.createElement('div');
+  //modalBody.classList.add('modal__body');
+  //const modalContent = document.createElement('div');
+  //modalContent.classList.add('modal__content');
+  modalContent.innerHTML = '';
+
   const modalAnswer = document.createElement('div');
   modalAnswer.classList.add('modal__answer');
   
@@ -244,14 +301,16 @@ function showCorrectAnswer() {
   modalYear.classList.add('modal__year', 'text');
   modalYear.textContent = `${year}`;
 
- 
-  modalContent.prepend(modalYear);
-  modalContent.prepend(modalAuthor);
-  modalContent.prepend(modalTitle);
-  modalContent.prepend(modalImg);
-  modalContent.prepend(modalAnswer);
-  
-*/
+  const modalButton = document.createElement('button');
+  modalButton.classList.add('button', 'button-next');
+  modalButton.textContent = 'Next';
+  modalContent.append(modalAnswer);
+  modalContent.append(modalImg);
+  modalContent.append(modalTitle);
+  modalContent.append(modalAuthor);
+  modalContent.append(modalYear);
+  modalContent.append(modalButton);
+
   /*
   let displayAnswer = '';
 
@@ -271,35 +330,55 @@ function showCorrectAnswer() {
     modal.innerHTML = displayAnswer;
   */
   modal.classList.add("open");
+
+  modalButton.addEventListener("click", getNextQuestion);
 }
 
 function checkAnswer(el) {
+  showCorrectAnswer();
   // const isCorrect = (el.target.dataset.answer === correctAnswer) ? true : false;
   const modalAnswer = document.querySelector(".modal__answer");
   const progressBarItems = document.querySelectorAll(".progress-bar__item");
   if (el.target.dataset.answer === correctAnswer) {
     modalAnswer.classList.add("correct");
     progressBarItems[questionId].classList.add("progress-bar__item_correct");
+    correctAnswersAmount++;
   } else {
     modalAnswer.classList.add("wrong");
     progressBarItems[questionId].classList.add("progress-bar__item_wrong");
   }
-  showCorrectAnswer();
+  
+  console.log(questionId);
+    console.log(correctAnswersAmount);
 }
 
 function getNextQuestion() {
-  if (questionId < 10) {
-    questionId++;
-    console.log(questionId);
+  questionId++;
+  if (questionId < questionsAmount) {
+    modal.classList.remove("open");
+    renderQuestion();
   }
-  modal.classList.remove("open");
-  renderQuestion();
+  else {
+    modal.classList.remove("open");
+    showResult();
+    const categotyItem = document.querySelector(`.category-item[id="${categoryId}"]`);
+    
+    const categotyTitle = document.querySelector(`.category-item[id="${categoryId}"] .category-item__total`);
+    
+    categotyTitle.textContent = correctAnswersAmount;
+    categotyItem.classList.add('category-item-played');
+
+  }
 }
 categoriesContainer.addEventListener("click", (e) => {
   if (e.target.closest(".category-item")) {
     categoryId = e.target.closest(".category-item").id;
+    correctAnswersAmount = 0;
     questionId = 0;
+    renderProgressBar();
     renderQuestion();
+    categories.classList.add('hide');
+    questionContainer.classList.remove('hide');
   }
 });
 
@@ -309,10 +388,10 @@ pictureInnerContainer.addEventListener("click", (e) => {
   }
 });
 
-const buttonNext = document.querySelector(".button-next");
-console.log(buttonNext);
+//const buttonNext = document.querySelector(".button-next");
+//console.log(buttonNext);
 
-buttonNext.addEventListener("click", getNextQuestion);
+
 
 
 
