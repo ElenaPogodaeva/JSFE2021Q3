@@ -192,7 +192,127 @@ async function setQuestions() {
   }
 }
 
+function renderProgressBar() {
+  const progressBar = document.querySelector(".progress-bar");
+  let displayProgress = "";
+  for (let i = 0; i < 10; i++) {
+    displayProgress += `<div class = 'progress-bar__item'></div>`;
+  }
+  progressBar.innerHTML = displayProgress;
+}
 
+function showCorrectAnswer() {
+  // const modal = document.querySelector('.modal');
+  // const modalContent = document.querySelector('.modal__content');
+  // const modalBody = document.querySelector('.modal__body');
+
+  const modalImg = document.querySelector(".modal__img");
+  const modalTitle = document.querySelector(".modal__title");
+  const modalAuthor = document.querySelector(".modal__author");
+  const modalYear = document.querySelector(".modal__year");
+
+  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
+
+  const answer = newQuestions[categoryId][questionId].imageNum;
+  const name = newQuestions[categoryId][questionId].name;
+  const author = newQuestions[categoryId][questionId].author;
+  const year = newQuestions[categoryId][questionId].year;
+
+  modalImg.src = `${src}${answer}.jpg`;
+
+  modalTitle.textContent = `${name}`;
+  modalAuthor.textContent = `${author}`;
+  modalYear.textContent = `${year}`;
+  /*
+  const modalBody = document.createElement('div');
+  modalBody.classList.add('modal__body');
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal__content');
+  const modalAnswer = document.createElement('div');
+  modalAnswer.classList.add('modal__answer');
+  
+  const modalImg = document.createElement('img');
+  modalImg.classList.add('modal__img');
+  modalImg.src = `${src}${answer}.jpg`;
+  const modalTitle = document.createElement('div');
+  modalTitle.classList.add('modal__title', 'text');
+  modalTitle.textContent = `${name}`;
+  const modalAuthor = document.createElement('div');
+  modalAuthor.classList.add('modal__author', 'text');
+  modalAuthor.textContent = `${author}`;
+  const modalYear = document.createElement('div');
+  modalYear.classList.add('modal__year', 'text');
+  modalYear.textContent = `${year}`;
+
+ 
+  modalContent.prepend(modalYear);
+  modalContent.prepend(modalAuthor);
+  modalContent.prepend(modalTitle);
+  modalContent.prepend(modalImg);
+  modalContent.prepend(modalAnswer);
+  
+*/
+  /*
+  let displayAnswer = '';
+
+  displayAnswer =  
+  `<div class="modal__body">
+		<div class="modal__content">
+    <div class="modal__answer">
+   </div>
+    <img src = "${src}${answer}.jpg" class="modal__img" alt = "img"></img>
+    <h2 class="text modal__title">${name}</h2>
+    <p class="text modal__author">${author}</p>
+    <p class="text modal__year">${year}</p>
+    <button class="button button-next">Next</button>
+    </div>
+		</div>`
+
+    modal.innerHTML = displayAnswer;
+  */
+  modal.classList.add("open");
+}
+
+function checkAnswer(el) {
+  // const isCorrect = (el.target.dataset.answer === correctAnswer) ? true : false;
+  const modalAnswer = document.querySelector(".modal__answer");
+  const progressBarItems = document.querySelectorAll(".progress-bar__item");
+  if (el.target.dataset.answer === correctAnswer) {
+    modalAnswer.classList.add("correct");
+    progressBarItems[questionId].classList.add("progress-bar__item_correct");
+  } else {
+    modalAnswer.classList.add("wrong");
+    progressBarItems[questionId].classList.add("progress-bar__item_wrong");
+  }
+  showCorrectAnswer();
+}
+
+function getNextQuestion() {
+  if (questionId < 10) {
+    questionId++;
+    console.log(questionId);
+  }
+  modal.classList.remove("open");
+  renderQuestion();
+}
+categoriesContainer.addEventListener("click", (e) => {
+  if (e.target.closest(".category-item")) {
+    categoryId = e.target.closest(".category-item").id;
+    questionId = 0;
+    renderQuestion();
+  }
+});
+
+pictureInnerContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("question-picture__item")) {
+    checkAnswer(e);
+  }
+});
+
+const buttonNext = document.querySelector(".button-next");
+console.log(buttonNext);
+
+buttonNext.addEventListener("click", getNextQuestion);
 
 
 
