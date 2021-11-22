@@ -5,22 +5,21 @@ const pictures = document.querySelector(".pictures");
 const categories = document.querySelector(".categories");
 const questionContainer = document.querySelector(".question");
 const categoriesContainer = document.querySelector(".categories__items");
-const pictureInnerContainer = document.querySelector(".picture-container");
 
-artists.addEventListener("click", setQuestions);
+const questionElement = document.querySelector(".question-container");
 
-pictures.addEventListener("click", setQuestions);
 
 //const dataLength = data.length;
 
 let questions;
 let newQuestions;
-let isCorrect = false;
 let correctAnswer;
 let categoryId;
 let questionId = 0;
 let questionsAmount;
 let correctAnswersAmount = 0;
+let isCorrect = [];
+let quizType;
 
 function chunkArray(array, chunk) {
   const newArray = [];
@@ -52,7 +51,8 @@ async function fetchData(url) {
 function renderCategory(questions) {
   let displayCategory = "";
   const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
-
+  const categoryNames = ['Portrait', 'Landscape', 'Still life', 'Graphic', 'Antique', 'Avant-garde', 
+  'Renaissance', 'Surrealism', 'Kitsch', 'Minimalism', 'Interior', 'Industrial']
   questions.map((item, index) => {
     const img = document.createElement("img");
 
@@ -62,7 +62,7 @@ function renderCategory(questions) {
 
     //  img.classList.add('category-item__img');
     img.src = `${src}${item[0].imageNum}.jpg`;
-
+    
     // img.alt = `category-img${index + 1}`;
     // categoryItem.append(img);
 
@@ -86,12 +86,13 @@ function renderCategory(questions) {
 
     displayCategory += `<div class="categories__item category-item" id = "${index}">
      <div class="category-item__header">
-       <div class="category-item__title">01</div>
+       <div class="category-item__title">${categoryNames[index]}</div>
        <div class="category-item__total">2</div>
      </div>
      <div class="category-item__img">
        <img src = ${img.src}>     
      </div>
+     <button class="category-item__score" id = "${index}">Score</button>
    </div>`;
 
     //  categoriesContainer.appendChild(displayCategory);
@@ -100,11 +101,14 @@ function renderCategory(questions) {
   categoriesContainer.innerHTML = displayCategory;
 }
 
-function renderQuestion() {
-  //let categoryId = 0;
-  // console.log('catid'+this.id)
-  // console.log(questionsArr[categoryId][questionId]);
-  let author = newQuestions[categoryId][questionId].author;
+function renderPictureQuestion() {
+  //const pictureInnerContainer = document.querySelector(".picture-container");
+ // pictureInnerContainer.innerHTML = "";
+ questionElement.innerHTML = "";
+ const pictureInnerContainer = document.createElement("div");
+  pictureInnerContainer.classList.add("picture-container");
+  questionElement.append(pictureInnerContainer);
+ let author = newQuestions[categoryId][questionId].author;
 
   question.textContent = `Какую картину нарисовал ${author}?`;
 
@@ -123,7 +127,11 @@ function renderQuestion() {
   const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
 
   shuffle(arrayAnswers);
-  pictureInnerContainer.innerHTML = "";
+  //const pictureInnerContainer = document.createElement("div");
+ // pictureInnerContainer.classList.add("picture-container");
+
+  //questionElement.append(pictureInnerContainer);
+ // pictureInnerContainer.innerHTML = "";
   arrayAnswers.map((item, index) => {
     const img = document.createElement("img");
     img.classList.add("question-picture__item");
@@ -133,12 +141,85 @@ function renderQuestion() {
     img.alt = `picture${index + 1}`;
     pictureInnerContainer.append(img);
   });
+
+  pictureInnerContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("question-picture__item")) {
+    checkAnswer(e);
+  }
+  });
+
+}
+function renderAuthorQuestion() {
+  questionElement.innerHTML = "";
+ // const questionPicture = document.querySelector(".question-author__picture");
+ const wrapper = document.createElement("div");
+ wrapper.classList.add("question-author__wrapper");
+ // const wrapper = document.querySelector(".question-author__wrapper");
+ questionElement.append(wrapper);
+ // questionPicture.innerHTML = "";
+  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
+ 
+  question.textContent = `Кто автор данной картины?`;
+
+  let num = newQuestions[categoryId][questionId].imageNum;
+  const img = document.createElement("img");
+ // img.classList.add("question-author__picture");
+  img.src = `${src}${num}.jpg`;
+  img.alt = 'picture';
+ // const wrapper = document.createElement("div");
+ // wrapper.classList.add("question-author__wrapper");
+ wrapper.append(img);
+ // questionPicture.append(wrapper);
+
+  correctAnswer = newQuestions[categoryId][questionId].author;
+
+  const answers = new Set();
+  answers.add(correctAnswer);
+  // let result = [];
+  while (answers.size < 4) {
+    let i = getRandom(0, questions.length - 1);
+    answers.add(questions[i].author);
+  }
+
+  const arrayAnswers = Array.from(answers);
+  
+  shuffle(arrayAnswers);
+ // const answersUl = document.querySelector(".question-author__answers");
+ // answersUl.innerHTML = "";
+  const ul = document.createElement("ul");
+  ul.classList.add("question-author__answers", "answers");
+  arrayAnswers.map((item) => {
+    const li = document.createElement("li");
+    li.classList.add("answers__item");
+    li.textContent = item;
+    // img.setAttribute('id', index);
+    li.setAttribute("data-answer", item);
+    ul.append(li);
+  });
+
+  questionElement.append(ul);
+
+  ul.addEventListener("click", (e) => {
+    if (e.target.classList.contains("answers__item")) {
+      checkAnswer(e);
+    }
+  });
+}
+function renderQuestion() {
+  if (quizType === 'author') {
+    renderAuthorQuestion();
+  }
+  else {
+    renderPictureQuestion();
+  }
+  console.log(isCorrect)
+  renderProgressBar();
 }
 
 
 async function setQuestions() {
   try {
-    const quizType = this.id;
+    quizType = this.id;
     const src = `./assets/data/data.json`;
 
     const data = await fetchData(src);
@@ -172,9 +253,32 @@ async function setQuestions() {
     questionsAmount = 10;
     newQuestions = chunkArray(questions, 10);
     renderCategory(newQuestions);
-
     mainScreen.classList.add('hide');
     categories.classList.remove('hide');
+
+ /*   mainScreen.classList.add('visuallyhide');
+   // mainScreen.classList.add('hide');
+    setTimeout(function () {
+      mainScreen.classList.add('hide');
+    }, 1000);
+    categories.classList.remove('hide');
+  //  categories.classList.remove('visuallyhide');
+   // mainScreen.classList.add('hide');
+    setTimeout(function () {
+      categories.classList.remove('visuallyhide');
+    }, 1000);*/
+ /* mainScreen.addEventListener('transitionend', function(e) {
+    mainScreen.classList.add('hide');
+  }, {
+    once: true,
+  });
+  categories.classList.remove('hide');
+  setTimeout(function () {
+    categories.classList.remove('visuallyhide');
+  }, 1000);
+    */
+   
+   // categories.classList.remove('hide');
     // const newQuestions = chunkArray(questionsByName, 10);
     /*
     if (quizType === '1') {
@@ -198,15 +302,39 @@ async function setQuestions() {
 }
 
 function renderProgressBar() {
-  const progressBar = document.querySelector(".progress-bar");
+  
+  const progressBar = document.createElement('div');
+//let progressBar; 
+  progressBar.classList.add('progress-bar');
+  if (quizType === 'picture') {
+    const pictureContainer = document.querySelector(".picture-container");
+    // progressBar = document.querySelector(".progress-bar-picture");
+    pictureContainer.append(progressBar);
+  }
+  else {
+    const pictureContainer = document.querySelector(".question-author__wrapper");
+    pictureContainer.append(progressBar);
+  }
+
   let displayProgress = "";
   for (let i = 0; i < 10; i++) {
     displayProgress += `<div class = 'progress-bar__item'></div>`;
   }
   progressBar.innerHTML = displayProgress;
+  const progressBarItems = document.querySelectorAll(".progress-bar__item");
+  console.log(progressBarItems )
+  for (let i = 0; i < questionId; i++) {
+    if (isCorrect[i] === true) {
+      progressBarItems[i].classList.add("progress-bar__item_correct");
+      console.log(progressBarItems[i])
+    }
+    else {
+     progressBarItems[i].classList.add("progress-bar__item_wrong");
+    }
+  }
 }
 
-function showResult() {
+function showCategoryResult() {
   const modalContent = document.querySelector('.modal__content');
   modalContent.innerHTML = '';
 
@@ -340,12 +468,14 @@ function checkAnswer(el) {
   const modalAnswer = document.querySelector(".modal__answer");
   const progressBarItems = document.querySelectorAll(".progress-bar__item");
   if (el.target.dataset.answer === correctAnswer) {
+    isCorrect[questionId] = true;
     modalAnswer.classList.add("correct");
-    progressBarItems[questionId].classList.add("progress-bar__item_correct");
+   // progressBarItems[questionId].classList.add("progress-bar__item_correct");
     correctAnswersAmount++;
   } else {
+    isCorrect[questionId] = false;
     modalAnswer.classList.add("wrong");
-    progressBarItems[questionId].classList.add("progress-bar__item_wrong");
+  //  progressBarItems[questionId].classList.add("progress-bar__item_wrong");
   }
   
   console.log(questionId);
@@ -357,10 +487,12 @@ function getNextQuestion() {
   if (questionId < questionsAmount) {
     modal.classList.remove("open");
     renderQuestion();
+    
+    console.log(isCorrect)
   }
   else {
     modal.classList.remove("open");
-    showResult();
+    showCategoryResult();
     const categotyItem = document.querySelector(`.category-item[id="${categoryId}"]`);
     
     const categotyTitle = document.querySelector(`.category-item[id="${categoryId}"] .category-item__total`);
@@ -370,24 +502,143 @@ function getNextQuestion() {
 
   }
 }
+
+function showResultPage() {
+  const score = document.querySelector(".score__items");
+  let displayResult = "";
+  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
+ 
+
+  newQuestions[categoryId].forEach((item, index) => {
+  /*  const img = document.createElement('img');
+    img.src = `${src}${item.imageNum}.jpg`;
+    img.classList.add('score-item__img');
+
+    const scoreItem = document.createElement('div');
+    scoreItem.classList.add('score__item', 'score-item');
+    scoreItem.setAttribute('id', index);
+
+    const scoreItemHeader = document.createElement('div');
+    scoreItemHeader.classList.add('score-item__header');
+    const scoreItemTitle = document.createElement('div');
+    scoreItemTitle.classList.add('score-item__title');
+   // scoreItemTitle.textContent = 
+    
+    scoreItem.append(scoreItemHeader);
+    scoreItem.append(img);
+    scoreItemHeader.append(scoreItemTitle);
+    score.append(scoreItem);
+
+    if (isCorrect[index]===true) {
+      console.log('correct')
+      scoreItem.classList.add('score-item-correct');
+    }*/
+   
+    displayResult = `<div class="score__item score-item" id = "${index}">
+     <div class="score-item__header">
+       <div class="score-item__title">01</div>
+     </div>
+     <div class="score-item__img">
+       <img src = ${src}${item.imageNum}.jpg>     
+     </div>
+     <div class="score-item__info">
+       <p class="score-item__text text">${item.name}</p>
+       <p class="score-item__text text">${item.author}</p>
+       <p class="score-item__text text">${item.year}</p>
+     </div>
+    </div>`;
+   
+   score.insertAdjacentHTML("afterbegin", displayResult);
+
+   const scoreItem = document.querySelector(".score__item");
+   if (isCorrect[index]===true) {
+    scoreItem.classList.add('score-item-correct');
+   }
+  })
+//  const score = document.querySelector(".score__items");
+const scoreItems = Array.from(document.querySelectorAll(".score__item"));
+scoreItems.forEach((item, index) => {
+  item.addEventListener('click',() => {
+    const scoreItemsInfo = document.querySelectorAll(".score-item__info");
+    scoreItemsInfo[index].classList.toggle("score-item__info_show")
+  }) 
+});
+  
+//  score.innerHTML = displayResult;
+}
+
+
 categoriesContainer.addEventListener("click", (e) => {
-  if (e.target.closest(".category-item")) {
+  if (e.target.closest(".category-item")&& !e.target.closest(".category-item__score")) {
     categoryId = e.target.closest(".category-item").id;
     correctAnswersAmount = 0;
     questionId = 0;
-    renderProgressBar();
+    
     renderQuestion();
+    renderProgressBar();
+ //   categories.classList.add('hide');
+  //  questionContainer.classList.remove('hide');
+//  const scoreButton = document.querySelector(".category-item__score");
+ // scoreButton.classList.add('category-item__score_show');
+ categories.classList.add('hide');
+ 
+ questionContainer.classList.remove('hide');
+  }
+});
+
+categoriesContainer.addEventListener("click", (e) => {
+  if (e.target.closest(".category-item__score")) {
+    categoryId = e.target.closest(".category-item__score").id;
+    console.log(isCorrect)
+    showResultPage();
+  }
+});
+
+
+const buttonHomeCategories = document.querySelector(".categories__button");
+buttonHomeCategories.addEventListener('click', () => {
+ /* categories.classList.add('visuallyhide');
+  
+  categories.addEventListener('transitionend', function(e) {
     categories.classList.add('hide');
-    questionContainer.classList.remove('hide');
-  }
-});
+   },  {
+    once: true,
+  });
+  
+   mainScreen.classList.remove('hide');
+  
+   setTimeout(function () {
+    mainScreen.classList.remove('visuallyhide');
+   }, 1000);*/
+  categories.classList.add('hide');
+   // mainScreen.classList.add('hide');
+   
+  mainScreen.classList.remove('hide');
+    
+   
+  //  categories.classList.remove('visuallyhide');
+   // mainScreen.classList.add('hide');
+    
+      mainScreen.classList.remove('visuallyhide');
+   
+   //   setTimeout(function () {
+   //     mainScreen.classList.remove('hide');
+    //  }, 1000);
+})
+const buttonHomeQuestion = document.querySelector(".question__button-home");
+buttonHomeQuestion.addEventListener('click', () => {
+  questionContainer.classList.add('hide');
+  mainScreen.classList.remove('hide');
+ });
 
-pictureInnerContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("question-picture__item")) {
-    checkAnswer(e);
-  }
-});
+const buttonCategoriesQuestion = document.querySelector(".question__button-categories");
+buttonCategoriesQuestion.addEventListener('click', () => {
+  questionContainer.classList.add('hide');
+  categories.classList.remove('hide');
+ });
+artists.addEventListener("click", setQuestions);
 
+pictures.addEventListener("click", setQuestions);
 //const buttonNext = document.querySelector(".button-next");
 //console.log(buttonNext);
 
