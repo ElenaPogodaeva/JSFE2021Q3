@@ -18,6 +18,7 @@
         <main class="main">
             <div class="container">
                 <div class="main-screen">
+                   
                     <div class="logo main-screen__logo"></div>
                     <div class="main-screen__menu menu">
                         <div class="artists" id="author">
@@ -38,43 +39,31 @@
                     <div class="buttons-container">
                         <button class="button button-settings">Settings</button>
                     </div>
+                
                 </div>
+            
                 <div class="categories hide">
                     <div class="logo categories__logo"></div>
                     <div class="row">
-                        <button class="button home-button">Home</button>
-                        <h2 class="categories__title">Categories</h2>
+                        <button class="button categories__button">Home</button>
+                        <h2 class="categories__title title">Categories</h2>
                         <div class="plug"></div>
                     </div>
                     <div class="categories__items">
-
                     </div>
                 </div>
                 <div class="question hide" id="question">
                     <div class="row">
-                        <button class="button home-button">Home</button>
-                        <h2 class="question-author-text">Categories</h2>
-                        <button class="button categories-button">Score</button>
+                        <button class="button question__button-home">Home</button>
+                        <h2 class="question-author-text text"></h2>
+                        <button class="button question__button-categories">Categories</button>
                     </div>
-                    <div class="question-picture">
-                        <div class="picture-container">
-
+                    
+                        <div class="question-container">
+                            
                         </div>
-                        <div class="progress-bar">
-
-                        </div>
-                    </div>
-                    <div class="question-author">
-                        <div class="question-author__picture">
-
-                        </div>
-                        <ul class="question-author__answers answers">
-                            <li class="answers__item">13333</li>
-                            <li class="answers__item">23333</li>
-                            <li class="answers__item">3333</li>
-                            <li class="answers__item">43333</li>
-                        </ul>
-                    </div>
+                                  
+                
                 </div>
                 <div class="modal" id="modal">
                     <div class="modal__body">
@@ -82,8 +71,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="score">
+                    <div class="row">
+                        <button class="button home-button">Home</button>
+                        <h2 class="score__title title">Score</h2>
+                        <button class="button categories-button">Categories</button>
+                    </div>
+                    <div class="score__items">
 
+                    </div>
+                </div>
+            
+            </div>
 
         </main>
         <footer class="footer">
