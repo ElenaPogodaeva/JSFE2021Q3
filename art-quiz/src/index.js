@@ -1,5 +1,16 @@
-import image from './images/lazy.png';
 
+import './scss/style.scss';
+
+//import './js/questions.js';
+import './js/main.js';
+//import './js/main_page.js';
+//import './js/categories.js';
+//import './js/question.js';
+
+//import Settings from './js/settings';
+
+//new Settings();
+/*
 const createImage = (src) => new Promise((res, rej) => {
   const img = new Image();
   img.onload = () => res(img);
@@ -16,3 +27,4 @@ async function render() {
 }
 
 render();
+*/

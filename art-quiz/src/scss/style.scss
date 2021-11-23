@@ -124,7 +124,7 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  // overflow: hidden;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: $bg-light;
@@ -222,8 +222,8 @@ img {
   padding-bottom: 20px;
 }
 
-.plug {
-  width: 186px;
+.empty {
+  width: 155px;
 }
 
 .modal {
@@ -337,4 +337,20 @@ img {
 }
 .correct {
   background-image: url("../assets/svg/correct.svg");
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  margin: 20px;
+  padding: 20px 0;
+  z-index: 10;
+}
+.footer__rs {
+  background: url('../assets/svg/rs.svg') center no-repeat;
+  background-size: contain;
+  width: 165px;
+  height: 45px;
 }

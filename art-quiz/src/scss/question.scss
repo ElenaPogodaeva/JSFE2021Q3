@@ -61,8 +61,8 @@
   text-align: center;
   flex: 0 1 50%;
   padding: 20px;
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 20px;
+  line-height: 24px;
   text-transform: uppercase;
   transition: all 0.5s ease 0s;
 }
@@ -100,7 +100,8 @@
 
 .question-picture__item {
   width: calc(50% - 20px);
-  height: calc(50% - 20px);
+  height: 325px;
+  object-fit: cover;
   cursor: pointer;
   transition: all 0.5s ease 0s;
   border-radius: 20px;
