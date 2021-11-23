@@ -113,13 +113,13 @@ body {
   padding: 0px 15px;
 
   @media (max-width: 1024px) {
-    max-width: 1014px;
+    max-width: 1000px;
   }
   @media (max-width: 768px) {
     max-width: 758px;
   }
   @media (max-width: 420px) {
-    max-width: 410px;
+    max-width: 400px;
   }
 }
 .wrapper {
@@ -151,15 +151,6 @@ img {
 //animation-duration: 1s;
 //animation-timing-function: ease;
 }
-@keyframes remove{
-
-  0%{
-  opacity: 1;
-  }
-  100%{
-    opacity: 0;
-  }
-  }
 
   @keyframes add{
 
@@ -195,6 +186,10 @@ img {
 
 .text {
   text-transform: uppercase;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 .text__bold {
   font-weight: 700;
@@ -216,6 +211,7 @@ img {
 }
 .row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -281,7 +277,6 @@ img {
 
 .modal__img {
   width: 500px;
-  height: 500px;
   border-radius: 15px;
   box-shadow: 5px 5px 15px rgb(0 0 0 / 78%);
 }
@@ -347,6 +342,10 @@ img {
   margin: 20px;
   padding: 20px 0;
   z-index: 10;
+  @media (max-width: 460px) {
+    flex-direction: column;
+    height: 150px;
+  }
 }
 .footer__rs {
   background: url('../assets/svg/rs.svg') center no-repeat;

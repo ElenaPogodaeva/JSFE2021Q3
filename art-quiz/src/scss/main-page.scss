@@ -4,6 +4,9 @@
   justify-content: space-around;
   position: relative;
   width: 100%;
+  @media (max-width: 865px) {
+    row-gap: 30px
+  }
 }
 
 .main-screen, .categories, .question {
@@ -22,6 +25,9 @@
   height: 415px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
   transition: all 0.5s ease 0s;
+  @media (max-width: 865px) {
+    height: 350px;
+  }
 }
 .menu__img:hover {
   box-shadow: 0 0 15px 7px rgba(0, 0, 0, 0.35);
@@ -49,4 +55,7 @@
   width: 415px;
   height: 474px;
   cursor: pointer;
+  @media (max-width: 865px) {
+    height: 415px;
+  }
 }

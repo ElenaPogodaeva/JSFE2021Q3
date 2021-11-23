@@ -5,6 +5,10 @@
   text-transform: uppercase;
   text-align: center;
   color: $gray;
+  @media (max-width: 768px) {
+    font-size: 24px;
+    line-height: 29px;
+  }
 }
 
 .categories__items {
@@ -13,6 +17,9 @@
   gap: 20px;
   align-items: center;
   width: 100%;
+  @media(max-width:850px) {
+    justify-content: center;
+  }
 }
 
 .category-item, .score-item {
@@ -27,6 +34,16 @@
   cursor: pointer;
   & img {
     filter: grayscale(100%); 
+  }
+  
+  @media(max-width:850px) {
+    width: calc(33% - 20px);
+  }
+  @media(max-width:650px) {
+    width: calc(50% - 20px);
+  }
+  @media(max-width:420px) {
+    width: 100%;
   }
 }
 
@@ -44,9 +61,12 @@
 .category-item__header, .score-item__header {
   background-color: #696969;
   border-top-left-radius: 40px;
-  padding: 40px 10px 5px 20px;
+  padding: 35px 10px 5px 20px;
   height: 80px;
   position: relative;
+  @media(max-width:1024px) {
+    padding-top:30px;
+  }
 }
 
 .category-item__title, .score-item__title {
@@ -60,6 +80,11 @@
   width: fit-content;
   padding-bottom: 5px;
   border-bottom: 2px solid white;
+  @media(max-width:1024px) {
+    padding-bottom: 3px;
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .category-item__total {
@@ -124,7 +149,7 @@
 .score-item__info {
   position: absolute;
   width: 100%;
-  height: 45%;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;
