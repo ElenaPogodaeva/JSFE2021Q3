@@ -58,8 +58,25 @@
                     </div>
 
                     <div class="question-container">
-
+                        <div class="progress-bar"></div>
+                        <div class="question-wrapper"></div>
                     </div>
+                </div>
+
+                <div class="settings hide">
+                    <div class="logo main-screen__logo"></div>
+                    <h2 class="settings__title title">Settings</h2>
+                    <div class="settings__menu">
+                        <div class="settings__volume volume">
+                            <div class="volume__img"></div>
+                            <div class="volume__wrapper">
+                                <button class="volume__icon"></button>
+                                <input type="range" name="volume" value="0.5" min="0" max="1" step="0.05" class="volume-progress">
+                            </div>
+                            <div class="volume__text">Volume</div>
+                        </div>
+                    </div>
+                    <button class="button settings__button">Home</button>
                 </div>
                 <div class="modal" id="modal">
                     <div class="modal__body">
@@ -88,6 +105,9 @@
         </footer>
     </div>
 
+    <audio data-volume = "correct" src = "assets/sounds/correctanswer.mp3"></audio>
+    <audio data-volume = "wrong" src = "assets/sounds/wronganswer.mp3"></audio>
+    <audio data-volume = "congrat" src = "assets/sounds/congratulation.mp3"></audio>
 </body>
 
 </html>
