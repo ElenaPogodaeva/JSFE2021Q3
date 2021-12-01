@@ -88,7 +88,8 @@ $light-gray:#c4c4c4;
 @import './main-page.scss';
 @import './categories.scss';
 @import './question.scss';
-
+@import './settings.scss';
+@import './modal.scss';
 
 /* Общие стили */
 body {
@@ -102,7 +103,7 @@ body {
 
 .main-screen,
 .categories,
-.question-pictures {
+.question-pictures, .settings {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -152,27 +153,10 @@ img {
 //animation-timing-function: ease;
 }
 
-  @keyframes add{
-
-    0%{
-    opacity: 0;
-    }
-    100%{
-      opacity: 1;
-    }
-    }
-
 .categories {
- // transform: translateX(0px);
- //transform: translateX(-150%);
- 
- //transition: all 1s ease 0s;
-}
- .categories {
- // transform: translateX(0px);
 
   transition: all 1s ease 0s;
- }
+}
 
 .logo {
   background-image: url("../assets/img/splash.webp");
@@ -222,117 +206,6 @@ img {
   width: 155px;
 }
 
-.modal {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  overflow-x: hidden;
-  overflow-y: auto;
-  transition: all 0.8s ease 0s;
-  z-index: 100;
-}
-.modal.open {
-  opacity: 1;
-  visibility: visible;
-}
-.modal.open .modal__content {
-  opacity: 1;
-  transform: translate(0px, 0px);
-}
-.modal__body {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 10px;
-}
-.modal__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 18px;
-  line-height: 22px;
-  text-align: center;
-  position: relative;
-  background-color: #fff;
-  padding: 24px 91px 45px;
-  transform: translate(-150%, 0px);
-  // opacity: 0;
-  transition: all 0.8s ease 0s;
-}
-.modal__close {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  top: 30px;
-  right: 30px;
-  color: #000000;
-  // background: url("../assets/svg/form/Close.svg");
-}
-
-.modal__img {
-  width: 500px;
-  border-radius: 15px;
-  box-shadow: 5px 5px 15px rgb(0 0 0 / 78%);
-}
-
-.modal__title {
-  margin-top: 35px;
-}
-.modal__title,
-.modal__author,
-.modal__year {
-  margin-bottom: 20px;
-}
-.modal__answer {
-  width: 32px;
-  height: 32px;
-  background-size: 32px 32px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  margin-bottom: 20px;
-}
-
-.modal__cong {
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 44px;
-  margin-top: 25px;
-  margin-bottom: 65px;
-}
-
-.modal__result {
-  font-weight: bold;
-  font-size: 96px;
-  line-height: 117px;
-  margin-bottom: 50px;
-}
-.modal__good {
-  width: 200px;
-  height: 160px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: url("../assets/img/congrats.png");
-  margin-bottom: 110px;
-}
-.modal__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.wrong {
-  background-image: url("../assets/svg/wrong.svg");
-}
-.correct {
-  background-image: url("../assets/svg/correct.svg");
-}
 
 .footer {
   display: flex;

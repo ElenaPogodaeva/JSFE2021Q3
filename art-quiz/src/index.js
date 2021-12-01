@@ -6,7 +6,7 @@ import './scss/style.scss';
 import './js/question.js';
 import './js/categories.js';
 import './js/mainPage.js';
-
+import './js/settings.js';
 
 //import mainPage from './js/mainClass';
 

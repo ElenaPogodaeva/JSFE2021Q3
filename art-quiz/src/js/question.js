@@ -7,6 +7,7 @@ import {
 } from "./mainPage.js";
 
 import { categories } from "./categories.js";
+import { playAudio} from "./settings.js";
 
 export {
   renderQuestion,
@@ -175,6 +176,7 @@ function checkAnswer(el) {
     modalAnswer.classList.add("correct");
     progressBarItems[questionId].classList.add("progress-bar__item_correct");
     correctAnswersAmount++;
+    playAudio("correct");
   } else {
 
     if (quizType === "author") {
@@ -182,6 +184,7 @@ function checkAnswer(el) {
     } else {
       isCorrectPicture[categoryId][questionId] = false;
     }
+    playAudio("wrong");
     modalAnswer.classList.add("wrong");
     progressBarItems[questionId].classList.add("progress-bar__item_wrong");
   }
@@ -281,11 +284,11 @@ function showCategoryResult() {
   modalContent.innerHTML = "";
 
   const modalCong = document.createElement("div");
-  modalCong.classList.add("modal__cong", "text");
+  modalCong.classList.add("modal__cong");
   modalCong.textContent = "Congratulations!";
 
   const modalResult = document.createElement("div");
-  modalResult.classList.add("modal__result", "text");
+  modalResult.classList.add("modal__result");
   modalResult.textContent = `${correctAnswersAmount} / ${questionsAmount}`;
 
   const modalGood = document.createElement("div");
@@ -321,7 +324,7 @@ function showCategoryResult() {
     questionElement.classList.add("hide");
     mainScreen.classList.remove("hide");
   });
-  // playAudio('congrat');
+   playAudio('congrat');
 }
 
 function renderProgressBar() {

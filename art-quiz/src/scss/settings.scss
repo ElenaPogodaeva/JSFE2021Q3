@@ -1,0 +1,62 @@
+.settings__title {
+  margin-bottom: 20px;
+}
+
+.settings__volume {
+  height: 300px;
+  width: 315px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color:white;
+  border-radius: 20px;
+}
+.settings__button {
+  margin-top: 40px;
+}
+.volume__wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+}
+.volume__img, .volume__icon {
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.volume__img {
+  background-image: url("../assets/svg/volumeon.svg");
+  width: 50px;
+  height: 50px;
+}
+.volume__icon {
+  background-image: url("../assets/svg/volumeon.svg");
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+}
+.volume__text {
+  font-size: 36px;
+  line-height: 44px;
+}
+.mute {
+  background-image: url("../assets/svg/volumeoff.svg");
+}
+.volume-progress {
+  
+  height: 6px;
+  background-color: #fff;
+  background: linear-gradient(to right, #710707 0%, #710707 10%, #c4c4c4 10%, #c4c4c4 100%);
+  margin: 0 10px 0 20px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.volume-progress::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background: $dark-red;
+}

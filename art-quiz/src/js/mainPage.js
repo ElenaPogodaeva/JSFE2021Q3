@@ -8,6 +8,7 @@ export {
 };
 import { categoriesContainer, categories } from "./categories";
 import { isPlayedAuthor, isPlayedPicture } from "./question";
+import { settings } from "./settings";
 
 const mainScreen = document.querySelector(".main-screen");
 const artists = document.querySelector(".artists");
@@ -45,7 +46,6 @@ async function setQuestions() {
     } else {
       questions = data.slice(120);
     }
-    console.log(questions);
 
     questionsAmount = 10;
     newQuestions = chunkArray(questions, 10);
@@ -117,4 +117,10 @@ const buttonHome = document.querySelector(".categories__button");
 buttonHome.addEventListener("click", () => {
   categories.classList.add("hide");
   mainScreen.classList.remove("hide");
+});
+
+const buttonSettings = document.querySelector(".button-settings");
+buttonSettings.addEventListener("click", () => {
+  mainScreen.classList.add("hide");
+  settings.classList.remove("hide");
 });
