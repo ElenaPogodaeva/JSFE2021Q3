@@ -74,14 +74,15 @@ function renderPictureQuestion() {
   answers.add(correctAnswer);
   while (answers.size < 4) {
     let i = getRandom(0, questions.length - 1);
-
-    answers.add(questions[i].imageNum);
+    if (questions[i].author !== author) {
+      answers.add(questions[i].imageNum);
+    }
   }
 
   const arrayAnswers = Array.from(answers);
-  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
-
   shuffle(arrayAnswers);
+
+  const src = `https://raw.githubusercontent.com/ElenaPogodaeva/image-data/master/img/`;
 
   arrayAnswers.map((item, index) => {
     const img = document.createElement("img");
