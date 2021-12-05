@@ -18,3 +18,7 @@ export interface IData {
   articles?: Array<IDataArticle>;
   sources?: Array<IDataSource>;
 }
+
+export type Options = {
+  [key: string]: string;
+}
