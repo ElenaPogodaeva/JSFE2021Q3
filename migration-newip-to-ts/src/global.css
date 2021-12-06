@@ -26,6 +26,7 @@ footer .copyright {
 }
 footer .copyright a {
     color: #444;
+    transition: color 0.3s;
 }
 footer .copyright a:hover {
     color: #555;
@@ -46,6 +47,7 @@ footer .github {
     text-decoration: none;
     color: #444;
     font-size: 14px;
+    transition: color 0.3s;
 }
 footer .github:hover {
     color: #555;
