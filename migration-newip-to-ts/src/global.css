@@ -13,22 +13,11 @@ header h1 {
     font-weight: 800;
 }
 
-@media(max-width: 768px) {
-    header h1 {
-        font-size: 30px;
-    }
-}
-@media(max-width: 540px) {
-    header h1 {
-        font-size: 26px;
-    }
-}
-
 footer {
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 footer .copyright {
     font-size: 14px;
@@ -43,4 +32,38 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
     content: '©';
+}
+footer .rsschool {
+    display: block;
+    width: 100px;
+    height: 50px;
+    background-image: url("assets/svg/rs.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+footer .github {
+    text-decoration: none;
+    color: #444;
+    font-size: 14px;
+}
+footer .github:hover {
+    color: #555;
+}
+
+@media(max-width: 768px) {
+    header h1 {
+        font-size: 30px;
+    }
+}
+@media(max-width: 540px) {
+    header h1 {
+        font-size: 26px;
+    }
+}
+
+@media(max-width: 400px) {
+    footer {
+        flex-direction: column;
+    }
 }

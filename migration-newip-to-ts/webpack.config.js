@@ -9,6 +9,10 @@ const baseConfig = {
   module: {
     rules: [
       {
+        test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
@@ -31,6 +35,7 @@ const baseConfig = {
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
     }),
+    
     new CleanWebpackPlugin(),
   ],
 };
