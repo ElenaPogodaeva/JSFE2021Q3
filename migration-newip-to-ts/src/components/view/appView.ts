@@ -19,7 +19,8 @@ export class AppView {
 
   drawSources(data: IData) {
     const values: IDataSource[] = data?.sources ? data?.sources : [];
-    this.sources.draw(values);
+    this.sources.draw(values, 'A');
+    this.sources.drawLetters(values);
   }
 }
 
