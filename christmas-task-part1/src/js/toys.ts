@@ -65,4 +65,31 @@ function addCard(e: Event): void {
 
 cardsContainer.addEventListener('click', (e: Event) => addCard(e));
 
+function sortCards(e: Event): void {
+  const value = (e.target as HTMLSelectElement).value;
+  switch(value) {
+    case 'sort-name-max': 
+      drawCards(sortByName());
+      break;
+    case 'sort-name-min': 
+      drawCards(sortByName().reverse());
+      break;
+    case 'sort-year-max': 
+      drawCards(sortByYear());
+      break;
+    case 'sort-year-min': 
+      drawCards(sortByYear().reverse());
+      break;
+  }
+}
+
+sortSelect.addEventListener('change', (e: Event) => sortCards(e));
+
+function sortByName() {
+  return data.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function sortByYear() {
+  return data.sort((a, b) => +a.year - +b.year);
+}
 
