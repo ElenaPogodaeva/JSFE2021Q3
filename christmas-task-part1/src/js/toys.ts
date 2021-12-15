@@ -1,9 +1,11 @@
 import data from './data';
 import {Toy} from './types';
 
-
+let selectedCards:string[] = [];
+let selectedCount:number = 0;
+const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
-
+const sortSelect = document.querySelector(".sort__select") as HTMLElement;
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -29,7 +31,38 @@ function drawCards(data: Toy[]): void {
     //cardsContainer.innerHTML+=card;
     cardsContainer.insertAdjacentHTML('beforeend', card);
   });
-
 }
 drawCards(data);
+
+function addCard(e: Event): void {
+  let cardNum: string;
+  const selectedCountEl = document.querySelector(".select span") as HTMLElement;
+  const card = (e.target as HTMLElement).closest('.card') as HTMLElement;
+  if (card) {
+    cardNum = card.dataset.num as string;
+    if (!card.classList.contains('active') && (selectedCards.length < maxSelectCount)) {
+      
+      console.log(cardNum);
+      selectedCards.push(cardNum);
+      card.classList.add('active');
+
+      console.log(selectedCards);
+    }
+    else if (!card.classList.contains('active') && (selectedCards.length === maxSelectCount)) {
+      
+    }
+    else {
+      console.log(cardNum);
+      console.log(selectedCards.indexOf(cardNum));
+      selectedCards.splice(selectedCards.indexOf(cardNum), 1);
+      console.log(selectedCards);
+      card.classList.remove('active');
+    }
+    selectedCount = selectedCards.length;
+    selectedCountEl.textContent = selectedCount.toString();
+  }
+}
+
+cardsContainer.addEventListener('click', (e: Event) => addCard(e));
+
 
