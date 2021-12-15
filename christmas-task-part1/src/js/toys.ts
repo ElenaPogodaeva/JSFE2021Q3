@@ -8,7 +8,10 @@ const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
 const sortSelect = document.querySelector(".sort__select") as HTMLElement;
 
-let filteredByCount:Toy[];// = data.map(item => item.num);
+let filteredByCount:string[] = data.map(item => item.num);
+let filteredByYear:string[] = data.map(item => item.num);
+
+
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -44,21 +47,15 @@ function addCard(e: Event): void {
   if (card) {
     cardNum = card.dataset.num as string;
     if (!card.classList.contains('active') && (selectedCards.length < maxSelectCount)) {
-      
-      console.log(cardNum);
+
       selectedCards.push(cardNum);
       card.classList.add('active');
-
-      console.log(selectedCards);
     }
     else if (!card.classList.contains('active') && (selectedCards.length === maxSelectCount)) {
       //popup
     }
     else {
-      console.log(cardNum);
-      console.log(selectedCards.indexOf(cardNum));
       selectedCards.splice(selectedCards.indexOf(cardNum), 1);
-      console.log(selectedCards);
       card.classList.remove('active');
     }
     selectedCount = selectedCards.length;
@@ -97,9 +94,15 @@ function sortByYear() {
 }
 
 const countSlider = document.querySelector('.count__slider')  as target;
+const yearSlider = document.querySelector('.year__slider')  as target;
+
 const countOutput0 = document.getElementById('count-output-0') as HTMLOutputElement;
 const countOutput1  = document.getElementById('count-output-1') as HTMLOutputElement;
-const output = [countOutput0, countOutput1];
+const countOutput = [countOutput0, countOutput1];
+const yearOutput0 = document.getElementById('year-output-0') as HTMLOutputElement;
+const yearOutput1  = document.getElementById('year-output-1') as HTMLOutputElement;
+const yearOutput = [yearOutput0, yearOutput1];
+
 
 noUiSlider.create(countSlider, {
     start: [1, 12],
@@ -111,19 +114,48 @@ noUiSlider.create(countSlider, {
     step: 1
 });
 
+noUiSlider.create(yearSlider, {
+  start: [1940, 2020],
+  connect: true,
+  range: {
+      'min': 1940,
+      'max': 2020
+  },
+  step: 10
+});
+
 function filter() {
- // data.filter(item => countNums.includes(item.num))
+ // console.log(filteredByYear);
+ // console.log(filteredByCount);
+ console.log(filteredByCount);
+ console.log(filteredByYear);
+  let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num));
+ // console.log(data)
+  drawCards(filteredData);
 }
 
-(countSlider.noUiSlider as API).on('update', function (values, handle) { 
-  
+(countSlider.noUiSlider as API).on('slide', function (values, handle) { 
+
   let minCount = Math.round(+values[0]);
   let maxCount = Math.round(+values[1]);
-  console.log(minCount);
-  console.log(maxCount);
-  output[handle].value = Math.round(+values[handle]).toString();
-  filteredByCount = data.filter(item => (minCount <= +item.count) && (+item.count <= maxCount));
- // map(item => item.num);
- // filter();
-  drawCards(filteredByCount);
+  countOutput[handle].value = Math.round(+values[handle]).toString();
+  filteredByCount = data.filter(item => (minCount <= +item.count) && (+item.count <= maxCount))
+  .map(item => item.num);
+
+  filter();
+ // drawCards(filteredByCount);
 });
+
+(yearSlider.noUiSlider as API).on('slide', function (values, handle) { 
+  
+  let minYear = Math.round(+values[0]);
+  let maxYear = Math.round(+values[1]);
+  
+  yearOutput[handle].value = Math.round(+values[handle]).toString();
+  filteredByYear = data.filter(item => (minYear <= +item.year) && (+item.year <= maxYear))
+  .map(item => item.num);
+
+  filter();
+ // drawCards(filteredByYear);
+});
+

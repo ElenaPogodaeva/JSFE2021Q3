@@ -257,13 +257,13 @@
   color: #fff;
 }
 
-.count__slider {
+.count__slider, .year__slider {
   display: inline-block;
   height: 6px;
   width: 200px;
 }
 
-.count__slider-container {
+.count__slider-container,  .year__slider-container{
   display: flex;
   align-items: center;
   justify-content: space-between;
