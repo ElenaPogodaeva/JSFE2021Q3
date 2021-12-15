@@ -1,6 +1,6 @@
 import data from './data';
 import {Toy} from './types';
-import noUiSlider, {target} from 'nouislider';
+import noUiSlider, {target, API} from 'nouislider';
 
 let selectedCards:string[] = [];
 let selectedCount:number = 0;
@@ -115,3 +115,15 @@ function filter() {
  // data.filter(item => countNums.includes(item.num))
 }
 
+(countSlider.noUiSlider as API).on('update', function (values, handle) { 
+  
+  let minCount = Math.round(+values[0]);
+  let maxCount = Math.round(+values[1]);
+  console.log(minCount);
+  console.log(maxCount);
+  output[handle].value = Math.round(+values[handle]).toString();
+  filteredByCount = data.filter(item => (minCount <= +item.count) && (+item.count <= maxCount));
+ // map(item => item.num);
+ // filter();
+  drawCards(filteredByCount);
+});
