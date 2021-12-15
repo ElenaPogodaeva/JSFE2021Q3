@@ -1,11 +1,14 @@
 import data from './data';
 import {Toy} from './types';
+import noUiSlider, {target} from 'nouislider';
 
 let selectedCards:string[] = [];
 let selectedCount:number = 0;
 const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
 const sortSelect = document.querySelector(".sort__select") as HTMLElement;
+
+let filteredByCount:Toy[];// = data.map(item => item.num);
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -49,7 +52,7 @@ function addCard(e: Event): void {
       console.log(selectedCards);
     }
     else if (!card.classList.contains('active') && (selectedCards.length === maxSelectCount)) {
-      
+      //popup
     }
     else {
       console.log(cardNum);
@@ -91,5 +94,24 @@ function sortByName() {
 
 function sortByYear() {
   return data.sort((a, b) => +a.year - +b.year);
+}
+
+const countSlider = document.querySelector('.count__slider')  as target;
+const countOutput0 = document.getElementById('count-output-0') as HTMLOutputElement;
+const countOutput1  = document.getElementById('count-output-1') as HTMLOutputElement;
+const output = [countOutput0, countOutput1];
+
+noUiSlider.create(countSlider, {
+    start: [1, 12],
+    connect: true,
+    range: {
+        'min': 1,
+        'max': 12
+    },
+    step: 1
+});
+
+function filter() {
+ // data.filter(item => countNums.includes(item.num))
 }
 

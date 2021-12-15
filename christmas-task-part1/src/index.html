@@ -39,7 +39,7 @@
                 <div class="container">
                     <div class="controls">
                         <div class="filters-value">
-                            <h2 class="conrtols__title">Фильтры по значению</h2>
+                            <h2 class="controls__title">Фильтры по значению</h2>
                             <div class="shape">
                                 Форма:
                                 <button class="shape__btn"></button>
@@ -74,14 +74,22 @@
                             </div>
                         </div>
                         <div class="filters-range">
-                            <h2 class="conrtols__title">Фильтры по диапазону</h2>
+                            <div class="controls__title">Фильтры по диапазону</div>
                             <div class="count">
                                 <div class="controls__subtitle">Количество экземпляров</div>
-                                <div class="count__slider"></div>
+                                <div class="count__slider-container">
+                                    <output class="slider-output" id = "count-output-0">1</output>
+                                    <div class="count__slider"></div>
+                                    <output class="slider-output" id = "count-output-1">12</output>
+                                </div>
                             </div>
                             <div class="year">
                                 <div class="controls__subtitle">Год приобретения</div>
-                                <div class="year__slider"></div>
+                                <div class="count__slider-container">
+                                    <output class="slider-output" id = "year-output-0">1940</output>
+                                    <div class="year__slider"></div>
+                                    <output class="slider-output" id = "year-output-1">2020</output>
+                                </div>
                             </div>
                         </div>
                         <div class="sort">

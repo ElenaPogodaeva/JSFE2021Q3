@@ -1,6 +1,6 @@
+import 'nouislider/dist/nouislider.css';
 import './scss/style.scss';
 import './js/toys';
-
 /*import image from './images/lazy.png';
 
 const createImage = (src: string) => new Promise<HTMLImageElement>((res, rej) => {

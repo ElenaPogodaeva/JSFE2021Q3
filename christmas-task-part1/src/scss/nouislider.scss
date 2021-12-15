@@ -1,0 +1,26 @@
+.noUi-target {
+  background: #ffffff;
+  border-radius: 100px;
+  border: none;
+  box-shadow: none;
+}
+.noUi-connect {
+  background: #3FB8AF;
+}
+
+.noUi-handle::before,
+.noUi-handle::after {
+  display: none;
+}
+
+.noUi-handle {
+  border-radius: 100%;
+  background: #FFF;
+  box-shadow: none;
+}
+.noUi-horizontal .noUi-handle {
+  width: 20px;
+  height: 20px;
+  top: -7px;
+  cursor: ew-resize;
+}
