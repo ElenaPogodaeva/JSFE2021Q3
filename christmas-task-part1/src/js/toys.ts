@@ -7,10 +7,11 @@ let selectedCount:number = 0;
 const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
 const sortSelect = document.querySelector(".sort__select") as HTMLElement;
+const shapeContainer = document.querySelector(".shape") as HTMLElement;
 
 let filteredByCount:string[] = data.map(item => item.num);
 let filteredByYear:string[] = data.map(item => item.num);
-
+let filteredByShape:string[] = data.map(item => item.num);
 
 
 function drawCards(data: Toy[]): void {
@@ -103,7 +104,6 @@ const yearOutput0 = document.getElementById('year-output-0') as HTMLOutputElemen
 const yearOutput1  = document.getElementById('year-output-1') as HTMLOutputElement;
 const yearOutput = [yearOutput0, yearOutput1];
 
-
 noUiSlider.create(countSlider, {
     start: [1, 12],
     connect: true,
@@ -127,9 +127,10 @@ noUiSlider.create(yearSlider, {
 function filter() {
  // console.log(filteredByYear);
  // console.log(filteredByCount);
- console.log(filteredByCount);
- console.log(filteredByYear);
-  let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num));
+  console.log(filteredByCount);
+  console.log(filteredByYear);
+  let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
+  filteredByShape.includes(item.num));
  // console.log(data)
   drawCards(filteredData);
 }
@@ -159,3 +160,28 @@ function filter() {
  // drawCards(filteredByYear);
 });
 
+
+function filterByShape(e: Event) {
+
+  if ((e.target as HTMLElement).classList.contains('shape__btn')) {
+    const shapeBtn = e.target as HTMLElement;
+    if (!shapeBtn.classList.contains('active')) {
+      shapeBtn.classList.add('active');
+    }
+    else {
+      shapeBtn.classList.remove('active');
+    }
+    const shapeBtns = Array.from(document.querySelectorAll('.shape__btn.active')  as NodeListOf<HTMLElement>);
+    const shapeArr = shapeBtns.map(item => item.dataset.shape);
+    console.log(shapeArr);
+    if (shapeArr.length !== 0) {
+      filteredByShape = data.filter(item => shapeArr.includes(item.shape)).map(item => item.num);
+    }
+    else {
+      filteredByShape = data.map(item => item.num);
+    }
+    filter();
+  }
+}
+
+shapeContainer.addEventListener('click', (e: Event) => filterByShape(e));

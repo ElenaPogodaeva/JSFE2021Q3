@@ -89,6 +89,10 @@
 .shape__btn:nth-child(5) {
   background-image: url("../assets/svg/toy.svg");
 }
+
+.shape__btn.active {
+  filter: invert(16%) sepia(79%) saturate(6418%) hue-rotate(353deg) brightness(90%) contrast(88%);
+}
 /*
 .color {
   position: relative;
