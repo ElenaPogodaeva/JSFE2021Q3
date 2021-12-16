@@ -9,11 +9,13 @@ const cardsContainer = document.querySelector(".cards") as HTMLElement;
 const sortSelect = document.querySelector(".sort__select") as HTMLElement;
 const shapeContainer = document.querySelector(".shape") as HTMLElement;
 const colorContainer = document.querySelector(".color") as HTMLElement;
+const sizeContainer = document.querySelector(".size") as HTMLElement;
 
 let filteredByCount:string[] = data.map(item => item.num);
 let filteredByYear:string[] = data.map(item => item.num);
 let filteredByShape:string[] = data.map(item => item.num);
 let filteredByColor:string[] = data.map(item => item.num);
+let filteredBySize:string[] = data.map(item => item.num);
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -131,7 +133,7 @@ function filter() {
   console.log(filteredByCount);
   console.log(filteredByYear);
   let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
-  filteredByShape.includes(item.num) && filteredByColor.includes(item.num));
+  filteredByShape.includes(item.num) && filteredByColor.includes(item.num) && filteredBySize.includes(item.num));
  // console.log(data)
   drawCards(filteredData);
 }
@@ -202,3 +204,28 @@ function filterByColor() {
 
 const colorCheckboxes =  Array.from(document.querySelectorAll('input.color__checkbox'));
 colorCheckboxes.forEach(item => item.addEventListener('change', filterByColor));
+
+function filterBySize(e: Event) {
+
+  if ((e.target as HTMLElement).classList.contains('size__btn')) {
+    const sizeBtn = e.target as HTMLElement;
+    if (!sizeBtn.classList.contains('active')) {
+      sizeBtn.classList.add('active');
+    }
+    else {
+      sizeBtn.classList.remove('active');
+    }
+    const sizeBtns = Array.from(document.querySelectorAll('.size__btn.active')  as NodeListOf<HTMLElement>);
+    const sizeArr = sizeBtns.map(item => item.dataset.size);
+    console.log(sizeArr);
+    if (sizeArr.length !== 0) {
+      filteredBySize = data.filter(item => sizeArr.includes(item.size)).map(item => item.num);
+    }
+    else {
+      filteredBySize = data.map(item => item.num);
+    }
+    filter();
+  }
+}
+
+sizeContainer.addEventListener('click', (e: Event) => filterBySize(e));
