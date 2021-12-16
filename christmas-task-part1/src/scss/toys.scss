@@ -138,8 +138,8 @@
 .favorite__label {
   position: relative;
   display: flex;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   backdrop-filter: blur(6px);
   border: 1px solid #278D9F;
   border-radius: 5px;
@@ -193,18 +193,21 @@
 }
 */
 .color__checkbox:checked + .color__label::after,
-.favorite__checkbox:checked + .favorite__label::after{
+.favorite__checkbox:checked + .favorite__label::after {
     content: '';
     display: block;
     position: absolute;
-    top: 6px;
-    left: 9px;
-    width: 6px;
-    height: 10px;
+    top: 3px;
+    left: 7px;
+    width: 8px;
+    height: 12px;
     border: solid #fff;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
     z-index: 1;
+}
+.color__checkbox:nth-of-type(1):checked + .color__label::after {
+  border-color: #666;
 }
 
 .size__btn {

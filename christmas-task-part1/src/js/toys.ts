@@ -8,11 +8,12 @@ const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
 const sortSelect = document.querySelector(".sort__select") as HTMLElement;
 const shapeContainer = document.querySelector(".shape") as HTMLElement;
+const colorContainer = document.querySelector(".color") as HTMLElement;
 
 let filteredByCount:string[] = data.map(item => item.num);
 let filteredByYear:string[] = data.map(item => item.num);
 let filteredByShape:string[] = data.map(item => item.num);
-
+let filteredByColor:string[] = data.map(item => item.num);
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -130,7 +131,7 @@ function filter() {
   console.log(filteredByCount);
   console.log(filteredByYear);
   let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
-  filteredByShape.includes(item.num));
+  filteredByShape.includes(item.num) && filteredByColor.includes(item.num));
  // console.log(data)
   drawCards(filteredData);
 }
@@ -185,3 +186,19 @@ function filterByShape(e: Event) {
 }
 
 shapeContainer.addEventListener('click', (e: Event) => filterByShape(e));
+
+function filterByColor() {
+  const colorChecked = Array.from(document.querySelectorAll('input.color__checkbox:checked')  as NodeListOf<HTMLElement>);
+  const colorArr = colorChecked.map(item => item.dataset.color);
+  console.log(colorArr);
+  if (colorArr.length !== 0) {
+    filteredByColor = data.filter(item => colorArr.includes(item.color)).map(item => item.num);
+  }
+  else {
+    filteredByColor = data.map(item => item.num);
+  }
+  filter();
+}
+
+const colorCheckboxes =  Array.from(document.querySelectorAll('input.color__checkbox'));
+colorCheckboxes.forEach(item => item.addEventListener('change', filterByColor));
