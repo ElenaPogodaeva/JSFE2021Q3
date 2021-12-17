@@ -6,7 +6,7 @@ let selectedCards:string[] = [];
 let selectedCount:number = 0;
 const maxSelectCount = 20;
 const cardsContainer = document.querySelector(".cards") as HTMLElement;
-const sortSelect = document.querySelector(".sort__select") as HTMLElement;
+const sortSelect = document.querySelector(".sort__select") as HTMLSelectElement;
 const shapeContainer = document.querySelector(".shape") as HTMLElement;
 const colorContainer = document.querySelector(".color") as HTMLElement;
 const sizeContainer = document.querySelector(".size") as HTMLElement;
@@ -19,13 +19,14 @@ let filteredByShape:string[] = data.map(item => item.num);
 let filteredByColor:string[] = data.map(item => item.num);
 let filteredBySize:string[] = data.map(item => item.num);
 let filteredByFavorite:string[] = data.map(item => item.num);
+let filteredData:Toy[];// = data.slice();
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
   data.forEach((item) => {
     let card = '';
     const src = `../assets/toys/${item.num}.png`;
-    card = `<div class="card" data-num = ${item.num}>
+    card = `<div class="card${selectedCards.includes(item.num) ? ' active' : ''}" data-num = ${item.num}>
               <h2 class="card__title">${item.name}</h2>
               <div class="card__content">
                 <img class="card__img" src=${src} alt="toy">
@@ -45,7 +46,8 @@ function drawCards(data: Toy[]): void {
     cardsContainer.insertAdjacentHTML('beforeend', card);
   });
 }
-drawCards(data);
+//drawCards(data);
+filter();
 
 function addCard(e: Event): void {
   let cardNum: string;
@@ -72,8 +74,8 @@ function addCard(e: Event): void {
 
 cardsContainer.addEventListener('click', (e: Event) => addCard(e));
 
-function sortCards(e: Event): void {
-  const value = (e.target as HTMLSelectElement).value;
+function sortCards(): void {
+  const value = sortSelect.value;;
   switch(value) {
     case 'sort-name-max': 
       drawCards(sortByName());
@@ -90,14 +92,14 @@ function sortCards(e: Event): void {
   }
 }
 
-sortSelect.addEventListener('change', (e: Event) => sortCards(e));
+sortSelect.addEventListener('change', sortCards);
 
 function sortByName() {
-  return data.sort((a, b) => a.name.localeCompare(b.name));
+  return filteredData.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function sortByYear() {
-  return data.sort((a, b) => +a.year - +b.year);
+  return filteredData.sort((a, b) => +a.year - +b.year);
 }
 
 const countSlider = document.querySelector('.count__slider')  as target;
@@ -135,9 +137,10 @@ function filter() {
  // console.log(filteredByCount);
   console.log(filteredByCount);
   console.log(filteredByYear);
-  let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
+  filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
   filteredByShape.includes(item.num) && filteredByColor.includes(item.num) && filteredBySize.includes(item.num) &&
   filteredByFavorite.includes(item.num));
+  sortCards();
  // console.log(data)
   drawCards(filteredData);
 }
