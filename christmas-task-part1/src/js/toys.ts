@@ -10,12 +10,15 @@ const sortSelect = document.querySelector(".sort__select") as HTMLElement;
 const shapeContainer = document.querySelector(".shape") as HTMLElement;
 const colorContainer = document.querySelector(".color") as HTMLElement;
 const sizeContainer = document.querySelector(".size") as HTMLElement;
+const favoriteCheckbox =  document.querySelector('.favorite__checkbox') as HTMLInputElement;
+
 
 let filteredByCount:string[] = data.map(item => item.num);
 let filteredByYear:string[] = data.map(item => item.num);
 let filteredByShape:string[] = data.map(item => item.num);
 let filteredByColor:string[] = data.map(item => item.num);
 let filteredBySize:string[] = data.map(item => item.num);
+let filteredByFavorite:string[] = data.map(item => item.num);
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
@@ -133,7 +136,8 @@ function filter() {
   console.log(filteredByCount);
   console.log(filteredByYear);
   let filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
-  filteredByShape.includes(item.num) && filteredByColor.includes(item.num) && filteredBySize.includes(item.num));
+  filteredByShape.includes(item.num) && filteredByColor.includes(item.num) && filteredBySize.includes(item.num) &&
+  filteredByFavorite.includes(item.num));
  // console.log(data)
   drawCards(filteredData);
 }
@@ -229,3 +233,16 @@ function filterBySize(e: Event) {
 }
 
 sizeContainer.addEventListener('click', (e: Event) => filterBySize(e));
+
+function filterByFavorite() {
+
+  if (favoriteCheckbox.checked) {
+    filteredByFavorite = data.filter(item => item.favorite).map(item => item.num);
+  }
+  else {
+    filteredByFavorite = data.map(item => item.num);
+  }
+  filter();
+}
+
+favoriteCheckbox.addEventListener('change', filterByFavorite);
