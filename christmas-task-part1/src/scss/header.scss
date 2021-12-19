@@ -42,7 +42,7 @@
 .search {
   width: 254px;
   height: 36px;
-  padding: 6px 14px;
+  padding: 6px 14px 6px 40px;
   font-size: 16px;
   line-height: 19px;
   background-color: #6ba1bd;
@@ -53,9 +53,13 @@
   background-image: url("../assets/svg/search.svg");
   background-size: 20px;
   background-repeat: no-repeat;
-  background-position: 220px center;
+  background-position: 14px center;
   margin-right: 30px;
 }
+.search::placeholder {
+  color: #ffffff;
+}
+
 
 .select {
   width: 48px;

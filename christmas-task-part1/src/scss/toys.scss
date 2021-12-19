@@ -363,3 +363,9 @@
 .card.active .card__button {
   filter: invert(16%) sepia(79%) saturate(6418%) hue-rotate(353deg) brightness(90%) contrast(88%);
 }
+
+.not-found {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 24px;
+}

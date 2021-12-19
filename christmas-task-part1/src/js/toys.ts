@@ -11,6 +11,11 @@ const shapeContainer = document.querySelector(".shape") as HTMLElement;
 const colorContainer = document.querySelector(".color") as HTMLElement;
 const sizeContainer = document.querySelector(".size") as HTMLElement;
 const favoriteCheckbox =  document.querySelector('.favorite__checkbox') as HTMLInputElement;
+const resetBtn = document.querySelector(".reset") as HTMLElement;
+const searchInput = document.querySelector(".search") as HTMLInputElement;
+const colorCheckboxes =  Array.from(document.querySelectorAll('input.color__checkbox') as NodeListOf<HTMLInputElement>);
+const shapeBtns = Array.from(document.querySelectorAll('.shape__btn')  as NodeListOf<HTMLElement>);
+const sizeBtns = Array.from(document.querySelectorAll('.size__btn')  as NodeListOf<HTMLElement>);
 
 
 let filteredByCount:string[] = data.map(item => item.num);
@@ -20,9 +25,14 @@ let filteredByColor:string[] = data.map(item => item.num);
 let filteredBySize:string[] = data.map(item => item.num);
 let filteredByFavorite:string[] = data.map(item => item.num);
 let filteredData:Toy[];// = data.slice();
+let searchData:string[] = data.map(item => item.num);
 
 function drawCards(data: Toy[]): void {
   cardsContainer.innerHTML = '';
+  if (data.length === 0) {
+    cardsContainer.innerHTML = `<p class="not-found">Извините, совпадений не обнаружено</p>`;
+    return;
+  }
   data.forEach((item) => {
     let card = '';
     const src = `../assets/toys/${item.num}.png`;
@@ -48,6 +58,8 @@ function drawCards(data: Toy[]): void {
 }
 //drawCards(data);
 filter();
+searchInput.focus();
+
 
 function addCard(e: Event): void {
   let cardNum: string;
@@ -75,7 +87,7 @@ function addCard(e: Event): void {
 cardsContainer.addEventListener('click', (e: Event) => addCard(e));
 
 function sortCards(): void {
-  const value = sortSelect.value;;
+  const value = sortSelect.value;
   switch(value) {
     case 'sort-name-max': 
       drawCards(sortByName());
@@ -135,13 +147,11 @@ noUiSlider.create(yearSlider, {
 function filter() {
  // console.log(filteredByYear);
  // console.log(filteredByCount);
-  console.log(filteredByCount);
-  console.log(filteredByYear);
   filteredData = data.filter(item => filteredByCount.includes(item.num) && filteredByYear.includes(item.num) &&
   filteredByShape.includes(item.num) && filteredByColor.includes(item.num) && filteredBySize.includes(item.num) &&
-  filteredByFavorite.includes(item.num));
+  filteredByFavorite.includes(item.num) && searchData.includes(item.num));
   sortCards();
- // console.log(data)
+  console.log(filteredData);
   drawCards(filteredData);
 }
 
@@ -168,6 +178,7 @@ function filter() {
 
   filter();
  // drawCards(filteredByYear);
+  console.log('1');
 });
 
 
@@ -191,6 +202,7 @@ function filterByShape(e: Event) {
       filteredByShape = data.map(item => item.num);
     }
     filter();
+   // setLocalStorage();
   }
 }
 
@@ -207,21 +219,23 @@ function filterByColor() {
     filteredByColor = data.map(item => item.num);
   }
   filter();
+  console.log('changed');
+ // setLocalStorage();
 }
 
-const colorCheckboxes =  Array.from(document.querySelectorAll('input.color__checkbox'));
 colorCheckboxes.forEach(item => item.addEventListener('change', filterByColor));
 
 function filterBySize(e: Event) {
 
   if ((e.target as HTMLElement).classList.contains('size__btn')) {
     const sizeBtn = e.target as HTMLElement;
-    if (!sizeBtn.classList.contains('active')) {
-      sizeBtn.classList.add('active');
-    }
-    else {
-      sizeBtn.classList.remove('active');
-    }
+   // if (!sizeBtn.classList.contains('active')) {
+    //  sizeBtn.classList.add('active');
+   // }
+    //else {
+   //  sizeBtn.classList.remove('active');
+   // }
+    sizeBtn.classList.toggle('active');
     const sizeBtns = Array.from(document.querySelectorAll('.size__btn.active')  as NodeListOf<HTMLElement>);
     const sizeArr = sizeBtns.map(item => item.dataset.size);
     console.log(sizeArr);
@@ -232,6 +246,7 @@ function filterBySize(e: Event) {
       filteredBySize = data.map(item => item.num);
     }
     filter();
+   // setLocalStorage();
   }
 }
 
@@ -249,3 +264,18 @@ function filterByFavorite() {
 }
 
 favoriteCheckbox.addEventListener('change', filterByFavorite);
+
+
+function search(): void {
+  const input = searchInput.value as string;
+  if (input.length !== 0) {
+    searchData = data.filter(item => item.name.toLowerCase().includes(input.toLowerCase())).map(item => item.num);
+  }
+  else {
+    searchData = data.map(item => item.num);
+  }
+  filter();
+}
+
+searchInput.addEventListener('input', search);
+
