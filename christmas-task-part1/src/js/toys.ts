@@ -117,12 +117,12 @@ function sortByYear() {
 const countSlider = document.querySelector('.count__slider')  as target;
 const yearSlider = document.querySelector('.year__slider')  as target;
 
-const countOutput0 = document.getElementById('count-output-0') as HTMLOutputElement;
-const countOutput1  = document.getElementById('count-output-1') as HTMLOutputElement;
-const countOutput = [countOutput0, countOutput1];
-const yearOutput0 = document.getElementById('year-output-0') as HTMLOutputElement;
-const yearOutput1  = document.getElementById('year-output-1') as HTMLOutputElement;
-const yearOutput = [yearOutput0, yearOutput1];
+const countOutput1 = document.getElementById('count-output-1') as HTMLOutputElement;
+const countOutput2  = document.getElementById('count-output-2') as HTMLOutputElement;
+const countOutput = [countOutput1, countOutput2];
+const yearOutput1 = document.getElementById('year-output-1') as HTMLOutputElement;
+const yearOutput2  = document.getElementById('year-output-2') as HTMLOutputElement;
+const yearOutput = [yearOutput1, yearOutput2];
 
 noUiSlider.create(countSlider, {
     start: [1, 12],
@@ -155,24 +155,27 @@ function filter() {
   drawCards(filteredData);
 }
 
+function setOutput(output: HTMLOutputElement[], values: (string | number)[]) {
+  [output[0].value, output[1].value] = [Math.round(+values[0]).toString(), Math.round(+values[1]).toString()];
+}
+
 (countSlider.noUiSlider as API).on('slide', function (values, handle) { 
 
   let minCount = Math.round(+values[0]);
   let maxCount = Math.round(+values[1]);
-  countOutput[handle].value = Math.round(+values[handle]).toString();
+  setOutput(countOutput, values);
+  //countOutput[handle].value = Math.round(+values[handle]).toString();
   filteredByCount = data.filter(item => (minCount <= +item.count) && (+item.count <= maxCount))
   .map(item => item.num);
-
   filter();
- // drawCards(filteredByCount);
 });
 
 (yearSlider.noUiSlider as API).on('slide', function (values, handle) { 
   
   let minYear = Math.round(+values[0]);
   let maxYear = Math.round(+values[1]);
-  
-  yearOutput[handle].value = Math.round(+values[handle]).toString();
+  setOutput(yearOutput, values);
+  //yearOutput[handle].value = Math.round(+values[handle]).toString();
   filteredByYear = data.filter(item => (minYear <= +item.year) && (+item.year <= maxYear))
   .map(item => item.num);
 
@@ -278,4 +281,52 @@ function search(): void {
 }
 
 searchInput.addEventListener('input', search);
+
+
+function resetFilters(): void {
+  filteredByCount = data.map(item => item.num);
+  filteredByYear = data.map(item => item.num);
+  filteredByShape = data.map(item => item.num);
+  filteredByColor = data.map(item => item.num);
+  filteredBySize = data.map(item => item.num);
+  filteredByFavorite = data.map(item => item.num);
+ // filteredData = data.slice();
+ // sortCards();
+ // drawCards(filteredData);
+  filter();
+
+  shapeBtns.forEach((item) => {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active');
+    }
+  });
+
+  sizeBtns.forEach((item) => {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active');
+    }
+  });
+
+  const colorChecked = Array.from(document.querySelectorAll('.color__checkbox:checked')  as NodeListOf<HTMLInputElement>);
+  colorChecked.forEach((item) => {
+    item.checked = false;
+  });
+
+  if (favoriteCheckbox.checked) {
+    favoriteCheckbox.checked = false;
+  }
+
+  (countSlider.noUiSlider as API).reset();
+  const countValues = (countSlider.noUiSlider as API).get() as string[];
+
+  setOutput(countOutput, countValues);
+
+  (yearSlider.noUiSlider as API).reset();
+  const yearValues = (yearSlider.noUiSlider as API).get() as string[];
+
+  setOutput(yearOutput, yearValues);
+}
+
+resetBtn.addEventListener('click', resetFilters);
+
 
