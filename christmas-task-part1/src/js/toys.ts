@@ -51,6 +51,7 @@ function drawCards(data: Toy[]): void {
                 </div>
                 <div class="card__button"></div>
               </div>
+              <span class="popuptext" data-num="${item.num}">Извините, все слоты заполнены</span>
             </div>`;
     
     //cardsContainer.innerHTML+=card;
@@ -64,17 +65,26 @@ searchInput.focus();
 
 function addCard(e: Event): void {
   let cardNum: string;
-  //selectedCountEl = document.querySelector(".select span") as HTMLElement;
   const card = (e.target as HTMLElement).closest('.card') as HTMLElement;
-  if (card) {
-    cardNum = card.dataset.num as string;
-    if (!card.classList.contains('active') && (selectedCards.length < maxSelectCount)) {
 
+  if ((e.target as HTMLElement).closest('.card')) {
+    cardNum = card.dataset.num as string;
+
+    let popupItems = Array.from(document.querySelectorAll('.popuptext')  as NodeListOf<HTMLElement>);
+    popupItems = popupItems.filter(el => el.dataset.num !== cardNum);
+    popupItems.forEach(item => {
+      if (item.classList.contains('show')) {
+        item.classList.remove('show');
+      }
+    });
+
+    if (!card.classList.contains('active') && (selectedCards.length < maxSelectCount)) {
       selectedCards.push(cardNum);
       card.classList.add('active');
     }
     else if (!card.classList.contains('active') && (selectedCards.length === maxSelectCount)) {
-      //popup
+      const popupEl = document.querySelector(`.popuptext[data-num="${cardNum}"]`) as HTMLElement;
+      popupEl.classList.toggle("show");
     }
     else {
       selectedCards.splice(selectedCards.indexOf(cardNum), 1);
@@ -82,7 +92,6 @@ function addCard(e: Event): void {
     }
     selectedCount = selectedCards.length;
     selectedCountEl.textContent = selectedCount.toString();
-    console.log(selectedCards)
   }
 }
 
