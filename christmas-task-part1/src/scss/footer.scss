@@ -1,0 +1,46 @@
+.footer {
+  background-color: #2a668b;
+}
+.footer__info {
+  display: flex;
+  align-items: center;
+}
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.github {
+  text-decoration: none;
+  color: #fff;
+  padding: 0 20px;
+  transition: .3s;
+}
+.github:hover {
+  color: #24C5DB;
+}
+.rsschool {
+  width: 160px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../assets/svg/rss.svg");
+  transition: .3s;
+}
+.rsschool:hover {
+  filter: invert(45%) sepia(92%) saturate(1439%) hue-rotate(146deg) brightness(87%) contrast(96%);
+}
+
+@media(max-width: 650px) {
+  .main-row {
+    display: block;
+  }
+  .shape,
+  .color,
+  .size,
+  .favorite {
+    flex-wrap: wrap;
+  }
+}

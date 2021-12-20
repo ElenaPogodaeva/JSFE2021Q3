@@ -83,10 +83,11 @@ $bg-dark: #192f2d;
 @import './header.scss';
 @import './toys.scss';
 @import './nouislider.scss';
+@import './footer.scss';
 
 /* Общие стили */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -99,18 +100,17 @@ body {
   margin: 0 auto;
   padding: 0px 15px;
   @media(max-width:1024px) {
-  max-width: 1014px;
-}
-  @media(max-width:768px) {
-  max-width: 758px;
-}
-  @media(max-width:420px) {
-  max-width: 410px;
-}
+    max-width: 1014px;
+  }
+    @media(max-width:768px) {
+    max-width: 758px;
+  }
+    @media(max-width:420px) {
+    max-width: 410px;
+  }
 }
 .wrapper {
   min-height: 100%;
- // overflow: hidden;
   display: flex;
   flex-direction: column;
 }
