@@ -11,12 +11,13 @@ const shapeContainer = document.querySelector(".shape") as HTMLElement;
 const colorContainer = document.querySelector(".color") as HTMLElement;
 const sizeContainer = document.querySelector(".size") as HTMLElement;
 const favoriteCheckbox =  document.querySelector('.favorite__checkbox') as HTMLInputElement;
-const resetBtn = document.querySelector(".reset") as HTMLElement;
+const resetFiltersBtn = document.getElementById("reset-filters") as HTMLElement;
+const resetStorageBtn = document.getElementById("reset-storage") as HTMLElement;
 const searchInput = document.querySelector(".search") as HTMLInputElement;
 const colorCheckboxes =  Array.from(document.querySelectorAll('input.color__checkbox') as NodeListOf<HTMLInputElement>);
 const shapeBtns = Array.from(document.querySelectorAll('.shape__btn')  as NodeListOf<HTMLElement>);
 const sizeBtns = Array.from(document.querySelectorAll('.size__btn')  as NodeListOf<HTMLElement>);
-
+const selectedCountEl = document.querySelector(".select span") as HTMLElement;
 
 let filteredByCount:string[] = data.map(item => item.num);
 let filteredByYear:string[] = data.map(item => item.num);
@@ -63,7 +64,7 @@ searchInput.focus();
 
 function addCard(e: Event): void {
   let cardNum: string;
-  const selectedCountEl = document.querySelector(".select span") as HTMLElement;
+  //selectedCountEl = document.querySelector(".select span") as HTMLElement;
   const card = (e.target as HTMLElement).closest('.card') as HTMLElement;
   if (card) {
     cardNum = card.dataset.num as string;
@@ -81,6 +82,7 @@ function addCard(e: Event): void {
     }
     selectedCount = selectedCards.length;
     selectedCountEl.textContent = selectedCount.toString();
+    console.log(selectedCards)
   }
 }
 
@@ -159,7 +161,7 @@ function setOutput(output: HTMLOutputElement[], values: (string | number)[]) {
   [output[0].value, output[1].value] = [Math.round(+values[0]).toString(), Math.round(+values[1]).toString()];
 }
 
-(countSlider.noUiSlider as API).on('slide', function (values, handle) { 
+(countSlider.noUiSlider as API).on('update', function (values, handle) { 
 
   let minCount = Math.round(+values[0]);
   let maxCount = Math.round(+values[1]);
@@ -170,7 +172,7 @@ function setOutput(output: HTMLOutputElement[], values: (string | number)[]) {
   filter();
 });
 
-(yearSlider.noUiSlider as API).on('slide', function (values, handle) { 
+(yearSlider.noUiSlider as API).on('update', function (values, handle) { 
   
   let minYear = Math.round(+values[0]);
   let maxYear = Math.round(+values[1]);
@@ -185,16 +187,8 @@ function setOutput(output: HTMLOutputElement[], values: (string | number)[]) {
 });
 
 
-function filterByShape(e: Event) {
+function filterByShape(): void {
 
-  if ((e.target as HTMLElement).classList.contains('shape__btn')) {
-    const shapeBtn = e.target as HTMLElement;
-    if (!shapeBtn.classList.contains('active')) {
-      shapeBtn.classList.add('active');
-    }
-    else {
-      shapeBtn.classList.remove('active');
-    }
     const shapeBtns = Array.from(document.querySelectorAll('.shape__btn.active')  as NodeListOf<HTMLElement>);
     const shapeArr = shapeBtns.map(item => item.dataset.shape);
     console.log(shapeArr);
@@ -204,14 +198,18 @@ function filterByShape(e: Event) {
     else {
       filteredByShape = data.map(item => item.num);
     }
-    filter();
-   // setLocalStorage();
-  }
 }
 
-shapeContainer.addEventListener('click', (e: Event) => filterByShape(e));
+shapeContainer.addEventListener('click', (e: Event) => {
+  if ((e.target as HTMLElement).classList.contains('shape__btn')) {
+    const shapeBtn = e.target as HTMLElement;
+    shapeBtn.classList.toggle('active');
+    filterByShape();
+    filter();
+  }
+});
 
-function filterByColor() {
+function filterByColor(): void {
   const colorChecked = Array.from(document.querySelectorAll('input.color__checkbox:checked')  as NodeListOf<HTMLElement>);
   const colorArr = colorChecked.map(item => item.dataset.color);
   console.log(colorArr);
@@ -222,23 +220,12 @@ function filterByColor() {
     filteredByColor = data.map(item => item.num);
   }
   filter();
-  console.log('changed');
- // setLocalStorage();
 }
 
 colorCheckboxes.forEach(item => item.addEventListener('change', filterByColor));
 
-function filterBySize(e: Event) {
+function filterBySize() {
 
-  if ((e.target as HTMLElement).classList.contains('size__btn')) {
-    const sizeBtn = e.target as HTMLElement;
-   // if (!sizeBtn.classList.contains('active')) {
-    //  sizeBtn.classList.add('active');
-   // }
-    //else {
-   //  sizeBtn.classList.remove('active');
-   // }
-    sizeBtn.classList.toggle('active');
     const sizeBtns = Array.from(document.querySelectorAll('.size__btn.active')  as NodeListOf<HTMLElement>);
     const sizeArr = sizeBtns.map(item => item.dataset.size);
     console.log(sizeArr);
@@ -248,12 +235,17 @@ function filterBySize(e: Event) {
     else {
       filteredBySize = data.map(item => item.num);
     }
-    filter();
    // setLocalStorage();
-  }
 }
 
-sizeContainer.addEventListener('click', (e: Event) => filterBySize(e));
+sizeContainer.addEventListener('click', (e: Event) => {
+  if ((e.target as HTMLElement).classList.contains('size__btn')) {
+    const sizeBtn = e.target as HTMLElement;
+    sizeBtn.classList.toggle('active');
+    filterBySize();
+    filter();
+  }
+});
 
 function filterByFavorite() {
 
@@ -282,7 +274,6 @@ function search(): void {
 
 searchInput.addEventListener('input', search);
 
-
 function resetFilters(): void {
   filteredByCount = data.map(item => item.num);
   filteredByYear = data.map(item => item.num);
@@ -290,11 +281,8 @@ function resetFilters(): void {
   filteredByColor = data.map(item => item.num);
   filteredBySize = data.map(item => item.num);
   filteredByFavorite = data.map(item => item.num);
- // filteredData = data.slice();
- // sortCards();
- // drawCards(filteredData);
-  filter();
-
+  searchData = data.map(item => item.num);
+  
   shapeBtns.forEach((item) => {
     if (item.classList.contains('active')) {
       item.classList.remove('active');
@@ -325,8 +313,123 @@ function resetFilters(): void {
   const yearValues = (yearSlider.noUiSlider as API).get() as string[];
 
   setOutput(yearOutput, yearValues);
+
+  searchInput.value='';
+  filter();
 }
 
-resetBtn.addEventListener('click', resetFilters);
+resetFiltersBtn.addEventListener('click', resetFilters);
 
+function resetStorage(): void {
+  localStorage.clear();
+  selectedCards.length = 0;
+  selectedCountEl.textContent = '0';
+  sortSelect.value = 'sort-name-max';
+  resetFilters();
+}
 
+resetStorageBtn.addEventListener('click', resetStorage);
+
+function setLocalStorage() {
+
+  const shapeValues = shapeBtns.map(function(el) {
+    return el.classList.contains('active') ? 1 : 0;
+  });
+
+  localStorage.setItem('shape', JSON.stringify(shapeValues));
+
+  const colorValues = colorCheckboxes.map(function(el) {
+    return el.checked ? 1 : 0;
+  });
+
+  localStorage.setItem('color', JSON.stringify(colorValues));
+
+  const sizeValues = sizeBtns.map(function(el) {
+    return el.classList.contains('active') ? 1 : 0;
+  });
+
+  localStorage.setItem('size', JSON.stringify(sizeValues));
+
+  const favorite = favoriteCheckbox.checked ? 1 : 0;
+
+  localStorage.setItem('favorite', JSON.stringify(favorite));
+
+  const countValues = (countSlider.noUiSlider as API).get();
+  localStorage.setItem('count-slider', JSON.stringify(countValues));
+
+  const yearValues = (yearSlider.noUiSlider as API).get();
+  localStorage.setItem('year-slider', JSON.stringify(yearValues));
+
+  localStorage.setItem('sort', JSON.stringify(sortSelect.value));
+
+  localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+}
+
+window.addEventListener("beforeunload", setLocalStorage);
+
+function getLocalStorage() {
+  if (localStorage.getItem('shape')) {
+    const shapeValues = JSON.parse(localStorage.getItem('shape') as string) || [];
+
+    shapeValues.forEach(function(val: number, idx: number) {
+      if (val === 1) {
+        shapeBtns[idx].classList.add('active');
+      }
+    });
+    filterByShape();
+  }
+  if (localStorage.getItem('color')) {
+    const colorValues = JSON.parse(localStorage.getItem('color') as string) || [];
+
+    colorValues.forEach(function(val: number, idx: number) {
+      if (val === 1) {
+        colorCheckboxes[idx].checked = true;
+      }
+    });
+    filterByColor();
+  }
+  if (localStorage.getItem('size')) {
+    const sizeValues = JSON.parse(localStorage.getItem('size') as string) || [];
+
+    sizeValues.forEach(function(val: number, idx: number) {
+      if (val === 1) {
+        sizeBtns[idx].classList.add('active');
+      }
+    });
+    filterBySize();
+  }
+  if (localStorage.getItem('favorite')) {
+    const favorite = JSON.parse(localStorage.getItem('favorite') as string) || [];
+
+    if (favorite === 1) {
+      favoriteCheckbox.checked = true;
+    }
+    filterByFavorite();
+  }
+  
+  if (localStorage.getItem('count-slider')) {
+    const countValues = JSON.parse(localStorage.getItem('count-slider') as string) || [];
+    (countSlider.noUiSlider as API).set([countValues[0], countValues[1]]);
+    setOutput(countOutput, countValues);
+  }
+
+  if (localStorage.getItem('year-slider')) {
+    const yearValues = JSON.parse(localStorage.getItem('year-slider') as string) || [];
+    (yearSlider.noUiSlider as API).set([yearValues[0], yearValues[1]]);
+    setOutput(yearOutput, yearValues);
+  }
+
+  if (localStorage.getItem('sort')) {
+    const sort = JSON.parse(localStorage.getItem('sort') as string) || [];
+    sortSelect.value = sort;
+  }
+
+  if (localStorage.getItem('selectedCards')) {
+    selectedCards = JSON.parse(localStorage.getItem('selectedCards') as string) || [];
+    console.log(selectedCards);
+    selectedCountEl.textContent = selectedCards.length.toString();
+  } 
+  filter();
+}
+
+window.addEventListener("load", getLocalStorage);
