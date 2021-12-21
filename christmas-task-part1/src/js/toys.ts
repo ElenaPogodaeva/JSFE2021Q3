@@ -35,7 +35,7 @@ function drawCards(dataArr: Toy[]): void {
   }
   dataArr.forEach((item) => {
     let card = '';
-    const src = `../assets/toys/${item.num}.png`;
+    const src = `./assets/toys/${item.num}.png`;
     card = `<div class="card${selectedCards.includes(item.num) ? ' active' : ''}" data-num = ${item.num}>
               <h2 class="card__title">${item.name}</h2>
               <div class="card__content">
@@ -415,7 +415,6 @@ function getLocalStorage() {
 
   if (localStorage.getItem('selectedCards')) {
     selectedCards = JSON.parse(localStorage.getItem('selectedCards') as string) || [];
-    console.log(selectedCards);
     selectedCountEl.textContent = selectedCards.length.toString();
   }
   filter();
