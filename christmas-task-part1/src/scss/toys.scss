@@ -18,7 +18,7 @@
   flex-wrap: wrap;
   padding:20px 0;
   gap:10px;
-  padding-right: 20px;
+  padding-right: 15px;
 }
 
 .filters-value,
@@ -28,6 +28,7 @@
   padding: 10px 20px;
   background-color: #367499e0;//#367499d4;
   backdrop-filter: blur(6px);
+  border: 1px solid #269eba;
 }
 
 .controls__title {
@@ -69,7 +70,7 @@
 }
 .shape__btn:nth-child(1) {
   background-image: url("../assets/svg/ball.svg");
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .shape__btn:nth-child(2) {
   background-image: url("../assets/svg/bell.svg");
@@ -111,7 +112,7 @@
 
 .color__label:nth-of-type(1) {
   background-color: #ffffff;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .color__label:nth-of-type(2) {
   background-color: #FDD700;
@@ -148,7 +149,7 @@
   background-image: url(../assets/svg/ball.svg);
 }
 .size__btn:nth-child(1) {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .size__btn:nth-child(2) {
   background-size: 24px 24px;
@@ -158,8 +159,9 @@
 }
 
 .favorite__label:nth-of-type(1) {
-  background-color: #6ba1bd;;
-  margin-left: 20px;
+  background-color: #6ba1bd;
+  margin-left: 10px;
+  border: 1px solid #b7dbe6;
 }
 
 .sort__select {
@@ -237,6 +239,7 @@
   padding-bottom: 20px;
   padding: 20px 0;
   align-content: flex-start;
+  padding-bottom: 40px;
 }
 .card {
   border-radius: 10px;
@@ -337,3 +340,47 @@
   from {opacity: 0;}
   to {opacity:1 ;}
 }
+
+@media(max-width: 950px) {
+  .card__description p {
+    font-size: 14px;
+  }
+  .card {
+    width: 255px;
+  }
+}
+
+@media(max-width: 650px) {
+  .main-row {
+    display: block;
+  }
+  .shape,
+  .color,
+  .size,
+  .favorite {
+    flex-wrap: wrap;
+  }
+}
+/*
+@media(max-width: 890px) {
+  .main-row  {
+    display: block;
+  }
+  .controls {
+    flex-direction: row;
+  }
+  .filters-value,
+  .filters-range,
+  .sort {
+    width: 49%;
+  }
+}
+
+@media(max-width: 660px) {
+  .filters-value,
+  .filters-range,
+  .sort {
+    width: 100%;
+  }
+}
+*/
