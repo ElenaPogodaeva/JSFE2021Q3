@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
 </head>
+
 <body>
     <div class="wrapper">
         <header class="header">
@@ -36,7 +38,7 @@
                 </div>
             </div>
         </header>
-        <div class="main-page">
+        <div class="main-page page hide">
             <div class="blur">
                 <div class="container">
                     <div class="main-row">
@@ -55,6 +57,7 @@
                                     Цвет:
                                     <input data-color="белый" class="color__checkbox" type="checkbox" id="checkbox1">
                                     <label class="color__label" for="checkbox1"></label>
+                                
                                     <input data-color="желтый" class="color__checkbox" type="checkbox" id="checkbox2">
                                     <label class="color__label" for="checkbox2"></label>
                                     <input data-color="красный" class="color__checkbox" type="checkbox" id="checkbox3">
@@ -81,17 +84,17 @@
                                 <div class="count">
                                     <div class="controls__subtitle">Количество экземпляров</div>
                                     <div class="count__slider-container">
-                                        <output class="slider-output" id = "count-output-1">1</output>
+                                        <output class="slider-output" id="count-output-1">1</output>
                                         <div class="count__slider"></div>
-                                        <output class="slider-output" id = "count-output-2">12</output>
+                                        <output class="slider-output" id="count-output-2">12</output>
                                     </div>
                                 </div>
                                 <div class="year">
                                     <div class="controls__subtitle">Год приобретения</div>
                                     <div class="count__slider-container">
-                                        <output class="slider-output" id = "year-output-1">1940</output>
+                                        <output class="slider-output" id="year-output-1">1940</output>
                                         <div class="year__slider"></div>
-                                        <output class="slider-output" id = "year-output-2">2020</output>
+                                        <output class="slider-output" id="year-output-2">2020</output>
                                     </div>
                                 </div>
                             </div>
@@ -110,10 +113,106 @@
                         <div class="cards">
                         </div>
                     </div>
-                    
                 </div>
             </div>
-
+        </div>
+        <div class="tree-page page">
+            <div class="blur">
+                <div class="tree-page__container container">
+                    <div class="tree-page__settings settings">
+                        <div class="snow-container settings__container">
+                            <div class="audio settings__item"></div>
+                            <div class="snow settings__item"></div>
+                        </div>
+                        <div class="tree-container">
+                            <div class="settings__title">Выберите ёлку</div>
+                            <div class="settings__container">
+                                <div class="tree settings__item" data-tree="1">
+                                </div>
+                                <div class="tree settings__item" data-tree="2">
+                                </div>
+                                <div class="tree settings__item" data-tree="3">
+                                </div>
+                                <div class="tree settings__item" data-tree="4">
+                                </div>
+                                <div class="tree settings__item" data-tree="5">
+                                </div>
+                                <div class="tree settings__item" data-tree="6">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-container">
+                            <div class="settings__title">Выберите фон</div>
+                            <div class="settings__container">
+                                <div class="bg settings__item">
+                                </div>
+                                <div class="bg settings__item">
+                                </div>
+                                <div class="bg settings__item">
+                                </div>
+                                <div class="bg settings__item">
+                                </div>
+                                <div class="bg settings__item">
+                                </div>
+                                <div class="bg settings__item">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="garland-container">
+                            <div class="settings__title">Гирлянда</div>
+                            <div class="garland-settings settings__container">
+                                <div class="garland-btns">
+                                   <!-- <button class="garland-btn">
+                                    </button>
+                                    <button class="garland-btn" data-color="red">
+                                    </button>
+                                    <button class="garland-btn" data-color="blue">
+                                    </button>
+                                    <button class="garland-btn" data-color="yellow">
+                                    </button>
+                                    <button class="garland-btn" data-color="green">
+                                    </button>-->
+                                    <input value="multicolor" class="garland-radio" name="garland" type="radio" id="radio1" checked>
+                                    <label class="garland-label" for="radio1"></label>
+                                    <input value="red" class="garland-radio" name="garland" type="radio" id="radio2">
+                                    <label class="garland-label" for="radio2"></label>
+                                    <input value="blue" class="garland-radio" name="garland" type="radio" id="radio3">
+                                    <label class="garland-label" for="radio3"></label>
+                                    <input value="yellow" class="garland-radio" name="garland" type="radio" id="radio4">
+                                    <label class="garland-label" for="radio4"></label>
+                                    <input value="green" class="garland-radio" name="garland" type="radio" id="radio5">
+                                    <label class="garland-label" for="radio5"></label>
+                                </div>
+                                <div class="switch">
+                                    <input class="switch-checkbox" type="checkbox" id="switch-garland">
+                                    <label class="switch-label" for="switch-garland"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-tree-container">
+                        <div class="garland-tree-container">
+                        <!--   <ul class="lightrope">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <ul class="lightrope">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>--> 
+                        </div>
+                        <img src="./assets/tree/1.png" alt="main-tree" class="main-tree">
+                    </div>
+                    <div class="tree-page__cards">
+                        <div class="selected-cards">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         </main>
         <footer class="footer">
@@ -127,4 +226,5 @@
         </footer>
     </div>
 </body>
+
 </html>
