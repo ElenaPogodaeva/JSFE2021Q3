@@ -40,10 +40,16 @@
   margin-right: 40px;
   background-image: url("../assets/svg/audio.svg");
 }
+
 .snow {
   width: 40px;
   height: 40px;
   background-image: url("../assets/svg/snow.svg");
+}
+.audio.play,
+.snow.play {
+  filter: invert(45%) sepia(92%) saturate(1439%) hue-rotate(146deg) brightness(87%) contrast(96%);
+  filter: saturate(1.5) brightness(.8);
 }
 .tree {
   width: 115px;

@@ -11,8 +11,11 @@ const snow = document.querySelector('.snow') as HTMLImageElement;
 //const garlandBtns = document.querySelector('.garland-btns') as HTMLElement;
 const switchGarlandCheckbox = document.getElementById('switch-garland') as HTMLInputElement;
 const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as NodeListOf<HTMLInputElement>);
+const audioBtn = document.querySelector('.audio') as HTMLElement;
+
 
 let isGarlandOn = false;
+let isPlay = false;
 let garlandColor: string;
 console.log('sel'+selectedCards);
 
@@ -38,6 +41,23 @@ function setBg(e: Event): void {
 
 bgContainer.addEventListener('click', (e: Event) => setBg(e));
 
+const audio = new Audio();
+
+function playAudio() {
+  if (!isPlay) {
+    audio.src = './assets/audio/audio.mp3';
+    audio.currentTime = 0;
+    audio.play();
+    isPlay = true;
+  }
+  else {
+    audio.pause();
+    isPlay = false;
+  }
+  audioBtn.classList.toggle('play');
+}
+
+audioBtn.addEventListener('click', playAudio);
 
 function addGarland(): void {
   var startAngle = Math.PI / 10,
@@ -177,6 +197,9 @@ cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
   }
 });
 */
+
+
+
 
 
 let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
@@ -379,6 +402,7 @@ for(let i = 0; i < targets.length; i++) {
  // targets[i].addEventListener("dragleave", handleDragEnterLeave);
 } 
 */
+
 
 
 
