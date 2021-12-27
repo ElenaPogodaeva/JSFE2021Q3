@@ -3,7 +3,7 @@
   min-height: 100vh;
 }
 .settings {
-  flex: 0 0 30%;
+  flex: 0 0 20%;
   padding-top:30px;
 }
 .settings__title {
@@ -101,6 +101,18 @@
 .bg:nth-child(6) {
   background-image: url("../assets/bg/6.jpg");
 }
+.bg:nth-child(7) {
+  background-image: url("../assets/bg/7.jpg");
+}
+.bg:nth-child(8) {
+  background-image: url("../assets/bg/8.jpg");
+}
+.bg:nth-child(9) {
+  background-image: url("../assets/bg/9.jpg");
+}
+.bg:nth-child(10) {
+  background-image: url("../assets/bg/10.jpg");
+}
 
 .main-tree-container {
   background-image: url("../assets/bg/1.jpg");
@@ -111,11 +123,27 @@
   align-items: flex-end;
   justify-content: center;
 
-  height: 100vh;
   min-height: 750px;
   width: 800px;
   padding-bottom: 20px;
   overflow: hidden;
+
+  position: relative;
+
+}
+
+.snow-container, .garland-tree-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  pointer-events: none;
+}
+.garland-tree-container {
+  display: flex;
+  justify-content: center;
+
 }
 
 .garland-btns {
@@ -130,6 +158,7 @@
   display: block;
   width: 500px;
   height: 714px;
+  max-width: none;
 }
 
 .fa-snowflake {
@@ -239,4 +268,53 @@
 }
 .switch-checkbox:checked + .switch-label::after {
   left: 28px;
+}
+
+.selected-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: absolute;
+}
+
+.selected-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 84px;
+  height: 84px;
+  background-color: rgba(255, 255, 255, .5);
+  position: relative;
+}
+
+.selected-card__img {
+  display: block;
+  position: absolute;
+  width: auto;
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+  cursor: move;
+}
+
+.tree-page__cards {
+  flex: 0 0 20%;
+  padding-top:30px;
+}
+
+.selected-count {
+  z-index: 10;
+  align-self: flex-end;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  margin-left: 60px;
+  border-radius: 10px;
+  background-color: #24C5DB;
+  font-size: 14px;
+  font-weight: 900;
 }

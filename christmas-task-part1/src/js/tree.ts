@@ -1,5 +1,6 @@
 import data from './data';
 import { Toy } from './types';
+import { selectedCards } from './toys';
 
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
 const bgContainer = document.querySelector('.bg-container') as HTMLElement;
@@ -13,6 +14,7 @@ const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as No
 
 let isGarlandOn = false;
 let garlandColor: string;
+console.log('sel'+selectedCards);
 
 function setTree(e: Event): void {
 
@@ -123,3 +125,55 @@ function switchGarland(): void {
 }
 
 switchGarlandCheckbox.addEventListener('change', switchGarland);
+
+
+const cardsContainer = document.querySelector('.selected-cards') as HTMLElement;
+
+function drawSelectedCard(item: Toy): string {
+    let card = '';
+    const src = `./assets/toys/${item.num}.png`;
+    let img = '';
+    for (let i = 1; i <= +item.count; i++) {
+      img += `<img src=${src} alt="card" class="selected-card__img" alt="card" draggable="true" id = ${item.num}-${i} data-imgnum=${item.num}>`;
+    }
+    card = `<div class="selected-card" data-num=${item.num}>
+              <p class="selected-count">${item.count}</p>
+              ${img}
+            </div>`;
+    return card;
+}
+
+function drawSelectedCards(): void {
+  cardsContainer.innerHTML = '';
+  const selectedData = selectedCards.length ? data.filter(item => selectedCards.includes(item.num)) :
+  data.filter((item) => +item.num <= 20);
+
+ // dataArr = data.filter((item) => +item.num <= 20);
+  selectedData.forEach((item) => {
+    let card = drawSelectedCard(item);
+    //cardsContainer.innerHTML+=card;
+    cardsContainer.insertAdjacentHTML('beforeend', card);
+  });
+}
+
+
+//let selectedData:Toy[];
+//selectedData = data.filter((item) => +item.num < 20);
+
+drawSelectedCards();
+
+/*
+function handleDragStart(e:DragEvent) {
+  console.log('11111');
+  (e.dataTransfer as DataTransfer).setData("text", (e.target as HTMLElement).id);
+ 
+}
+
+console.log(cardsContainer);
+cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
+  if ((e.target as HTMLElement).closest('.selected-card__img')) {
+    console.log('1111111');
+   handleDragStart(e);
+  }
+});
+*/

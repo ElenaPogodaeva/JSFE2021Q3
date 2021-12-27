@@ -423,3 +423,6 @@ function getLocalStorage() {
 filter();
 searchInput.focus();
 window.addEventListener('load', getLocalStorage);
+
+export {selectedCards};
+
