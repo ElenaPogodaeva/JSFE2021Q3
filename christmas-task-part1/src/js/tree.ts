@@ -2,6 +2,8 @@ import data from './data';
 import { Toy } from './types';
 
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
+const bgContainer = document.querySelector('.bg-container') as HTMLElement;
+const mainTreeContainer = document.querySelector('.main-tree-container') as HTMLElement;
 const mainTree = document.querySelector('.main-tree') as HTMLImageElement;
 const garlandContainer = document.querySelector('.garland-tree-container') as HTMLImageElement;
 const snow = document.querySelector('.snow') as HTMLImageElement;
@@ -23,4 +25,14 @@ function setTree(e: Event): void {
 
 treeContainer.addEventListener('click', (e: Event) => setTree(e));
 
+function setBg(e: Event): void {
+
+  if ((e.target as HTMLElement).classList.contains('bg')) {
+    const bgNum = (e.target as HTMLElement).dataset.bg;
+    mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
+    console.log(bgNum)
+  }
+}
+
+bgContainer.addEventListener('click', (e: Event) => setBg(e));
 
