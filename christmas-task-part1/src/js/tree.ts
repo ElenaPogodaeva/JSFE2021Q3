@@ -177,3 +177,211 @@ cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
   }
 });
 */
+
+
+let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
+
+let shiftX:number, shiftY:number;
+
+function handleDragStart(e: DragEvent) {
+ 
+  (e.dataTransfer as DataTransfer).setData("text", (e.target as HTMLElement).id); //note: using "this" is the same as using: e.target.
+  shiftX = e.clientX - (e.target as HTMLElement).getBoundingClientRect().left;
+  shiftY = e.clientY - (e.target as HTMLElement).getBoundingClientRect().top;
+  console.log(e.dataTransfer as DataTransfer);
+}
+
+//document.addEventListener("dragend", (e: DragEvent) => handleDragEnd(e));
+
+
+for (var i = 0; i < draggable.length; i++) {
+  draggable[i].addEventListener("dragstart", (e: DragEvent) => {handleDragStart(e);
+  console.log('dragstart')});
+  draggable[i].addEventListener("dragend", (e: DragEvent) => {handleDragEnd(e);
+  });
+}
+
+const targets = document.querySelectorAll('[data-drop-target]') as NodeListOf<HTMLElement>;
+
+
+
+const treeImg = document.querySelector('.main-tree') as HTMLImageElement;
+const map = document.querySelector('map') as HTMLElement;
+
+map.addEventListener("drop", function (e: DragEvent) {
+  handleOverDrop(e);
+  console.log('ffffffff');
+}
+);
+map.addEventListener("dragover", function (e: DragEvent) {
+  handleOverDrop(e);
+  console.log('ffffffff');
+}
+);
+
+/*
+function handleOverDrop(e: DragEvent) {
+  console.log('fffffff');
+  e.preventDefault(); 
+  //Depending on the browser in use, not using the preventDefault() could cause any number of strange default behaviours to occur.
+  if (e.type != "drop") {
+    return; //Means function will exit if no "drop" event is fired.
+  }
+  //Stores dragged elements ID in var draggedId
+  const draggedId = (e.dataTransfer as DataTransfer).getData("text");
+  
+  //Stores referrence to element being dragged in var draggedEl
+  const draggedEl = document.getElementById(draggedId) as HTMLElement;
+console.log(draggedEl.parentNode)
+  //if the event "drop" is fired on the dragged elements original drop target e.i..  it's current parentNode, 
+  //then set it's css class to ="" which will remove dotted lines around the drop target and exit the function.
+  if (draggedEl.parentNode === e.target) {
+    console.log('return')
+   // this.className = "";
+    return; //note: when a return is reached a function exits.
+    
+  }
+  console.log(e.target);
+  //Otherwise if the event "drop" is fired from a different target element, detach the dragged element node from it's
+  //current drop target (i.e current perantNode) and append it to the new target element. Also remove dotted css class. 
+  (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
+  (e.target as HTMLElement).appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
+  draggedEl.style.position = "absolute";
+  draggedEl.style.left = `${e.clientX - shiftX}px`;
+  
+  draggedEl.style.top = `${e.offsetY - shiftY}px`;
+  console.log(draggedEl.style.top);
+ 
+  // (e.target as HTMLElement).className = "";
+}//end Function
+
+
+for(let i = 0; i < targets.length; i++) {
+  //targets[i].addEventListener("dragover", handleOverDrop);
+  (targets[i] as HTMLElement).addEventListener("drop", function (e: DragEvent) {
+    handleOverDrop(e);
+    console.log('ffffffff');
+  }
+  );
+  (targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
+     handleOverDrop(e);
+   // e.preventDefault();
+     console.log('ffffffff');
+   }
+   );
+  //(targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
+    // handleOverDrop(e);
+  //   console.log('ffffffff');
+  // }
+  // );
+ // targets[i].addEventListener("dragenter", handleDragEnterLeave);
+ // targets[i].addEventListener("dragleave", handleDragEnterLeave);
+}
+*/
+
+let isDrop = false;
+
+function handleOverDrop(e: DragEvent) {
+
+  e.preventDefault(); 
+  if (e.type != "drop") {
+    console.log('dragover');
+    isDrop = false;
+    return; //Means function will exit if no "drop" event is fired.
+  }
+
+  isDrop = true;
+  const draggedId = (e.dataTransfer as DataTransfer).getData("text");
+  
+  const draggedEl = document.getElementById(draggedId) as HTMLElement;
+  console.log(draggedEl.parentNode);
+
+  const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
+  
+  if (draggedEl.parentNode !== e.target) {
+    (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
+     map.appendChild(draggedEl);
+     calcCount(parentCard);
+  }
+  
+  console.log(e.target);
+  
+  draggedEl.style.position = "absolute";
+
+  draggedEl.style.left = `${e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX}px`;
+  
+  draggedEl.style.top = `${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`;//`${e.pageY - shiftX}px`;
+ 
+}
+
+
+function calcCount(parentNode: HTMLElement) {
+  const imgArr = parentNode.querySelectorAll('img') as NodeListOf<HTMLElement>;
+  const count = imgArr.length;
+  const selectedCount = parentNode.querySelector('.selected-count') as HTMLElement;
+  selectedCount.textContent = count.toString();
+}
+
+function handleDragEnd(e: DragEvent) {
+  e.preventDefault(); 
+
+  if (isDrop) {
+    console.log('return dragend')
+    return; 
+   }
+
+   console.log('dragend');
+   console.log(isDrop);
+
+  const draggedId = (e.target as HTMLElement).id;
+  console.log(draggedId);
+
+  const draggedEl = document.getElementById(draggedId) as HTMLElement;
+  console.log(draggedEl.parentNode);
+
+  
+  console.log(e.target);
+ 
+  (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
+  const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
+  console.log(parentCard)
+  parentCard.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
+  //draggedEl.style.position = "absolute";
+ // draggedEl.style.left = `${e.clientX - - shiftX}px`; // shiftX
+  draggedEl.style.left = 'auto'; // shiftX
+  
+  draggedEl.style.top = 'auto';
+ 
+  calcCount(parentCard);
+ // draggedEl.style.top = `${e.clientY - shiftY}px`;
+  console.log(draggedEl.style.top);
+}
+/*
+for(let i = 0; i < targets.length; i++) {
+  //targets[i].addEventListener("dragover", handleOverDrop);
+ // (targets[i] as HTMLElement).addEventListener("drop", function (e: DragEvent) {
+ //   handleOverDrop(e);
+ //   console.log('ffffffff');
+ // }
+ // );
+  (targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
+    // handleOverDrop(e);
+    e.preventDefault();
+    // console.log('ffffffff');
+   }
+   );
+  //(targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
+    // handleOverDrop(e);
+  //   console.log('ffffffff');
+  // }
+  // );
+ // targets[i].addEventListener("dragenter", handleDragEnterLeave);
+ // targets[i].addEventListener("dragleave", handleDragEnterLeave);
+} 
+*/
+
+
+
+
+
+
