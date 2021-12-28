@@ -2,11 +2,17 @@ import data from './data';
 import { Toy } from './types';
 import { selectedCards } from './toys';
 
+
+const treePage = document.querySelector('.tree-page') as HTMLElement;
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
 const bgContainer = document.querySelector('.bg-container') as HTMLElement;
+
 const mainTreeContainer = document.querySelector('.main-tree-container') as HTMLElement;
 const mainTree = document.querySelector('.main-tree') as HTMLImageElement;
 const garlandContainer = document.querySelector('.garland-tree-container') as HTMLImageElement;
+const bgItems = Array.from(document.querySelectorAll('.bg') as NodeListOf<HTMLElement>);
+const treeItems = Array.from(document.querySelectorAll('.tree') as NodeListOf<HTMLElement>);
+
 const snow = document.querySelector('.snow') as HTMLImageElement;
 //const garlandBtns = document.querySelector('.garland-btns') as HTMLElement;
 const switchGarlandCheckbox = document.getElementById('switch-garland') as HTMLInputElement;
@@ -16,15 +22,25 @@ const audioBtn = document.querySelector('.audio') as HTMLElement;
 
 let isGarlandOn = false;
 let isPlay = false;
+let isSnow = false;
 let garlandColor: string;
 console.log('sel'+selectedCards);
 
 function setTree(e: Event): void {
 
   if ((e.target as HTMLElement).classList.contains('tree')) {
+
+    treeItems.forEach((item) => {
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+      }
+    });
+
     const treeNum = (e.target as HTMLElement).dataset.tree;
     console.log(treeNum);
     mainTree.src=`./assets/tree/${treeNum}.png`;
+
+    (e.target as HTMLElement).classList.add('active');
   }
 }
 
@@ -33,9 +49,17 @@ treeContainer.addEventListener('click', (e: Event) => setTree(e));
 function setBg(e: Event): void {
 
   if ((e.target as HTMLElement).classList.contains('bg')) {
+
+    bgItems.forEach((item) => {
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+      }
+    });
+
     const bgNum = (e.target as HTMLElement).dataset.bg;
     mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
-    console.log(bgNum)
+
+    (e.target as HTMLElement).classList.add('active');
   }
 }
 
@@ -49,12 +73,23 @@ function playAudio() {
     audio.currentTime = 0;
     audio.play();
     isPlay = true;
+    treePage.removeEventListener('click', playAudio);
   }
   else {
     audio.pause();
     isPlay = false;
   }
-  audioBtn.classList.toggle('play');
+ // audioBtn.classList.toggle('play');
+  toggleAudioBtn();
+}
+
+function toggleAudioBtn() {
+  if (isPlay) {
+    audioBtn.classList.add('play');
+  }
+  else {
+    audioBtn.classList.remove('play');
+  }
 }
 
 audioBtn.addEventListener('click', playAudio);
@@ -146,7 +181,6 @@ function switchGarland(): void {
 
 switchGarlandCheckbox.addEventListener('change', switchGarland);
 
-
 const cardsContainer = document.querySelector('.selected-cards') as HTMLElement;
 
 function drawSelectedCard(item: Toy): string {
@@ -197,9 +231,6 @@ cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
   }
 });
 */
-
-
-
 
 
 let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
@@ -404,7 +435,78 @@ for(let i = 0; i < targets.length; i++) {
 */
 
 
+function setLocalStorage() {
 
+  const selectedBg = document.querySelector('.bg.active') as HTMLElement;
+  const bg = selectedBg.dataset.bg;
+
+  localStorage.setItem('bg', JSON.stringify(bg));
+
+  const selectedTree = document.querySelector('.tree.active') as HTMLElement;
+  const tree = selectedTree.dataset.tree;
+
+  localStorage.setItem('tree', JSON.stringify(tree));
+
+  const checkedGarland = document.querySelector('input[name="garland"]:checked') as HTMLInputElement;
+
+  localStorage.setItem('garland-color', JSON.stringify(checkedGarland.value));
+
+  //const isGarland = switchGarlandCheckbox.checked ? 1 : 0;
+
+  localStorage.setItem('isGarland', JSON.stringify(switchGarlandCheckbox.checked));
+
+  localStorage.setItem('isPlay', JSON.stringify(isPlay));
+  localStorage.setItem('isSnow', JSON.stringify(isSnow));
+  
+}
+
+window.addEventListener('beforeunload', setLocalStorage);
+
+
+function getLocalStorage() {
+  if (localStorage.getItem('bg')) {
+    const bgNum = JSON.parse(localStorage.getItem('bg') as string) || [];
+
+    const bgItem  = document.querySelector(`.bg[data-bg="${bgNum}"]`) as HTMLElement;
+    bgItem.classList.add('active');
+    mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
+  }
+
+  if (localStorage.getItem('tree')) {
+    const treeNum = JSON.parse(localStorage.getItem('tree') as string) || [];
+
+    const treeItem  = document.querySelector(`.tree[data-tree="${treeNum}"]`) as HTMLElement;
+    treeItem.classList.add('active');
+    mainTree.src=`./assets/tree/${treeNum}.png`;
+  }
+
+  if (localStorage.getItem('garland-color')) {
+    garlandColor = JSON.parse(localStorage.getItem('garland-color') as string) || [];
+
+    const garlandItem  = document.querySelector(`input[name="garland"][value="${garlandColor}"]`) as HTMLInputElement;
+    garlandItem.checked = true;
+  }
+
+  if (localStorage.getItem('isGarland')) {
+    const isGarland = JSON.parse(localStorage.getItem('isGarland') as string) || [];
+
+    if (isGarland === true) {
+      switchGarlandCheckbox.checked = true;
+      switchGarland();
+    }
+  }
+  if (localStorage.getItem('isPlay')) {
+    const isPlay = !!JSON.parse(localStorage.getItem('isPlay') as string);
+
+    if (isPlay) {
+     // audioBtn.classList.add('play');
+      treePage.addEventListener('click', playAudio);
+    }
+  }
+
+}
+
+window.addEventListener('load', getLocalStorage);
 
 
 
