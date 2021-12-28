@@ -13,7 +13,8 @@ const bgItems = Array.from(document.querySelectorAll('.bg') as NodeListOf<HTMLEl
 const treeItems = Array.from(document.querySelectorAll('.tree') as NodeListOf<HTMLElement>);
 
 const map = document.querySelector('map') as HTMLElement;
-//const snow = document.querySelector('.snow') as HTMLImageElement;
+const snow = document.querySelector('.snow') as HTMLImageElement;
+const snowContainer = document.querySelector('.snow-container') as HTMLElement;
 //const garlandBtns = document.querySelector('.garland-btns') as HTMLElement;
 const switchGarlandCheckbox = document.getElementById('switch-garland') as HTMLInputElement;
 const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as NodeListOf<HTMLInputElement>);
@@ -21,9 +22,8 @@ const audioBtn = document.querySelector('.audio') as HTMLElement;
 
 let isGarlandOn = false;
 let isPlay = false;
-const isSnow = false;
+let isSnow = false;
 let garlandColor: string;
-console.log('sel' + selectedCards);
 
 function setTree(e: Event): void {
   if ((e.target as HTMLElement).classList.contains('tree')) {
@@ -34,7 +34,7 @@ function setTree(e: Event): void {
     });
 
     const treeNum = (e.target as HTMLElement).dataset.tree;
-    console.log(treeNum);
+
     mainTree.src = `./assets/tree/${treeNum}.png`;
 
     (e.target as HTMLElement).classList.add('active');
@@ -136,10 +136,10 @@ function changeGarlandColor(): void {
 
   const colorChecked = document.querySelector('.garland-radio:checked') as HTMLInputElement;
   //if ((e.target as HTMLElement).classList.contains('garland-btn')) {
-  console.log(colorChecked);
+
   // color = (e.target as HTMLElement).dataset.color as string;
   garlandColor = colorChecked.value;
-  console.log(garlandColor);
+
   //  mainTree.src=`./assets/tree/${treeNum}.png`;
   addGarland();
 
@@ -217,7 +217,7 @@ cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
 });
 */
 
-const draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
+let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
 
 let shiftX: number, shiftY: number;
 
@@ -225,7 +225,6 @@ function handleDragStart(e: DragEvent) {
   (e.dataTransfer as DataTransfer).setData('text', (e.target as HTMLElement).id); //note: using "this" is the same as using: e.target.
   shiftX = e.clientX - (e.target as HTMLElement).getBoundingClientRect().left;
   shiftY = e.clientY - (e.target as HTMLElement).getBoundingClientRect().top;
-  console.log(e.dataTransfer as DataTransfer);
 }
 
 //document.addEventListener("dragend", (e: DragEvent) => handleDragEnd(e));
@@ -305,7 +304,6 @@ let isDrop = false;
 function handleOverDrop(e: DragEvent) {
   e.preventDefault();
   if (e.type != 'drop') {
-    console.log('dragover');
     isDrop = false;
     return;
   }
@@ -314,7 +312,6 @@ function handleOverDrop(e: DragEvent) {
   const draggedId = (e.dataTransfer as DataTransfer).getData('text');
 
   const draggedEl = document.getElementById(draggedId) as HTMLElement;
-  console.log(draggedEl.parentNode);
 
   const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
 
@@ -323,8 +320,6 @@ function handleOverDrop(e: DragEvent) {
     map.appendChild(draggedEl);
     calcCount(parentCard);
   }
-
-  console.log(e.target);
 
   draggedEl.style.position = 'absolute';
 
@@ -335,35 +330,25 @@ function handleOverDrop(e: DragEvent) {
 
 map.addEventListener('drop', function (e: DragEvent) {
   handleOverDrop(e);
-  console.log('ffffffff');
 });
 map.addEventListener('dragover', function (e: DragEvent) {
   handleOverDrop(e);
-  console.log('ffffffff');
 });
 
 function handleDragEnd(e: DragEvent) {
   e.preventDefault();
 
   if (isDrop) {
-    console.log('return dragend');
     return;
   }
 
-  console.log('dragend');
-  console.log(isDrop);
-
   const draggedId = (e.target as HTMLElement).id;
-  console.log(draggedId);
 
   const draggedEl = document.getElementById(draggedId) as HTMLElement;
-  console.log(draggedEl.parentNode);
-
-  console.log(e.target);
 
   (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
   const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
-  console.log(parentCard);
+
   parentCard.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
   //draggedEl.style.position = "absolute";
   // draggedEl.style.left = `${e.clientX - - shiftX}px`; // shiftX
@@ -373,13 +358,11 @@ function handleDragEnd(e: DragEvent) {
 
   calcCount(parentCard);
   // draggedEl.style.top = `${e.clientY - shiftY}px`;
-  console.log(draggedEl.style.top);
 }
 
 for (let i = 0; i < draggable.length; i++) {
   draggable[i].addEventListener('dragstart', (e: DragEvent) => {
     handleDragStart(e);
-    console.log('dragstart');
   });
   draggable[i].addEventListener('dragend', (e: DragEvent) => {
     handleDragEnd(e);
@@ -475,6 +458,54 @@ function getLocalStorage() {
       treePage.addEventListener('click', playAudio);
     }
   }
+
+  if (localStorage.getItem('isSnow')) {
+    isSnow = !!JSON.parse(localStorage.getItem('isSnow') as string);
+
+    if (isSnow) {
+      timerId = setInterval(createSnowFlake, 50);
+     // toggleSnowBtn();
+      snow.classList.add('play');
+    }
+  }
 }
 
 window.addEventListener('load', getLocalStorage);
+
+
+let timerId:any;
+snow.addEventListener('click', createSnow);
+
+function createSnow() {
+
+  if (!isSnow) {
+    timerId = setInterval(createSnowFlake, 50);
+    isSnow = true;
+    snow.classList.add('play');
+  }
+  else {
+    clearInterval(timerId);
+    isSnow = false;
+    snow.classList.remove('play');
+  }
+ // toggleSnowBtn();
+}
+
+//const treePage= document.querySelector('.tree-page') as HTMLElement;
+
+function createSnowFlake() {
+	const snowFlake = document.createElement('div');
+	snowFlake.classList.add('fas');
+	snowFlake.classList.add('fa-snowflake');
+	snowFlake.style.left = Math.random() * snowContainer.clientWidth + 'px'; //window.innerWidth
+	snowFlake.style.animationDuration = Math.random() * 3 + 2 + 's'; // between 2 - 5 seconds
+	snowFlake.style.opacity = Math.random().toString();
+	//snow_flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+	snowFlake.style.width = Math.random() * 10 + 12 + 'px';
+  snowFlake.style.height = snowFlake.style.width;
+  snowContainer.appendChild(snowFlake);
+	
+	setTimeout(() => {
+		snowFlake.remove();
+	}, 5000)
+}
