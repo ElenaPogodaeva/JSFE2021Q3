@@ -38,6 +38,13 @@
                 </div>
             </div>
         </header>
+        <div class="start-page page">
+            <h1 class="start-page__title">
+                Новогодняя игра 
+                <span>«Наряди ёлку»</span>
+            </h1>
+            <button class="start-page__button">Начать</button>
+        </div>
         <div class="main-page page hide">
             <div class="blur">
                 <div class="container">
@@ -116,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <div class="tree-page page">
+        <div class="tree-page page hide">
             <div class="blur">
                 <div class="tree-page__container container">
                     <div class="tree-page__settings settings">
@@ -199,6 +206,7 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="reset" id="reset-tree-storage">Сброс настроек</button>
                     </div>
                     
                     <div class="main-tree-container" data-drop-target="true">
@@ -231,6 +239,7 @@
                             usemap="#image-map">
                     </div>
                     <div class="tree-page__cards">
+                        <div class="settings__title">Игрушки</div>
                         <div class="selected-cards" data-drop-target="true">
                             <div class="selected-card" data-num="1">
                                 <img src="./assets/toys/1.png" alt="card" class="selected-card__img">

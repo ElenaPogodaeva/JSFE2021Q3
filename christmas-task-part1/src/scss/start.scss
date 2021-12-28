@@ -1,0 +1,37 @@
+.start-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px);
+}
+.start-page__title {
+  font-family: 'Neucha', cursive;
+  font-size: 46px;
+  line-height: 64px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 600px;
+  height: 250px;
+  padding: 65px 85px;
+  margin-bottom: 90px;
+  margin-top: 130px;
+  border: 3px solid #b7dbe6;
+  background-color: #89b6cba6;
+  backdrop-filter: blur(6px);
+  border-radius: 25px;
+}
+
+.start-page__button {
+  width: 320px;
+  height: 54px;
+  border-radius: 20px;
+  border: 3px solid #b7dbe6;
+  background-color: #89b6cba6;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 29px;
+  color: #fff;
+  margin-bottom: 50px;
+}
