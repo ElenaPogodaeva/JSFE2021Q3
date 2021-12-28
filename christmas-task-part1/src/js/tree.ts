@@ -19,6 +19,7 @@ const snowContainer = document.querySelector('.snow-container') as HTMLElement;
 const switchGarlandCheckbox = document.getElementById('switch-garland') as HTMLInputElement;
 const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as NodeListOf<HTMLInputElement>);
 const audioBtn = document.querySelector('.audio') as HTMLElement;
+const resetStorageBtn = document.getElementById('reset-tree-storage') as HTMLElement;
 
 let isGarlandOn = false;
 let isPlay = false;
@@ -509,3 +510,43 @@ function createSnowFlake() {
 		snowFlake.remove();
 	}, 5000)
 }
+
+
+function resetSettings(): void {
+  isPlay = false;
+  isSnow = false;
+
+  audioBtn.classList.remove('play');
+  audio.pause();
+
+  snow.classList.remove('play');
+  clearInterval(timerId);
+  
+  treeItems.forEach((item) => {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active');
+    }
+  });
+
+  treeItems[0].classList.add('active');
+  const treeNum = treeItems[0].dataset.tree
+  mainTree.src = `./assets/tree/${treeNum}.png`;
+
+  bgItems.forEach((item) => {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active');
+    }
+  });
+
+  bgItems[0].classList.add('active');
+  const bgNum = bgItems[0].dataset.bg
+  mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
+
+  garlandBtns[0].checked = true;
+  garlandColor = garlandBtns[0].value;
+  removeGarland();
+
+  localStorage.clear();
+}
+
+resetStorageBtn.addEventListener('click', resetSettings);
