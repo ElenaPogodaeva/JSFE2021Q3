@@ -2,7 +2,6 @@ import data from './data';
 import { Toy } from './types';
 import { selectedCards } from './toys';
 
-
 const treePage = document.querySelector('.tree-page') as HTMLElement;
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
 const bgContainer = document.querySelector('.bg-container') as HTMLElement;
@@ -13,23 +12,21 @@ const garlandContainer = document.querySelector('.garland-tree-container') as HT
 const bgItems = Array.from(document.querySelectorAll('.bg') as NodeListOf<HTMLElement>);
 const treeItems = Array.from(document.querySelectorAll('.tree') as NodeListOf<HTMLElement>);
 
-const snow = document.querySelector('.snow') as HTMLImageElement;
+const map = document.querySelector('map') as HTMLElement;
+//const snow = document.querySelector('.snow') as HTMLImageElement;
 //const garlandBtns = document.querySelector('.garland-btns') as HTMLElement;
 const switchGarlandCheckbox = document.getElementById('switch-garland') as HTMLInputElement;
 const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as NodeListOf<HTMLInputElement>);
 const audioBtn = document.querySelector('.audio') as HTMLElement;
 
-
 let isGarlandOn = false;
 let isPlay = false;
-let isSnow = false;
+const isSnow = false;
 let garlandColor: string;
-console.log('sel'+selectedCards);
+console.log('sel' + selectedCards);
 
 function setTree(e: Event): void {
-
   if ((e.target as HTMLElement).classList.contains('tree')) {
-
     treeItems.forEach((item) => {
       if (item.classList.contains('active')) {
         item.classList.remove('active');
@@ -38,7 +35,7 @@ function setTree(e: Event): void {
 
     const treeNum = (e.target as HTMLElement).dataset.tree;
     console.log(treeNum);
-    mainTree.src=`./assets/tree/${treeNum}.png`;
+    mainTree.src = `./assets/tree/${treeNum}.png`;
 
     (e.target as HTMLElement).classList.add('active');
   }
@@ -47,9 +44,7 @@ function setTree(e: Event): void {
 treeContainer.addEventListener('click', (e: Event) => setTree(e));
 
 function setBg(e: Event): void {
-
   if ((e.target as HTMLElement).classList.contains('bg')) {
-
     bgItems.forEach((item) => {
       if (item.classList.contains('active')) {
         item.classList.remove('active');
@@ -67,6 +62,14 @@ bgContainer.addEventListener('click', (e: Event) => setBg(e));
 
 const audio = new Audio();
 
+function toggleAudioBtn() {
+  if (isPlay) {
+    audioBtn.classList.add('play');
+  } else {
+    audioBtn.classList.remove('play');
+  }
+}
+
 function playAudio() {
   if (!isPlay) {
     audio.src = './assets/audio/audio.mp3';
@@ -74,109 +77,91 @@ function playAudio() {
     audio.play();
     isPlay = true;
     treePage.removeEventListener('click', playAudio);
-  }
-  else {
+  } else {
     audio.pause();
     isPlay = false;
   }
- // audioBtn.classList.toggle('play');
+  // audioBtn.classList.toggle('play');
   toggleAudioBtn();
-}
-
-function toggleAudioBtn() {
-  if (isPlay) {
-    audioBtn.classList.add('play');
-  }
-  else {
-    audioBtn.classList.remove('play');
-  }
 }
 
 audioBtn.addEventListener('click', playAudio);
 
-function addGarland(): void {
-  var startAngle = Math.PI / 10,
-  angle = startAngle / 2,
-  radius = 100,
-  offset = 500 / 2;
- /* addGarlandRow(480, 15, 10, 20);
-  addGarlandRow(460, 35, 20, 20);
-  addGarlandRow(435, 55, 30, 20);
-  addGarlandRow(400, 90, 40, 20);*/
-  addGarlandRow(480, 15, 8, 20);
-  addGarlandRow(450, 45, 18, 20);
-  addGarlandRow(400, 95, 28, 20);
-  addGarlandRow(380, 115, 38, 20);
-  addGarlandRow(320, 175, 48, 20);
-  addGarlandRow(280, 215, 58, 20);
-
-}
-//addGarland();
-
-function addGarlandRow(right:number, left:number, bottom:number, length:number): void {
-  var startAngle = Math.PI / 10,
-  //angle = startAngle / 2,
-  radius = 100,
-  offset = 500 / 2;
-
+function addGarlandRow(right: number, left: number, bottom: number): void {
   const ul = document.createElement('ul');
   ul.classList.add('lightrope');
-  let width = (right - left)*2;
-  let count = width/30;
-  let angle = 60 / count;
+  const width = (right - left) * 2;
+  const count = width / 30;
+  const angle = 60 / count;
   let rotate = 60;
   ul.style.width = `${width}px`;
   ul.style.height = `${width}px`;
-  ul.style.bottom = `${bottom}%`;//'555px';
+  ul.style.bottom = `${bottom}%`; //'555px';
   garlandContainer.appendChild(ul);
-  
-  
+
   for (let i = 0; i < count; i++) {
     const li = document.createElement('li');
-   // li.style.left = radius * Math.cos( angle ) + offset + "px";
-   // li.style.top = radius * Math.sin( angle ) + "px";
-     li.classList.add(`${garlandColor}`);
-  //  angle += startAngle;
-   
+    // li.style.left = radius * Math.cos( angle ) + offset + "px";
+    // li.style.top = radius * Math.sin( angle ) + "px";
+    li.classList.add(`${garlandColor}`);
+    //  angle += startAngle;
+
     ul.appendChild(li);
-    
-   // li.style.transform = `translate(${x}px)`;
-    li.style.transform = `rotate(${rotate}deg) translate(${Math.round(width/2 - 10)}px) rotate(-${rotate}deg)`;
-   // x +=30;
-   //rotate+=4;
-   rotate = rotate + angle;
+
+    // li.style.transform = `translate(${x}px)`;
+    li.style.transform = `rotate(${rotate}deg) translate(${Math.round(width / 2 - 10)}px) rotate(-${rotate}deg)`;
+    // x +=30;
+    //rotate+=4;
+    rotate = rotate + angle;
   }
+}
+
+function addGarland(): void {
+  /* addGarlandRow(480, 15, 10, 20);
+  addGarlandRow(460, 35, 20, 20);
+  addGarlandRow(435, 55, 30, 20);
+  addGarlandRow(400, 90, 40, 20);*/
+  addGarlandRow(480, 15, 8);
+  addGarlandRow(450, 45, 18);
+  addGarlandRow(400, 95, 28);
+  addGarlandRow(380, 115, 38);
+  addGarlandRow(320, 175, 48);
+  addGarlandRow(280, 215, 58);
 }
 
 function changeGarlandColor(): void {
   isGarlandOn = true;
   garlandContainer.innerHTML = '';
-  switchGarlandCheckbox.checked=true;
+  switchGarlandCheckbox.checked = true;
 
   const colorChecked = document.querySelector('.garland-radio:checked') as HTMLInputElement;
   //if ((e.target as HTMLElement).classList.contains('garland-btn')) {
-    console.log(colorChecked);
-   // color = (e.target as HTMLElement).dataset.color as string;
-   garlandColor = colorChecked.value;
-    console.log(garlandColor);
+  console.log(colorChecked);
+  // color = (e.target as HTMLElement).dataset.color as string;
+  garlandColor = colorChecked.value;
+  console.log(garlandColor);
   //  mainTree.src=`./assets/tree/${treeNum}.png`;
   addGarland();
-    
- // }
 
+  // }
 }
 
-garlandBtns.forEach(item => item.addEventListener('click',changeGarlandColor));
+garlandBtns.forEach((item) => item.addEventListener('click', changeGarlandColor));
 
 function removeGarland(): void {
   garlandContainer.innerHTML = '';
   //isGarlandOn = false;
-  switchGarlandCheckbox.checked=false;
+  switchGarlandCheckbox.checked = false;
 }
 
 function switchGarland(): void {
   isGarlandOn = switchGarlandCheckbox.checked;
-  isGarlandOn ? addGarland() : removeGarland();
+  if (isGarlandOn) {
+    addGarland();
+  } else {
+    removeGarland();
+  }
+  // isGarlandOn ? addGarland() : removeGarland();
 }
 
 switchGarlandCheckbox.addEventListener('change', switchGarland);
@@ -184,32 +169,32 @@ switchGarlandCheckbox.addEventListener('change', switchGarland);
 const cardsContainer = document.querySelector('.selected-cards') as HTMLElement;
 
 function drawSelectedCard(item: Toy): string {
-    let card = '';
-    const src = `./assets/toys/${item.num}.png`;
-    let img = '';
-    for (let i = 1; i <= +item.count; i++) {
-      img += `<img src=${src} alt="card" class="selected-card__img" alt="card" draggable="true" id = ${item.num}-${i} data-imgnum=${item.num}>`;
-    }
-    card = `<div class="selected-card" data-num=${item.num}>
+  let card = '';
+  const src = `./assets/toys/${item.num}.png`;
+  let img = '';
+  for (let i = 1; i <= +item.count; i++) {
+    img += `<img src=${src} alt="card" class="selected-card__img" alt="card" draggable="true" id = ${item.num}-${i} data-imgnum=${item.num}>`;
+  }
+  card = `<div class="selected-card" data-num=${item.num}>
               <p class="selected-count">${item.count}</p>
               ${img}
             </div>`;
-    return card;
+  return card;
 }
 
 function drawSelectedCards(): void {
   cardsContainer.innerHTML = '';
-  const selectedData = selectedCards.length ? data.filter(item => selectedCards.includes(item.num)) :
-  data.filter((item) => +item.num <= 20);
+  const selectedData = selectedCards.length
+    ? data.filter((item) => selectedCards.includes(item.num))
+    : data.filter((item) => +item.num <= 20);
 
- // dataArr = data.filter((item) => +item.num <= 20);
+  // dataArr = data.filter((item) => +item.num <= 20);
   selectedData.forEach((item) => {
-    let card = drawSelectedCard(item);
+    const card = drawSelectedCard(item);
     //cardsContainer.innerHTML+=card;
     cardsContainer.insertAdjacentHTML('beforeend', card);
   });
 }
-
 
 //let selectedData:Toy[];
 //selectedData = data.filter((item) => +item.num < 20);
@@ -232,14 +217,12 @@ cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
 });
 */
 
+const draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
 
-let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
-
-let shiftX:number, shiftY:number;
+let shiftX: number, shiftY: number;
 
 function handleDragStart(e: DragEvent) {
- 
-  (e.dataTransfer as DataTransfer).setData("text", (e.target as HTMLElement).id); //note: using "this" is the same as using: e.target.
+  (e.dataTransfer as DataTransfer).setData('text', (e.target as HTMLElement).id); //note: using "this" is the same as using: e.target.
   shiftX = e.clientX - (e.target as HTMLElement).getBoundingClientRect().left;
   shiftY = e.clientY - (e.target as HTMLElement).getBoundingClientRect().top;
   console.log(e.dataTransfer as DataTransfer);
@@ -247,31 +230,9 @@ function handleDragStart(e: DragEvent) {
 
 //document.addEventListener("dragend", (e: DragEvent) => handleDragEnd(e));
 
+//const targets = document.querySelectorAll('[data-drop-target]') as NodeListOf<HTMLElement>;
 
-for (var i = 0; i < draggable.length; i++) {
-  draggable[i].addEventListener("dragstart", (e: DragEvent) => {handleDragStart(e);
-  console.log('dragstart')});
-  draggable[i].addEventListener("dragend", (e: DragEvent) => {handleDragEnd(e);
-  });
-}
-
-const targets = document.querySelectorAll('[data-drop-target]') as NodeListOf<HTMLElement>;
-
-
-
-const treeImg = document.querySelector('.main-tree') as HTMLImageElement;
-const map = document.querySelector('map') as HTMLElement;
-
-map.addEventListener("drop", function (e: DragEvent) {
-  handleOverDrop(e);
-  console.log('ffffffff');
-}
-);
-map.addEventListener("dragover", function (e: DragEvent) {
-  handleOverDrop(e);
-  console.log('ffffffff');
-}
-);
+//const treeImg = document.querySelector('.main-tree') as HTMLImageElement;
 
 /*
 function handleOverDrop(e: DragEvent) {
@@ -332,43 +293,6 @@ for(let i = 0; i < targets.length; i++) {
  // targets[i].addEventListener("dragleave", handleDragEnterLeave);
 }
 */
-
-let isDrop = false;
-
-function handleOverDrop(e: DragEvent) {
-
-  e.preventDefault(); 
-  if (e.type != "drop") {
-    console.log('dragover');
-    isDrop = false;
-    return; //Means function will exit if no "drop" event is fired.
-  }
-
-  isDrop = true;
-  const draggedId = (e.dataTransfer as DataTransfer).getData("text");
-  
-  const draggedEl = document.getElementById(draggedId) as HTMLElement;
-  console.log(draggedEl.parentNode);
-
-  const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
-  
-  if (draggedEl.parentNode !== e.target) {
-    (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
-     map.appendChild(draggedEl);
-     calcCount(parentCard);
-  }
-  
-  console.log(e.target);
-  
-  draggedEl.style.position = "absolute";
-
-  draggedEl.style.left = `${e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX}px`;
-  
-  draggedEl.style.top = `${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`;//`${e.pageY - shiftX}px`;
- 
-}
-
-
 function calcCount(parentNode: HTMLElement) {
   const imgArr = parentNode.querySelectorAll('img') as NodeListOf<HTMLElement>;
   const count = imgArr.length;
@@ -376,16 +300,58 @@ function calcCount(parentNode: HTMLElement) {
   selectedCount.textContent = count.toString();
 }
 
+let isDrop = false;
+
+function handleOverDrop(e: DragEvent) {
+  e.preventDefault();
+  if (e.type != 'drop') {
+    console.log('dragover');
+    isDrop = false;
+    return;
+  }
+
+  isDrop = true;
+  const draggedId = (e.dataTransfer as DataTransfer).getData('text');
+
+  const draggedEl = document.getElementById(draggedId) as HTMLElement;
+  console.log(draggedEl.parentNode);
+
+  const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
+
+  if (draggedEl.parentNode !== e.target) {
+    (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
+    map.appendChild(draggedEl);
+    calcCount(parentCard);
+  }
+
+  console.log(e.target);
+
+  draggedEl.style.position = 'absolute';
+
+  draggedEl.style.left = `${e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX}px`;
+
+  draggedEl.style.top = `${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`; //`${e.pageY - shiftX}px`;
+}
+
+map.addEventListener('drop', function (e: DragEvent) {
+  handleOverDrop(e);
+  console.log('ffffffff');
+});
+map.addEventListener('dragover', function (e: DragEvent) {
+  handleOverDrop(e);
+  console.log('ffffffff');
+});
+
 function handleDragEnd(e: DragEvent) {
-  e.preventDefault(); 
+  e.preventDefault();
 
   if (isDrop) {
-    console.log('return dragend')
-    return; 
-   }
+    console.log('return dragend');
+    return;
+  }
 
-   console.log('dragend');
-   console.log(isDrop);
+  console.log('dragend');
+  console.log(isDrop);
 
   const draggedId = (e.target as HTMLElement).id;
   console.log(draggedId);
@@ -393,22 +359,31 @@ function handleDragEnd(e: DragEvent) {
   const draggedEl = document.getElementById(draggedId) as HTMLElement;
   console.log(draggedEl.parentNode);
 
-  
   console.log(e.target);
- 
+
   (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
   const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
-  console.log(parentCard)
+  console.log(parentCard);
   parentCard.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
   //draggedEl.style.position = "absolute";
- // draggedEl.style.left = `${e.clientX - - shiftX}px`; // shiftX
+  // draggedEl.style.left = `${e.clientX - - shiftX}px`; // shiftX
   draggedEl.style.left = 'auto'; // shiftX
-  
+
   draggedEl.style.top = 'auto';
- 
+
   calcCount(parentCard);
- // draggedEl.style.top = `${e.clientY - shiftY}px`;
+  // draggedEl.style.top = `${e.clientY - shiftY}px`;
   console.log(draggedEl.style.top);
+}
+
+for (let i = 0; i < draggable.length; i++) {
+  draggable[i].addEventListener('dragstart', (e: DragEvent) => {
+    handleDragStart(e);
+    console.log('dragstart');
+  });
+  draggable[i].addEventListener('dragend', (e: DragEvent) => {
+    handleDragEnd(e);
+  });
 }
 /*
 for(let i = 0; i < targets.length; i++) {
@@ -434,9 +409,7 @@ for(let i = 0; i < targets.length; i++) {
 } 
 */
 
-
 function setLocalStorage() {
-
   const selectedBg = document.querySelector('.bg.active') as HTMLElement;
   const bg = selectedBg.dataset.bg;
 
@@ -457,17 +430,15 @@ function setLocalStorage() {
 
   localStorage.setItem('isPlay', JSON.stringify(isPlay));
   localStorage.setItem('isSnow', JSON.stringify(isSnow));
-  
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
-
 
 function getLocalStorage() {
   if (localStorage.getItem('bg')) {
     const bgNum = JSON.parse(localStorage.getItem('bg') as string) || [];
 
-    const bgItem  = document.querySelector(`.bg[data-bg="${bgNum}"]`) as HTMLElement;
+    const bgItem = document.querySelector(`.bg[data-bg="${bgNum}"]`) as HTMLElement;
     bgItem.classList.add('active');
     mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
   }
@@ -475,15 +446,15 @@ function getLocalStorage() {
   if (localStorage.getItem('tree')) {
     const treeNum = JSON.parse(localStorage.getItem('tree') as string) || [];
 
-    const treeItem  = document.querySelector(`.tree[data-tree="${treeNum}"]`) as HTMLElement;
+    const treeItem = document.querySelector(`.tree[data-tree="${treeNum}"]`) as HTMLElement;
     treeItem.classList.add('active');
-    mainTree.src=`./assets/tree/${treeNum}.png`;
+    mainTree.src = `./assets/tree/${treeNum}.png`;
   }
 
   if (localStorage.getItem('garland-color')) {
     garlandColor = JSON.parse(localStorage.getItem('garland-color') as string) || [];
 
-    const garlandItem  = document.querySelector(`input[name="garland"][value="${garlandColor}"]`) as HTMLInputElement;
+    const garlandItem = document.querySelector(`input[name="garland"][value="${garlandColor}"]`) as HTMLInputElement;
     garlandItem.checked = true;
   }
 
@@ -496,18 +467,14 @@ function getLocalStorage() {
     }
   }
   if (localStorage.getItem('isPlay')) {
-    const isPlay = !!JSON.parse(localStorage.getItem('isPlay') as string);
+    isPlay = !!JSON.parse(localStorage.getItem('isPlay') as string);
 
     if (isPlay) {
-     // audioBtn.classList.add('play');
+      // audioBtn.classList.add('play');
+      // treePage.closest('.tree-page')
       treePage.addEventListener('click', playAudio);
     }
   }
-
 }
 
 window.addEventListener('load', getLocalStorage);
-
-
-
-

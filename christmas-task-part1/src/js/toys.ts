@@ -424,5 +424,4 @@ filter();
 searchInput.focus();
 window.addEventListener('load', getLocalStorage);
 
-export {selectedCards};
-
+export { selectedCards };
