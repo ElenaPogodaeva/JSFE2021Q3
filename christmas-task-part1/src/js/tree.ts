@@ -2,7 +2,10 @@ import data from './data';
 import { Toy } from './types';
 import { selectedCards } from './toys';
 
+const startPage = document.querySelector('.start-page') as HTMLElement;
 const treePage = document.querySelector('.tree-page') as HTMLElement;
+const startBtn = document.querySelector('#start-game') as HTMLElement;
+
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
 const bgContainer = document.querySelector('.bg-container') as HTMLElement;
 
@@ -550,3 +553,56 @@ function resetSettings(): void {
 }
 
 resetStorageBtn.addEventListener('click', resetSettings);
+
+
+function switchPage(pageFrom: HTMLElement, pageTo: HTMLElement) {
+  pageFrom.classList.add('hide');
+  pageTo.classList.remove('hide');
+  startPage.classList.add('hide');
+}
+
+function switchToStartPage() {
+  startPage.classList.remove('hide');
+  treePage.classList.add('hide');
+  toysPage.classList.add('hide');
+}
+
+function switchToTreePage() {
+  treePage.classList.remove('hide');
+  startPage.classList.add('hide');
+  toysPage.classList.add('hide');
+}
+
+function switchToToysPage() {
+  toysPage.classList.remove('hide');
+  startPage.classList.add('hide');
+  treePage.classList.add('hide');
+}
+
+const toysLink = document.querySelector('#switch-toys-page') as HTMLElement;
+const treeLink = document.querySelector('#switch-tree-page') as HTMLElement;
+const homeLink = document.querySelector('#switch-start-page') as HTMLElement;
+
+const toysPage = document.querySelector('.main-page') as HTMLElement;
+
+toysLink.addEventListener('click', switchToToysPage );
+treeLink.addEventListener('click', () => {
+  drawSelectedCards();
+  switchToTreePage();
+
+  draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
+
+  for (let i = 0; i < draggable.length; i++) {
+    draggable[i].addEventListener('dragstart', (e: DragEvent) => {
+      handleDragStart(e);
+    });
+    draggable[i].addEventListener('dragend', (e: DragEvent) => {
+      handleDragEnd(e);
+    });
+  }
+});
+
+console.log(startBtn)
+startBtn.addEventListener('click', switchToToysPage);
+
+homeLink.addEventListener('click', switchToStartPage);
