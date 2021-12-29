@@ -16,41 +16,7 @@ img {
   max-width: 256px;
 }
 
-/*
-let timerId:any;
-snow.addEventListener('click', createSnow);
 
-function createSnow() {
-  
-  if (!snow.classList.contains('active')) {
-    timerId = setInterval(createSnowFlake, 50);
-  }
-  else {
-    clearInterval(timerId);
-  }
-  snow.classList.toggle('active');
-
-}
-
-const body = document.body;
-const treePage= document.querySelector('.tree-page') as HTMLElement;
-
-function createSnowFlake() {
-	const snow_flake = document.createElement('i');
-	snow_flake.classList.add('fas');
-	snow_flake.classList.add('fa-snowflake');
-	snow_flake.style.left = Math.random() * window.innerWidth + 'px'; //
-	snow_flake.style.animationDuration = Math.random() * 3 + 2 + 's'; // between 2 - 5 seconds
-	snow_flake.style.opacity = Math.random().toString();
-	snow_flake.style.fontSize = Math.random() * 10 + 10 + 'px';
-	
-  treePage.appendChild(snow_flake);
-	
-	setTimeout(() => {
-		snow_flake.remove();
-	}, 5000)
-}
-*/
 
 /*
 <map name="image-map">
@@ -92,3 +58,31 @@ treeLink.addEventListener('click', (e) => {
     });
   }
 }); */
+
+
+
+function switchPage(pageFrom: HTMLElement, pageTo: HTMLElement) {
+  pageFrom.classList.add('hide');
+  pageTo.classList.remove('hide');
+}
+
+const toysLink = document.querySelector('#switch-toys-page') as HTMLElement;
+const treeLink = document.querySelector('#switch-tree-page') as HTMLElement;
+const toysPage = document.querySelector('.main-page') as HTMLElement;
+//const treePage = document.querySelector('.tree-page') as HTMLElement;
+toysLink.addEventListener('click', () => switchPage(treePage, toysPage));
+treeLink.addEventListener('click', () => {
+  drawSelectedCards();
+  switchPage(toysPage, treePage);
+
+  draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
+
+  for (let i = 0; i < draggable.length; i++) {
+    draggable[i].addEventListener('dragstart', (e: DragEvent) => {
+      handleDragStart(e);
+    });
+    draggable[i].addEventListener('dragend', (e: DragEvent) => {
+      handleDragEnd(e);
+    });
+  }
+});
