@@ -15,7 +15,7 @@ const garlandContainer = document.querySelector('.garland-tree-container') as HT
 const bgItems = Array.from(document.querySelectorAll('.bg') as NodeListOf<HTMLElement>);
 const treeItems = Array.from(document.querySelectorAll('.tree') as NodeListOf<HTMLElement>);
 
-const map = document.querySelector('map') as HTMLElement;
+const area = document.querySelector('area') as HTMLElement;
 const snow = document.querySelector('.snow') as HTMLImageElement;
 const snowContainer = document.querySelector('.snow-container') as HTMLElement;
 //const garlandBtns = document.querySelector('.garland-btns') as HTMLElement;
@@ -74,13 +74,13 @@ function toggleAudioBtn() {
   }
 }
 
-function playAudio() {
+function togglePlayAudio() {
   if (!isPlay) {
     audio.src = './assets/audio/audio.mp3';
     audio.currentTime = 0;
     audio.play();
     isPlay = true;
-    treePage.removeEventListener('click', playAudio);
+    //treePage.removeEventListener('click', playAudio);
   } else {
     audio.pause();
     isPlay = false;
@@ -88,8 +88,13 @@ function playAudio() {
   // audioBtn.classList.toggle('play');
   toggleAudioBtn();
 }
+function playAudio() {
+  audio.src = './assets/audio/audio.mp3';
+  audio.currentTime = 0;
+  audio.play();
+}
 
-audioBtn.addEventListener('click', playAudio);
+audioBtn.addEventListener('click', togglePlayAudio);
 
 function addGarlandRow(right: number, left: number, bottom: number): void {
   const ul = document.createElement('ul');
@@ -125,12 +130,12 @@ function addGarland(): void {
   addGarlandRow(460, 35, 20, 20);
   addGarlandRow(435, 55, 30, 20);
   addGarlandRow(400, 90, 40, 20);*/
-  addGarlandRow(480, 15, 8);
-  addGarlandRow(450, 45, 18);
-  addGarlandRow(400, 95, 28);
-  addGarlandRow(380, 115, 38);
-  addGarlandRow(320, 175, 48);
-  addGarlandRow(280, 215, 58);
+  addGarlandRow(480, 15, 20);
+  addGarlandRow(450, 45, 30);
+  addGarlandRow(400, 95, 40);
+  addGarlandRow(380, 115, 50);
+  addGarlandRow(320, 175, 60);
+  addGarlandRow(280, 215, 70);
 }
 
 function changeGarlandColor(): void {
@@ -204,22 +209,6 @@ function drawSelectedCards(): void {
 //selectedData = data.filter((item) => +item.num < 20);
 
 drawSelectedCards();
-
-/*
-function handleDragStart(e:DragEvent) {
-  console.log('11111');
-  (e.dataTransfer as DataTransfer).setData("text", (e.target as HTMLElement).id);
- 
-}
-
-console.log(cardsContainer);
-cardsContainer.addEventListener('dragstart', (e: DragEvent) => function() {
-  if ((e.target as HTMLElement).closest('.selected-card__img')) {
-    console.log('1111111');
-   handleDragStart(e);
-  }
-});
-*/
 
 let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLElement>;
 
@@ -321,21 +310,21 @@ function handleOverDrop(e: DragEvent) {
 
   if (draggedEl.parentNode !== e.target) {
     (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
-    map.appendChild(draggedEl);
+     area.appendChild(draggedEl);
     calcCount(parentCard);
   }
 
   draggedEl.style.position = 'absolute';
 
-  draggedEl.style.left = `${e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX}px`;
+  draggedEl.style.left = `${(e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX) / mainTreeContainer.clientWidth * 100}%`
 
-  draggedEl.style.top = `${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`; //`${e.pageY - shiftX}px`;
+  draggedEl.style.top = `${(e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY) / mainTreeContainer.clientHeight * 100}%`;//`${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`; //`${e.pageY - shiftX}px`;
 }
 
-map.addEventListener('drop', function (e: DragEvent) {
+area.addEventListener('drop', function (e: DragEvent) {
   handleOverDrop(e);
 });
-map.addEventListener('dragover', function (e: DragEvent) {
+area.addEventListener('dragover', function (e: DragEvent) {
   handleOverDrop(e);
 });
 
@@ -459,7 +448,10 @@ function getLocalStorage() {
     if (isPlay) {
       // audioBtn.classList.add('play');
       // treePage.closest('.tree-page')
-      treePage.addEventListener('click', playAudio);
+      treePage.addEventListener('click', () => {
+        playAudio();
+        toggleAudioBtn();
+      }, {once: true});
     }
   }
 
@@ -472,6 +464,8 @@ function getLocalStorage() {
       snow.classList.add('play');
     }
   }
+
+  drawSelectedCards();
 }
 
 window.addEventListener('load', getLocalStorage);
@@ -492,10 +486,7 @@ function createSnow() {
     isSnow = false;
     snow.classList.remove('play');
   }
- // toggleSnowBtn();
 }
-
-//const treePage= document.querySelector('.tree-page') as HTMLElement;
 
 function createSnowFlake() {
 	const snowFlake = document.createElement('div');
@@ -587,6 +578,7 @@ const toysPage = document.querySelector('.main-page') as HTMLElement;
 
 toysLink.addEventListener('click', switchToToysPage );
 treeLink.addEventListener('click', () => {
+
   drawSelectedCards();
   switchToTreePage();
 
@@ -600,9 +592,13 @@ treeLink.addEventListener('click', () => {
       handleDragEnd(e);
     });
   }
+  
+  while (area.firstChild) {
+    area.firstChild.remove();
+}
+
 });
 
-console.log(startBtn)
 startBtn.addEventListener('click', switchToToysPage);
 
 homeLink.addEventListener('click', switchToStartPage);
