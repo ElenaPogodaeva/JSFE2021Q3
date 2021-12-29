@@ -99,9 +99,10 @@ body {
 }
 
 .container {
-  max-width: 1470px;
+  max-width:1600px;// 1470px;
   margin: 0 auto;
   padding: 0px 15px;
+  
   @media(max-width:1024px) {
     max-width: 1014px;
   }
@@ -110,7 +111,7 @@ body {
   }
     @media(max-width:420px) {
     max-width: 410px;
-  }
+  } 
 }
 .wrapper {
   min-height: 100%;

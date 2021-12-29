@@ -8,11 +8,6 @@ body {
   background: #000;
 }
 
-.garland-settings {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 /*
 .garland-tree-container {
   display: flex;
@@ -79,7 +74,6 @@ body {
     &:nth-child(3n+1) {
       animation-duration: 1.4s;
     }
-
   }
 
   .lightrope li.red { 
@@ -157,23 +151,5 @@ body {
   }
 
 
-  @keyframes flash-1 { 
-    0%, 100% { background: rgba(0,247,165,1);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(0,247,165,1);} 
-    50% { background: rgba(0,247,165,$light-off-opacity);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(0,247,165,0.2);}
-}
-@keyframes flash-2 { 
-    0%, 100% { background: rgba(0,255,255,1);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(0,255,255,1);} 
-    50% { background: rgba(0,255,255,$light-off-opacity);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(0,255,255,0.2);}
-}
-@keyframes flash-3 { 
-    0%, 100% { background: rgba(247,0,148,1);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(247,0,148,1);} 
-    50% { background: rgba(247,0,148,$light-off-opacity);
-    box-shadow: 0px $globe-height/6 $globe-width*2 $globe-spread rgba(247,0,148,0.2);}
-}
 
 

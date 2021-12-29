@@ -11,7 +11,7 @@
   line-height: 64px;
   text-align: center;
   text-transform: uppercase;
-  width: 600px;
+  max-width: 600px;
   height: 250px;
   padding: 65px 85px;
   margin-bottom: 90px;
@@ -34,4 +34,9 @@
   line-height: 29px;
   color: #fff;
   margin-bottom: 50px;
+  transition: .5s;
+}
+
+.start-page__button:hover {
+  background-color: #89b6cbe0;
 }
