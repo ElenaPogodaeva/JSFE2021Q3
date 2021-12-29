@@ -4,6 +4,8 @@ import { selectedCards } from './toys';
 
 const startPage = document.querySelector('.start-page') as HTMLElement;
 const treePage = document.querySelector('.tree-page') as HTMLElement;
+const toysPage = document.querySelector('.main-page') as HTMLElement;
+
 const startBtn = document.querySelector('#start-game') as HTMLElement;
 
 const treeContainer = document.querySelector('.tree-container') as HTMLElement;
@@ -24,10 +26,15 @@ const garlandBtns = Array.from(document.querySelectorAll('.garland-radio') as No
 const audioBtn = document.querySelector('.audio') as HTMLElement;
 const resetStorageBtn = document.getElementById('reset-tree-storage') as HTMLElement;
 
+const toysLink = document.querySelector('#switch-toys-page') as HTMLElement;
+const treeLink = document.querySelector('#switch-tree-page') as HTMLElement;
+const homeLink = document.querySelector('#switch-start-page') as HTMLElement;
+
 let isGarlandOn = false;
 let isPlay = false;
 let isSnow = false;
 let garlandColor: string;
+let timerId: NodeJS.Timer; //ReturnType<typeof setInterval>;
 
 function setTree(e: Event): void {
   if ((e.target as HTMLElement).classList.contains('tree')) {
@@ -95,6 +102,37 @@ function playAudio() {
 }
 
 audioBtn.addEventListener('click', togglePlayAudio);
+
+function createSnowFlake() {
+  const snowFlake = document.createElement('div');
+  snowFlake.classList.add('fas');
+  snowFlake.classList.add('fa-snowflake');
+  snowFlake.style.left = Math.random() * snowContainer.clientWidth + 'px'; //window.innerWidth
+  snowFlake.style.animationDuration = Math.random() * 3 + 2 + 's'; // between 2 - 5 seconds
+  snowFlake.style.opacity = Math.random().toString();
+  //snow_flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+  snowFlake.style.width = Math.random() * 10 + 12 + 'px';
+  snowFlake.style.height = snowFlake.style.width;
+  snowContainer.appendChild(snowFlake);
+
+  setTimeout(() => {
+    snowFlake.remove();
+  }, 5000);
+}
+
+function createSnow() {
+  if (!isSnow) {
+    timerId = setInterval(createSnowFlake, 50);
+    isSnow = true;
+    snow.classList.add('play');
+  } else {
+    clearInterval(timerId);
+    isSnow = false;
+    snow.classList.remove('play');
+  }
+}
+
+snow.addEventListener('click', createSnow);
 
 function addGarlandRow(right: number, left: number, bottom: number): void {
   const ul = document.createElement('ul');
@@ -310,15 +348,19 @@ function handleOverDrop(e: DragEvent) {
 
   if (draggedEl.parentNode !== e.target) {
     (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
-     area.appendChild(draggedEl);
+    area.appendChild(draggedEl);
     calcCount(parentCard);
   }
 
   draggedEl.style.position = 'absolute';
 
-  draggedEl.style.left = `${(e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX) / mainTreeContainer.clientWidth * 100}%`
+  draggedEl.style.left = `${
+    ((e.clientX - mainTreeContainer.getBoundingClientRect().left - shiftX) / mainTreeContainer.clientWidth) * 100
+  }%`;
 
-  draggedEl.style.top = `${(e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY) / mainTreeContainer.clientHeight * 100}%`;//`${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`; //`${e.pageY - shiftX}px`;
+  draggedEl.style.top = `${
+    ((e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY) / mainTreeContainer.clientHeight) * 100
+  }%`; //`${e.clientY - mainTreeContainer.getBoundingClientRect().top - shiftY}px`; //`${e.pageY - shiftX}px`;
 }
 
 area.addEventListener('drop', function (e: DragEvent) {
@@ -448,10 +490,14 @@ function getLocalStorage() {
     if (isPlay) {
       // audioBtn.classList.add('play');
       // treePage.closest('.tree-page')
-      treePage.addEventListener('click', () => {
-        playAudio();
-        toggleAudioBtn();
-      }, {once: true});
+      treePage.addEventListener(
+        'click',
+        () => {
+          playAudio();
+          toggleAudioBtn();
+        },
+        { once: true }
+      );
     }
   }
 
@@ -460,7 +506,7 @@ function getLocalStorage() {
 
     if (isSnow) {
       timerId = setInterval(createSnowFlake, 50);
-     // toggleSnowBtn();
+      // toggleSnowBtn();
       snow.classList.add('play');
     }
   }
@@ -469,42 +515,6 @@ function getLocalStorage() {
 }
 
 window.addEventListener('load', getLocalStorage);
-
-
-let timerId:any;
-snow.addEventListener('click', createSnow);
-
-function createSnow() {
-
-  if (!isSnow) {
-    timerId = setInterval(createSnowFlake, 50);
-    isSnow = true;
-    snow.classList.add('play');
-  }
-  else {
-    clearInterval(timerId);
-    isSnow = false;
-    snow.classList.remove('play');
-  }
-}
-
-function createSnowFlake() {
-	const snowFlake = document.createElement('div');
-	snowFlake.classList.add('fas');
-	snowFlake.classList.add('fa-snowflake');
-	snowFlake.style.left = Math.random() * snowContainer.clientWidth + 'px'; //window.innerWidth
-	snowFlake.style.animationDuration = Math.random() * 3 + 2 + 's'; // between 2 - 5 seconds
-	snowFlake.style.opacity = Math.random().toString();
-	//snow_flake.style.fontSize = Math.random() * 10 + 10 + 'px';
-	snowFlake.style.width = Math.random() * 10 + 12 + 'px';
-  snowFlake.style.height = snowFlake.style.width;
-  snowContainer.appendChild(snowFlake);
-	
-	setTimeout(() => {
-		snowFlake.remove();
-	}, 5000)
-}
-
 
 function resetSettings(): void {
   isPlay = false;
@@ -515,7 +525,7 @@ function resetSettings(): void {
 
   snow.classList.remove('play');
   clearInterval(timerId);
-  
+
   treeItems.forEach((item) => {
     if (item.classList.contains('active')) {
       item.classList.remove('active');
@@ -523,7 +533,7 @@ function resetSettings(): void {
   });
 
   treeItems[0].classList.add('active');
-  const treeNum = treeItems[0].dataset.tree
+  const treeNum = treeItems[0].dataset.tree;
   mainTree.src = `./assets/tree/${treeNum}.png`;
 
   bgItems.forEach((item) => {
@@ -533,7 +543,7 @@ function resetSettings(): void {
   });
 
   bgItems[0].classList.add('active');
-  const bgNum = bgItems[0].dataset.bg
+  const bgNum = bgItems[0].dataset.bg;
   mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
 
   garlandBtns[0].checked = true;
@@ -544,7 +554,6 @@ function resetSettings(): void {
 }
 
 resetStorageBtn.addEventListener('click', resetSettings);
-
 
 function switchPage(pageFrom: HTMLElement, pageTo: HTMLElement) {
   pageFrom.classList.add('hide');
@@ -570,15 +579,8 @@ function switchToToysPage() {
   treePage.classList.add('hide');
 }
 
-const toysLink = document.querySelector('#switch-toys-page') as HTMLElement;
-const treeLink = document.querySelector('#switch-tree-page') as HTMLElement;
-const homeLink = document.querySelector('#switch-start-page') as HTMLElement;
-
-const toysPage = document.querySelector('.main-page') as HTMLElement;
-
-toysLink.addEventListener('click', switchToToysPage );
+toysLink.addEventListener('click', switchToToysPage);
 treeLink.addEventListener('click', () => {
-
   drawSelectedCards();
   switchToTreePage();
 
@@ -592,11 +594,10 @@ treeLink.addEventListener('click', () => {
       handleDragEnd(e);
     });
   }
-  
+
   while (area.firstChild) {
     area.firstChild.remove();
-}
-
+  }
 });
 
 startBtn.addEventListener('click', switchToToysPage);
