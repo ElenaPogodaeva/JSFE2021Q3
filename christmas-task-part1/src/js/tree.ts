@@ -81,11 +81,15 @@ function toggleAudioBtn() {
   }
 }
 
+function playAudio() {
+  audio.src = './assets/audio/audio.mp3';
+  audio.currentTime = 0;
+  audio.play();
+}
+
 function togglePlayAudio() {
   if (!isPlay) {
-    audio.src = './assets/audio/audio.mp3';
-    audio.currentTime = 0;
-    audio.play();
+    playAudio();
     isPlay = true;
     //treePage.removeEventListener('click', playAudio);
   } else {
@@ -94,11 +98,6 @@ function togglePlayAudio() {
   }
   // audioBtn.classList.toggle('play');
   toggleAudioBtn();
-}
-function playAudio() {
-  audio.src = './assets/audio/audio.mp3';
-  audio.currentTime = 0;
-  audio.play();
 }
 
 audioBtn.addEventListener('click', togglePlayAudio);
@@ -124,10 +123,12 @@ function createSnow() {
   if (!isSnow) {
     timerId = setInterval(createSnowFlake, 50);
     isSnow = true;
+    snowContainer.style.display = 'block';
     snow.classList.add('play');
   } else {
     clearInterval(timerId);
     isSnow = false;
+    snowContainer.style.display = 'none';
     snow.classList.remove('play');
   }
 }
@@ -164,16 +165,12 @@ function addGarlandRow(right: number, left: number, bottom: number): void {
 }
 
 function addGarland(): void {
-  /* addGarlandRow(480, 15, 10, 20);
-  addGarlandRow(460, 35, 20, 20);
-  addGarlandRow(435, 55, 30, 20);
-  addGarlandRow(400, 90, 40, 20);*/
-  addGarlandRow(480, 15, 20);
-  addGarlandRow(450, 45, 30);
+  addGarlandRow(460, 35, 20);
+  addGarlandRow(430, 65, 30);
   addGarlandRow(400, 95, 40);
-  addGarlandRow(380, 115, 50);
-  addGarlandRow(320, 175, 60);
-  addGarlandRow(280, 215, 70);
+  addGarlandRow(370, 125, 50);
+  addGarlandRow(340, 155, 60);
+  addGarlandRow(310, 185, 70);
 }
 
 function changeGarlandColor(): void {
@@ -182,15 +179,9 @@ function changeGarlandColor(): void {
   switchGarlandCheckbox.checked = true;
 
   const colorChecked = document.querySelector('.garland-radio:checked') as HTMLInputElement;
-  //if ((e.target as HTMLElement).classList.contains('garland-btn')) {
 
-  // color = (e.target as HTMLElement).dataset.color as string;
   garlandColor = colorChecked.value;
-
-  //  mainTree.src=`./assets/tree/${treeNum}.png`;
   addGarland();
-
-  // }
 }
 
 garlandBtns.forEach((item) => item.addEventListener('click', changeGarlandColor));
@@ -253,76 +244,11 @@ let draggable = document.querySelectorAll('[draggable]') as NodeListOf<HTMLEleme
 let shiftX: number, shiftY: number;
 
 function handleDragStart(e: DragEvent) {
-  (e.dataTransfer as DataTransfer).setData('text', (e.target as HTMLElement).id); //note: using "this" is the same as using: e.target.
+  (e.dataTransfer as DataTransfer).setData('text', (e.target as HTMLElement).id);
   shiftX = e.clientX - (e.target as HTMLElement).getBoundingClientRect().left;
   shiftY = e.clientY - (e.target as HTMLElement).getBoundingClientRect().top;
 }
 
-//document.addEventListener("dragend", (e: DragEvent) => handleDragEnd(e));
-
-//const targets = document.querySelectorAll('[data-drop-target]') as NodeListOf<HTMLElement>;
-
-//const treeImg = document.querySelector('.main-tree') as HTMLImageElement;
-
-/*
-function handleOverDrop(e: DragEvent) {
-  console.log('fffffff');
-  e.preventDefault(); 
-  //Depending on the browser in use, not using the preventDefault() could cause any number of strange default behaviours to occur.
-  if (e.type != "drop") {
-    return; //Means function will exit if no "drop" event is fired.
-  }
-  //Stores dragged elements ID in var draggedId
-  const draggedId = (e.dataTransfer as DataTransfer).getData("text");
-  
-  //Stores referrence to element being dragged in var draggedEl
-  const draggedEl = document.getElementById(draggedId) as HTMLElement;
-console.log(draggedEl.parentNode)
-  //if the event "drop" is fired on the dragged elements original drop target e.i..  it's current parentNode, 
-  //then set it's css class to ="" which will remove dotted lines around the drop target and exit the function.
-  if (draggedEl.parentNode === e.target) {
-    console.log('return')
-   // this.className = "";
-    return; //note: when a return is reached a function exits.
-    
-  }
-  console.log(e.target);
-  //Otherwise if the event "drop" is fired from a different target element, detach the dragged element node from it's
-  //current drop target (i.e current perantNode) and append it to the new target element. Also remove dotted css class. 
-  (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
-  (e.target as HTMLElement).appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
-  draggedEl.style.position = "absolute";
-  draggedEl.style.left = `${e.clientX - shiftX}px`;
-  
-  draggedEl.style.top = `${e.offsetY - shiftY}px`;
-  console.log(draggedEl.style.top);
- 
-  // (e.target as HTMLElement).className = "";
-}//end Function
-
-
-for(let i = 0; i < targets.length; i++) {
-  //targets[i].addEventListener("dragover", handleOverDrop);
-  (targets[i] as HTMLElement).addEventListener("drop", function (e: DragEvent) {
-    handleOverDrop(e);
-    console.log('ffffffff');
-  }
-  );
-  (targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
-     handleOverDrop(e);
-   // e.preventDefault();
-     console.log('ffffffff');
-   }
-   );
-  //(targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
-    // handleOverDrop(e);
-  //   console.log('ffffffff');
-  // }
-  // );
- // targets[i].addEventListener("dragenter", handleDragEnterLeave);
- // targets[i].addEventListener("dragleave", handleDragEnterLeave);
-}
-*/
 function calcCount(parentNode: HTMLElement) {
   const imgArr = parentNode.querySelectorAll('img') as NodeListOf<HTMLElement>;
   const count = imgArr.length;
@@ -384,7 +310,7 @@ function handleDragEnd(e: DragEvent) {
   (draggedEl.parentNode as HTMLElement).removeChild(draggedEl);
   const parentCard = document.querySelector(`.selected-card[data-num='${draggedEl.dataset.imgnum}']`) as HTMLElement;
 
-  parentCard.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
+  parentCard.appendChild(draggedEl);
   //draggedEl.style.position = "absolute";
   // draggedEl.style.left = `${e.clientX - - shiftX}px`; // shiftX
   draggedEl.style.left = 'auto'; // shiftX
@@ -392,7 +318,6 @@ function handleDragEnd(e: DragEvent) {
   draggedEl.style.top = 'auto';
 
   calcCount(parentCard);
-  // draggedEl.style.top = `${e.clientY - shiftY}px`;
 }
 
 for (let i = 0; i < draggable.length; i++) {
@@ -403,29 +328,6 @@ for (let i = 0; i < draggable.length; i++) {
     handleDragEnd(e);
   });
 }
-/*
-for(let i = 0; i < targets.length; i++) {
-  //targets[i].addEventListener("dragover", handleOverDrop);
- // (targets[i] as HTMLElement).addEventListener("drop", function (e: DragEvent) {
- //   handleOverDrop(e);
- //   console.log('ffffffff');
- // }
- // );
-  (targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
-    // handleOverDrop(e);
-    e.preventDefault();
-    // console.log('ffffffff');
-   }
-   );
-  //(targets[i] as HTMLElement).addEventListener("dragover", function (e: DragEvent) {
-    // handleOverDrop(e);
-  //   console.log('ffffffff');
-  // }
-  // );
- // targets[i].addEventListener("dragenter", handleDragEnterLeave);
- // targets[i].addEventListener("dragleave", handleDragEnterLeave);
-} 
-*/
 
 function setLocalStorage() {
   const selectedBg = document.querySelector('.bg.active') as HTMLElement;
@@ -457,6 +359,7 @@ function getLocalStorage() {
     const bgNum = JSON.parse(localStorage.getItem('bg') as string) || [];
 
     const bgItem = document.querySelector(`.bg[data-bg="${bgNum}"]`) as HTMLElement;
+    bgItems[0].classList.remove('active');
     bgItem.classList.add('active');
     mainTreeContainer.style.backgroundImage = `url("./assets/bg/${bgNum}.jpg")`;
   }
@@ -465,6 +368,8 @@ function getLocalStorage() {
     const treeNum = JSON.parse(localStorage.getItem('tree') as string) || [];
 
     const treeItem = document.querySelector(`.tree[data-tree="${treeNum}"]`) as HTMLElement;
+
+    treeItems[0].classList.remove('active');
     treeItem.classList.add('active');
     mainTree.src = `./assets/tree/${treeNum}.png`;
   }
@@ -488,8 +393,6 @@ function getLocalStorage() {
     isPlay = !!JSON.parse(localStorage.getItem('isPlay') as string);
 
     if (isPlay) {
-      // audioBtn.classList.add('play');
-      // treePage.closest('.tree-page')
       treePage.addEventListener(
         'click',
         () => {
@@ -554,12 +457,6 @@ function resetSettings(): void {
 }
 
 resetStorageBtn.addEventListener('click', resetSettings);
-
-function switchPage(pageFrom: HTMLElement, pageTo: HTMLElement) {
-  pageFrom.classList.add('hide');
-  pageTo.classList.remove('hide');
-  startPage.classList.add('hide');
-}
 
 function switchToStartPage() {
   startPage.classList.remove('hide');
