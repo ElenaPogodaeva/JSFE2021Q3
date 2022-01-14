@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const htmlFile = /^([-_\d\w]+).html$/i;
 const srcPath = path.resolve(__dirname, 'src');
@@ -19,6 +20,8 @@ const devServer = (isDev) => !isDev ? {} : {
     },
   },
 };
+
+const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['ts', 'js'] }) ];
 
 const getRelative = (absolutePath) => path.relative(srcPath, absolutePath);
 const makePath = (relativePath) => './' + relativePath.replace(/\\+/g, '/');
@@ -100,6 +103,7 @@ module.exports = ({ development }) => {
       ],
     },
     plugins: [
+      ...esLintPlugin(development),
       new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' }),
       ...getHtmlPlugins(pages),
       new CopyPlugin({
