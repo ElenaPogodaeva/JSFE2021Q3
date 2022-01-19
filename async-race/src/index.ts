@@ -34,8 +34,52 @@ const prevBtnClick = async () => {
 nextBtn.addEventListener('click', nextBtnClick);
 prevBtn.addEventListener('click', prevBtnClick);
 
+const createForm = document.querySelector('#create-form') as HTMLFormElement;
+  createForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    //const data = new FormData(this);
+    await createCar({name: createForm.elements['name'].value, color: createForm.elements['color'].value});
+    await updateGarage();
+    (document.getElementById('garage') as HTMLElement).innerHTML = renderGarage();
+    (document.getElementById('create-name') as HTMLInputElement).value = '';
+    (document.getElementById('create-color') as HTMLInputElement).value = '';
+});
 
+const updateForm = document.getElementById('update-form') as HTMLFormElement;
 
+let selectedId = '';
+
+updateForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    //const data = new FormData(this);
+    const name = updateForm.elements['name'].value;
+    const color = updateForm.elements['color'].value;
+    await updateCar(+selectedId, {name: name, color: color});
+    await updateGarage();
+    (document.getElementById('garage') as HTMLElement).innerHTML = renderGarage();
+    (document.getElementById('update-name') as HTMLInputElement).value = '';
+    (document.getElementById('update-color') as HTMLInputElement).value = '';
+});
+
+document.addEventListener('click', async (e) => {
+  if ((e.target as HTMLElement).classList.contains('select-button')) {
+    selectedId = (e.target as HTMLElement).id.split('-')[2];
+    const selectedCar = await getCar(+selectedId);
+    (document.getElementById('update-name') as HTMLInputElement).value = selectedCar.name;
+    (document.getElementById('update-color') as HTMLInputElement).value = selectedCar.color;
+    (document.getElementById('update-name') as HTMLInputElement).disabled = false;
+    (document.getElementById('update-color') as HTMLInputElement).disabled = false;
+    (document.getElementById('update-submit') as HTMLInputElement).disabled = false;
+  }
+  if ((e.target as HTMLElement).classList.contains('remove-button')) {
+    selectedId = (e.target as HTMLElement).id.split('-')[2];
+    await deleteCar(+selectedId);
+    await updateGarage();
+    const garage = document.getElementById('garage') as HTMLElement;
+    garage.innerHTML = renderGarage();
+  }
+
+});
   //console.log(createForm);
 /*import image from './images/lazy.png';
 
