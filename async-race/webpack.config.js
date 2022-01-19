@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
+
 const htmlFile = /^([-_\d\w]+).html$/i;
 const srcPath = path.resolve(__dirname, 'src');
 
@@ -73,6 +74,7 @@ module.exports = ({ development }) => {
       assetModuleFilename: '[file]',
     },
     target: ['web', 'es6'],
+
     module: {
       rules: [
         {
@@ -101,6 +103,9 @@ module.exports = ({ development }) => {
           use: [{loader: MiniCssExtractPlugin.loader, options: { publicPath: '../' }}, 'css-loader', 'sass-loader']
         }
       ],
+    },
+    experiments: {
+      topLevelAwait: true,
     },
     plugins: [
       ...esLintPlugin(development),
