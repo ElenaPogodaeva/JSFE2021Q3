@@ -100,6 +100,18 @@ export default class App {
         const garage = document.getElementById('garage') as HTMLElement;
         garage.innerHTML = this.view.renderGarage(this.garage._cars, this.page);
       }
+      if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.startDriving(+id);
+      }
+      if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.stopDriving(+id);
+      }
+
+     
     });
   }
 }

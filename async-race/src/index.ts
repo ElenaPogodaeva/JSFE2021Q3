@@ -3,8 +3,16 @@ import { getCars, getCar, createCar, updateCar, deleteCar, updateGarage} from '.
 import { getRandomCars} from './utils';
 import { renderGarage} from './pages/garage/garage';
 import store from './store';
+import App from './controller/app';
+import View from './view/app.view';
+import Garage from './model/garage.model';
 
+const garage = new Garage();
+const view = new View(garage);
 
+const app = new App(garage, view);
+app.start();
+/*
 render();
 await updateGarage();
 
@@ -87,6 +95,7 @@ document.addEventListener('click', async (e) => {
     garage.innerHTML = renderGarage();
   }
 });
+*/
   //console.log(createForm);
 /*import image from './images/lazy.png';
 

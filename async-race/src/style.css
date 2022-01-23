@@ -7,13 +7,24 @@ body {
 
 h1 { color: #e6c300; }
 
+header {
+  padding-bottom: 30px;
+}
+
+.form {
+  margin-bottom: 15px;
+}
 .car-wrapper {
   display: flex;
   height: 45px;
   border-bottom: 1px solid;
 }
+ul {
+  padding: 0;
+}
 li {
   list-style: none;
+  padding:0;
   padding-top: 30px
 }
 
@@ -21,7 +32,40 @@ li {
   margin-bottom: 10px;
 }
 
+.car-name {
+  color: #e6c300;
+  margin-left: 10px;
+}
+
 .control-panel {
   margin-right: 20px;
 }
 
+.road {
+  position: relative;
+}
+.flag {
+  position: absolute;
+  top:0;
+  right: 50px;
+  margin-top: -20px;
+  font-size: 60px;
+  color: red;
+}
+.icon {
+  background: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 22px;
+  cursor: pointer;
+}
+.icon:disabled {
+  color: gray;
+  cursor: auto;
+}
+.start-engine-button.enabling {
+  color: yellow;
+}
+.stop-engine-button.enabling {
+  color: red;
+}

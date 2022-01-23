@@ -1,3 +1,5 @@
+import { DrivingStatus } from "./api";
+
 const names = ['Camry', 'Cayenne', 'Combi', '7', '9'];
 const models = ['Tesla', 'BMW', 'Mersedes', 'Ford'];
 const letters = '0123456789ABCDEF';
@@ -20,3 +22,42 @@ export const getRandomCars = (count = 100) => {
   let cars = new Array(count).fill(0);
   return cars.map((item) => ({name: getRandomName(), color: getRandomColor()}));
 }
+
+function getCenterPoint(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+
+  return {
+    x: rect.left + rect.width/2,
+    y: rect.top + rect.height/2
+  }
+}
+
+export function getDistanceBetweenElements(a: HTMLElement, b: HTMLElement) {
+  const centerA = getCenterPoint(a);
+  const centerB = getCenterPoint(b);
+
+  const distanceSquared = Math.pow(centerA.x - centerB.x, 2) + Math.pow(centerA.y - centerB.y, 2);
+
+  return Math.sqrt(distanceSquared);
+}
+
+export function animation(car: HTMLElement, distance: number, animationTime: number) {
+  let start: number | null = null;
+  const state = {id: 1};
+
+  function getStep(timestamp: number) {
+    if (!start) start = timestamp;
+    const time = timestamp - start;
+    const passed = Math.round(time * (distance / animationTime));
+
+    car.style.transform = `translateX(${Math.min(passed, distance)}px)`;
+    console.log(car);
+    if (passed < distance) {
+      state.id = window.requestAnimationFrame(getStep);
+    }
+
+  }
+  state.id = window.requestAnimationFrame(getStep);
+  return state;
+}
+

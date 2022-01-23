@@ -9,9 +9,9 @@ const path = {    //enum
 }
 
 export type CarModel = {
+  id: number;
   name: string;
   color: string;
-  id: Number;
 };
 
 export type Car = {
@@ -28,6 +28,24 @@ export type Winner = {
   wins: number,
   time: number
 }
+
+export type Engine = {
+  velocity: number,
+  distance: number
+}
+
+export type DrivingStatus = {
+  success: boolean;
+  id: number;
+  time: number;
+};
+
+export type Race = {
+  id: number;
+  name: string;
+  color: string;
+  time: number;
+};
 //[{key: '', value: ''}]
 /*
 const generateQueryString = (queryParams = []) => queryParams.length
@@ -156,7 +174,7 @@ export const driveCar = async (id: number) => {
   const response = await fetch(`${baseUrl}${path.engine}?id=${id}&status=drive`, {
     method: 'PATCH'
   });
-  return response.status !== 200 ? {"success": false} : {...(await response.json())};
+  return response.status !== 200 ? {'success': false} : {...(await response.json())};
   // const items = await response.json();
 }
 
@@ -166,7 +184,7 @@ export const getWinners = async (page: number, limit = 7, sort = '', order = '')
   const response = await fetch(`${baseUrl}${path.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`);
   const items = await response.json();
 
-  const data = await Promise.all(items.map(async winner => ({...winner, car: await getCar(winner.id)})));
+  const data = await Promise.all(items.map(async (winner:WinnerModel) => ({...winner, car: await getCar(winner.id)})));
   const count = Number(response.headers.get('X-Total-Count'));
 
   return {

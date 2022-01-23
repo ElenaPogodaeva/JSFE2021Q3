@@ -144,14 +144,14 @@ export default class View {
     <div class="road">
       <div class="car-wrapper">
         <div class="control-panel">
-          <button class="icon start-engine-button" id="start-car-${car.id}">A</button>
-          <button class="icon stop-engine-button" id="stop-car-${car.id}">B</button>
+          <button class="icon start-engine-button enabling" id="start-car-${car.id}">A</button>
+          <button class="icon stop-engine-button" id="stop-car-${car.id}" disabled>B</button>
         </div>
         <div class="car" id="car-${car.id}">
           ${this.renderCarImage(car.color)}
         </div>
       </div>
-      <div class="flag" id="flag-${car.id}"></div>
+      <div class="flag" id="flag-${car.id}">&#9873;</div>
     </div>`;
   }
 

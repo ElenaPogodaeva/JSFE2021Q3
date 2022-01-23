@@ -1,4 +1,5 @@
-import { CarModel, Car } from "../api";
+import { CarModel, Car, Engine, DrivingStatus, Race } from "../api";
+import { getDistanceBetweenElements, animation } from "../utils";
 
 const baseUrl = 'http://127.0.0.1:3000';
 
@@ -16,12 +17,14 @@ export default class Garage {
 
   selectedCarId: string;
   car: CarModel;
+  animation: {id: number};
   constructor() {
     this._cars = [];
     this.count = 0;
 
     this.selectedCarId = '';
     this.car = {id: 0, name: '', color: ''};
+    this.animation = {id: 0};
   }
 
   async fetchCars (page: number, limit = 7) {
@@ -124,5 +127,87 @@ export default class Garage {
       garage.innerHTML = renderGarage();
     } */
   }
+
+
+  // Engine
+
+  async startEngine (id: number) {
+    const response = await fetch(`${baseUrl}${path.engine}?id=${id}&status=started`, {
+      method: 'PATCH'
+    });
+    const items = await response.json();
+
+    return items;
+  }
+
+  async stopEngine (id: number) {
+    const response = await fetch(`${baseUrl}${path.engine}?id=${id}&status=stopped`, {
+      method: 'PATCH'
+    });
+    const items = await response.json();
+
+    return items;
+  }
+
+  async driveCar(id: number) {
+    const response = await fetch(`${baseUrl}${path.engine}?id=${id}&status=drive`, {
+      method: 'PATCH'
+    }).catch();
+
+    return response.status !== 200 ? {'success': false} : {...(await response.json())};
+    // const items = await response.json();
+  }
+
+  async startDriving(id: number) {
+
+    const startButton = document.getElementById(`start-car-${id}`) as HTMLButtonElement;
+    startButton.disabled = true;
+    console.log(1);
+    const {velocity, distance} = await this.startEngine(id);
+
+    startButton.classList.toggle('enabling', false);
+    const time = Math.round(distance / velocity);
+
+    const stopButton = document.getElementById(`stop-car-${id}`) as HTMLButtonElement;
+    stopButton.disabled = false;
+    stopButton.classList.toggle('enabling', true);
+
+    const car = document.getElementById(`car-${id}`) as HTMLElement;
+    const flag = document.getElementById(`flag-${id}`) as HTMLElement;
+
+    const htmlDistance = Math.floor(getDistanceBetweenElements(car, flag));
+  // console.log(htmlDistance)
+    this.animation = animation(car, htmlDistance, time);
+   // console.log( animation(car, htmlDistance, time).id);
+    const { success } = await this.driveCar(id);
+    console.log(success);
+    if (!success) window.cancelAnimationFrame(this.animation.id);
+
+    return { success, id, time };
+  }
+  async stopDriving(id: number) {
+
+    const stopButton = document.getElementById(`stop-car-${id}`) as HTMLButtonElement;
+    stopButton.disabled = true;
+    stopButton.classList.toggle('enabling', true);
+    await this.stopEngine(id);
+    //console.log(await this.startEngine(id));
+    stopButton.classList.toggle('enabling', false);
+    const startButton = document.getElementById(`start-car-${id}`) as HTMLButtonElement;
+    startButton.disabled = false;
+    startButton.classList.toggle('enabling', true);
+
+    const car = document.getElementById(`car-${id}`) as HTMLElement;
+
+  // console.log(htmlDistance)
+    car.style.transform = 'translateX(0)';
+   // console.log( animation(car, htmlDistance, time).id);
+
+    if (this.animation) window.cancelAnimationFrame(this.animation.id);
+
+  }
+
 }
+
+
 
