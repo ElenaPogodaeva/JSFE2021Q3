@@ -111,7 +111,11 @@ export default class App {
         this.garage.stopDriving(+id);
       }
 
-     
+      if ((e.target as HTMLElement).classList.contains('race-button')) {
+        
+        await this.garage.race(this.garage.startDriving);
+
+      }
     });
   }
 }

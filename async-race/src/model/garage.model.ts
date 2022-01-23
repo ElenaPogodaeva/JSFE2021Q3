@@ -92,7 +92,7 @@ export default class Garage {
 
   async updateGarage (page: number) {
     await this.fetchCars(page);
-    console.log(this.count);
+  
     if (page * 7 < this.count) {
       (document.getElementById('next-btn') as HTMLButtonElement).disabled = false;
     }
@@ -132,9 +132,11 @@ export default class Garage {
   // Engine
 
   async startEngine (id: number) {
+
     const response = await fetch(`${baseUrl}${path.engine}?id=${id}&status=started`, {
       method: 'PATCH'
     });
+
     const items = await response.json();
 
     return items;
@@ -162,7 +164,7 @@ export default class Garage {
 
     const startButton = document.getElementById(`start-car-${id}`) as HTMLButtonElement;
     startButton.disabled = true;
-    console.log(1);
+
     const {velocity, distance} = await this.startEngine(id);
 
     startButton.classList.toggle('enabling', false);
@@ -205,6 +207,32 @@ export default class Garage {
 
     if (this.animation) window.cancelAnimationFrame(this.animation.id);
 
+  }
+
+  async raceAll( promises: Promise<DrivingStatus>[], indexes: number[]): Promise<Race> {
+    const {success, id, time} = await Promise.race(promises);
+
+    if (!success) {
+      const failedIndex = indexes.findIndex((i) => i === id);
+      const restPromises = [...promises.slice(0, failedIndex), ...promises.slice(failedIndex + 1, promises.length)];
+      const restIndexes = [...indexes.slice(0, failedIndex), ...indexes.slice(failedIndex + 1, indexes.length)];
+      return this.raceAll(restPromises, restIndexes);
+    }
+
+    const winner = this._cars.filter((item: CarModel): Boolean => item.id === id)[0];
+    return {
+      ...winner,
+      time: +(time / 1000).toFixed(2)
+    }
+  }
+
+  async race( action: {(id: number): Promise<DrivingStatus>}): Promise<Race> {
+    const promises = this._cars.map( ({id}) => action(id) );
+
+    const winner = await this.raceAll( promises,
+      this._cars.map((car: CarModel) => car.id)
+    );
+    return winner;
   }
 
 }
