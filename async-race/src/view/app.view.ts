@@ -1,12 +1,15 @@
-import {CarModel} from '../api';
+import {CarModel, CarWinner} from '../api';
 import Garage from '../model/garage.model';
+import Winners from '../model/winners.model';
 
 export default class View {
   garage: Garage;
-  constructor(garage: Garage) {
+  winners: Winners;
+  constructor(garage: Garage, winners: Winners) {
     this.garage = garage;
+    this.winners = winners;
   }
-  render(cars: CarModel[], page: number) {
+  render(cars: CarModel[], winners: CarWinner[], page: number) {
     console.log(cars, page);
     const html = `
     <header>
@@ -35,6 +38,9 @@ export default class View {
         ${this.renderGarage(cars, page)}
       </div>
     </div>
+    <div id="winners-view" class="hide">
+        ${this.renderWinners(winners)}
+    </div>
     <div class="pagination">
         <button class="button" id="prev-btn" disabled>Prev</button>
         <button class="button" id="next-btn" disabled>Next</button>
@@ -47,7 +53,8 @@ export default class View {
   }
 
    renderGarage(cars: CarModel[], carsPage: number) {
-   /* const h1 = document.createElement('h1');
+     /*
+    const h1 = document.createElement('h1');
     h1.textContent = `Garage (${cars.length})`;
     const h2 = document.createElement('h1');
     h2.textContent = `Page №${carsPage}`;
@@ -60,7 +67,15 @@ export default class View {
       li.appendChild(this.renderCarButton(car));
       li.appendChild(this.renderCar(car));
       ul.appendChild(li);
-    }); */
+    });
+
+    const garageView = document.createElement('div');
+    garageView.appendChild(h1);
+    garageView.appendChild(h2);
+    garageView.appendChild(ul);
+    console.log(garageView)
+    return garageView; */
+
     return `
     <h1>Garage (${this.garage.getCount()})</h1>
     <h2>Page #${carsPage}</h2>
@@ -69,8 +84,64 @@ export default class View {
     </ul>`;
   }
 
+  renderWinners(winners: CarWinner[]) {
+    /*
+   const h1 = document.createElement('h1');
+   h1.textContent = `Garage (${cars.length})`;
+   const h2 = document.createElement('h1');
+   h2.textContent = `Page №${carsPage}`;
+
+   const ul = document.createElement('ul');
+   ul.classList.add('garage');
+
+   cars.map((car: CarModel) => {
+     const li = document.createElement('li');
+     li.appendChild(this.renderCarButton(car));
+     li.appendChild(this.renderCar(car));
+     ul.appendChild(li);
+   });
+
+   const garageView = document.createElement('div');
+   garageView.appendChild(h1);
+   garageView.appendChild(h2);
+   garageView.appendChild(ul);
+   console.log(garageView)
+   return garageView; */
+
+   return `
+   <h1>Winners (${this.winners.getCount()})</h1>
+   <h2>Page #${this.winners.winnersPage}</h2>
+   <table>
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Car</th>
+        <th>Name</th>
+        <th class="table-button table-wins ${
+          this.winners.sortBy === 'wins' ? this.winners.sortOrder : ''
+        } id="sort-by-wins">Wins</th>
+        <th class="table-button table-time ${
+          this.winners.sortBy === 'time'? this.winners.sortOrder : ''
+        }	id="sort-by-time">Best time (sec)</th>
+      </tr>
+    </thead>
+    <tbody>
+        ${winners.map((item, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${this.renderCarImage(item.car.color)}</td>
+          <td>${item.car.name}</td>
+          <td>${item.wins}</td>
+          <td>${item.time}</td>
+        </tr>
+        `).join('')}
+    </tbody>
+    </table>`;
+ }
+
 
   renderCarButton(car: CarModel) {
+
     const carButtons = document.createElement('div');
     carButtons.classList.add('car-buttons');
 
@@ -134,7 +205,28 @@ export default class View {
 
     carWrapper.appendChild(controlPanel);
     carWrapper.appendChild(carElement);
-    */
+
+    document.addEventListener('click', async (e) => {
+      if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.startDriving(+id);
+      }
+      if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.stopDriving(+id);
+      }
+
+      if ((e.target as HTMLElement).classList.contains('race-button')) {
+
+        await this.garage.race(this.garage.startDriving);
+
+      }
+
+    });
+    return road; */
+
     return `
     <div class="car-buttons">
       <button class="button select-button" id="select-car-${car.id}">Select</button>
@@ -256,5 +348,28 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 61 239 98 16 10 -216 242 -234 235z"/>
 </g>
 </svg>`;
+  }
+
+
+  listen() {
+    document.addEventListener('click', async (e) => {
+      if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.startDriving(+id);
+      }
+      if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        console.log(id);
+        this.garage.stopDriving(+id);
+      }
+
+      if ((e.target as HTMLElement).classList.contains('race-button')) {
+
+        await this.garage.race(this.garage.startDriving);
+
+      }
+
+    });
   }
 }
