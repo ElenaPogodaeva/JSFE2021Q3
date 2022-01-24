@@ -14,14 +14,14 @@ export default class Garage {
   private count: number;
 
   //this.garageElement = document.getElementById('garage-view') as HTMLElement;
-
+  carsPage: number;
   selectedCarId: string;
   car: CarModel;
   animation: {id: number};
   constructor() {
     this._cars = [];
     this.count = 0;
-
+    this.carsPage = 1;
     this.selectedCarId = '';
     this.car = {id: 0, name: '', color: ''};
     this.animation = {id: 0};
@@ -92,7 +92,7 @@ export default class Garage {
 
   async updateGarage (page: number) {
     await this.fetchCars(page);
-  
+
     if (page * 7 < this.count) {
       (document.getElementById('next-btn') as HTMLButtonElement).disabled = false;
     }
@@ -235,6 +235,7 @@ export default class Garage {
     return winner;
   }
 
+  
 }
 
 

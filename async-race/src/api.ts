@@ -29,6 +29,13 @@ export type Winner = {
   time: number
 }
 
+export type CarWinner = {
+  wins: number,
+  time: number,
+  car: CarModel,
+}
+
+
 export type Engine = {
   velocity: number,
   distance: number

@@ -69,3 +69,7 @@ li {
 .stop-engine-button.enabling {
   color: red;
 }
+
+.hide {
+  display: none;
+}
