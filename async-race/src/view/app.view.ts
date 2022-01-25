@@ -31,12 +31,13 @@ export default class View {
       </form>
       <div class="controls">
         <button class="button race-button" id="race">Race</button>
-        <button class="button reset-button" id="reset">Reset</button>
+        <button class="button reset-button" id="reset" disabled>Reset</button>
         <button class="button generate-button" id="generate">Generate cars</button>
       </div>
       <div id="garage">
         ${this.renderGarage(cars, page)}
       </div>
+      <p class="message" id="message"></p>
     </div>
     <div id="winners-view" class="hide">
         ${this.renderWinners(winners)}
@@ -119,10 +120,10 @@ export default class View {
         <th>Name</th>
         <th class="table-button table-wins ${
           this.winners.sortBy === 'wins' ? this.winners.sortOrder : ''
-        } id="sort-by-wins">Wins</th>
+        }" id="sort-by-wins">Wins</th>
         <th class="table-button table-time ${
           this.winners.sortBy === 'time'? this.winners.sortOrder : ''
-        }	id="sort-by-time">Best time (sec)</th>
+        }" id="sort-by-time">Best time (sec)</th>
       </tr>
     </thead>
     <tbody>
@@ -139,7 +140,27 @@ export default class View {
     </table>`;
  }
 
+ listen() {
+  document.addEventListener('click', async (e) => {
+    if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
+      const id = (e.target as HTMLElement).id.split('-')[2];
+      console.log(id);
+      this.garage.startDriving(+id);
+    }
+    if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
+      const id = (e.target as HTMLElement).id.split('-')[2];
+      console.log(id);
+      this.garage.stopDriving(+id);
+    }
 
+    if ((e.target as HTMLElement).classList.contains('race-button')) {
+
+      await this.garage.race(this.garage.startDriving);
+
+    }
+
+  });
+}
   renderCarButton(car: CarModel) {
 
     const carButtons = document.createElement('div');
@@ -350,26 +371,4 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 </svg>`;
   }
 
-
-  listen() {
-    document.addEventListener('click', async (e) => {
-      if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
-        const id = (e.target as HTMLElement).id.split('-')[2];
-        console.log(id);
-        this.garage.startDriving(+id);
-      }
-      if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
-        const id = (e.target as HTMLElement).id.split('-')[2];
-        console.log(id);
-        this.garage.stopDriving(+id);
-      }
-
-      if ((e.target as HTMLElement).classList.contains('race-button')) {
-
-        await this.garage.race(this.garage.startDriving);
-
-      }
-
-    });
-  }
 }

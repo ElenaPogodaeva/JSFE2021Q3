@@ -34,7 +34,7 @@ export default class Winners {
     const car = await response.json();
     return car;
   }
-  async getSortOrder(sort?: string | null, order?: string | null) {
+  getSortOrder(sort?: string | null, order?: string | null) {
     if (sort && order) {
       return `&_sort=${sort}&_order=${order}`;
     }
@@ -44,13 +44,13 @@ export default class Winners {
   async fetchWinners ({page, limit = 10, sort, order}:
     {page: number, limit?: number, sort?: string | null, order?: string | null}) {
     const response = await fetch(`${baseUrl}${path.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`);
-
+    console.log(`${baseUrl}${path.winners}?_page=${page}&_limit=${limit}${this.getSortOrder(sort, order)}`)
     const items = await response.json();
-    console.log(items);
     const data = await Promise.all(items.map(async (winner:WinnerModel) => ({...winner, car: await this.getCar(winner.id)})));
     const count = Number(response.headers.get('X-Total-Count'));
 
     this.winners = data;
+    console.log(this.winners)
     this.count = count;
   }
 
@@ -106,8 +106,8 @@ export default class Winners {
       body: JSON.stringify(body)
     });
     const winner = await response.json();
-
-    return winner;
+    this.winner = winner;
+    return this.winner;
   }
 
 
@@ -124,7 +124,6 @@ export default class Winners {
         time: time < winner.time ? time : winner.time
       })
     }
-
   }
 
   async updateWinners () {
@@ -144,13 +143,13 @@ export default class Winners {
       (document.getElementById('prev-btn') as HTMLButtonElement).disabled = true;
     }
   }
-/*
+
   async setSortOrder(sortBy: string) {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.sortBy = sortBy;
     await this.updateWinners();
-    const winnersView = document.getElementById('winners-view') as HTMLElement;
+    // const winnersView = document.getElementById('winners-view') as HTMLElement;
 
-    winnersView.innerHTML = this.renderWinners(this.winners);
-  }*/
+    // winnersView.innerHTML = this.renderWinners(this.winners);
+  }
 }
