@@ -26,6 +26,7 @@ export default class App {
     console.log(winners)
     console.log(cars);
     this.view.render(cars, winners, 1);//this.page);
+    // this.view.listen();
     this.listen();
   }
 
@@ -38,7 +39,7 @@ export default class App {
       const color = (createForm.elements[1] as HTMLInputElement).value;
       await this.garage.createCar({name: name, color: color});
       await this.garage.updateGarage(this.garage.carsPage);
-      (document.getElementById('garage') as HTMLElement).innerHTML = String(this.view.renderGarage(this.garage._cars, this.page));
+      (document.getElementById('garage') as HTMLElement).innerHTML = this.view.renderGarage(this.garage._cars, this.page);
       (document.getElementById('create-name') as HTMLInputElement).value = '';
       (document.getElementById('create-color') as HTMLInputElement).value = '';
     });
@@ -51,9 +52,12 @@ export default class App {
       const color = (updateForm.elements[1] as HTMLInputElement).value;
       await this.garage.updateCar(+this.garage.selectedCarId, {name: name, color: color});
       await this.garage.updateGarage(this.garage.carsPage);
-      (document.getElementById('garage') as HTMLElement).innerHTML = String(this.view.renderGarage(this.garage._cars, this.page));
+      (document.getElementById('garage') as HTMLElement).innerHTML = this.view.renderGarage(this.garage._cars, this.page);
       (document.getElementById('update-name') as HTMLInputElement).value = '';
       (document.getElementById('update-color') as HTMLInputElement).value = '';
+      (document.getElementById('update-name') as HTMLInputElement).disabled = true;
+      (document.getElementById('update-color') as HTMLInputElement).disabled = true;
+      (document.getElementById('update-submit') as HTMLInputElement).disabled = true;
     });
 
     const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
@@ -130,6 +134,30 @@ export default class App {
       garage.innerHTML = this.view.renderGarage(this.garage._cars, this.garage.carsPage);
     }
 
+    const onRaceBtnClick = async (e: Event) => {
+      const raceBtn = e.target as HTMLButtonElement;
+      raceBtn.disabled = true;
+      const winner = await this.garage.race(this.garage.startDriving.bind(this.garage));
+      await this.winners.saveWinners(winner);
+      console.log(this.winners.winners)
+      const message = document.getElementById('message') as HTMLElement;
+      message.innerHTML = `${winner.name} went first ${winner.time}s!`;
+      message.classList.remove('hide');
+      const resetBtn = document.getElementById('reset') as HTMLButtonElement;
+      resetBtn.disabled = false;
+    }
+
+    const onResetBtnClick = async (e: Event) => {
+      const resetBtn = e.target as HTMLButtonElement;
+      resetBtn.disabled = true;
+      this.garage._cars.map(({id}) => this.garage.stopDriving(id))
+
+      const message = document.getElementById('message') as HTMLElement;
+      message.classList.add('hide');
+      const raceBtn = document.getElementById('race') as HTMLButtonElement;
+      raceBtn.disabled = false;
+    }
+
     const onGarageBtnClick = async () => {
       const garagePage = document.getElementById('garage-view') as HTMLElement;
       const winnersPage = document.getElementById('winners-view') as HTMLElement;
@@ -147,7 +175,7 @@ export default class App {
       const winnersPage = document.getElementById('winners-view') as HTMLElement;
 
       await this.winners.updateWinners();
-
+      console.log(this.winners.winners)
       this.viewName = 'winners';
       winnersPage.innerHTML = this.view.renderWinners(this.winners.winners);
       garagePage.classList.add('hide');
@@ -201,9 +229,22 @@ export default class App {
       }
 
       if ((e.target as HTMLElement).classList.contains('race-button')) {
+        onRaceBtnClick(e);
+      }
+      if ((e.target as HTMLElement).classList.contains('reset-button')) {
+        onResetBtnClick(e);
+      }
+      if ((e.target as HTMLElement).classList.contains('table-wins')) {
+        this.winners.setSortOrder('wins');
+        const winnersView = document.getElementById('winners-view') as HTMLElement;
 
-        await this.garage.race(this.garage.startDriving);
+        winnersView.innerHTML = this.view.renderWinners(this.winners.winners);
+      }
+      if ((e.target as HTMLElement).classList.contains('table-time')) {
+        this.winners.setSortOrder('time');
+        const winnersView = document.getElementById('winners-view') as HTMLElement;
 
+        winnersView.innerHTML = this.view.renderWinners(this.winners.winners);
       }
     });
   }
