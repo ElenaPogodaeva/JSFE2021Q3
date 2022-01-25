@@ -94,6 +94,7 @@ li {
 }
 
 .car-name {
+  font-size: 20px;
   color: #e6c300;
   font-weight: bold;
   margin-left: 10px;
@@ -109,16 +110,16 @@ li {
 .flag {
   position: absolute;
   top:0;
-  right: 50px;
-  margin-top: 8px;
+  right: 140px;
+  margin-top: 10px;
   font-size: 60px;
   color: red;
 }
 .icon {
+  font-size: 22px;
   background: transparent;
   border: 2px solid;
   border-radius: 5px;
-  font-size: 22px;
   cursor: pointer;
 }
 .icon:disabled {
@@ -139,6 +140,8 @@ li {
   font-size: 40px;
   line-height: 60px;
   color: #fff;
+  padding:20px 10px;
+  border-radius: 10px;
   text-align: center;
 }
 
@@ -149,7 +152,6 @@ li {
 .hide {
   display: none;
 }
-
 
 table {
   font-size: 18px;
@@ -170,13 +172,8 @@ th,
 td {
   border-style: solid;
   border-width: 0 1px 1px 0;
-  border-color: #000;
+  border-color: #808080;
   font-weight: bold;
-}
-
-th:first-child,
-td:first-child {
-  text-align: left;
 }
 
 td {
@@ -196,3 +193,4 @@ td {
 .table-button.desc::after {
   content: '↓';
 }
+
