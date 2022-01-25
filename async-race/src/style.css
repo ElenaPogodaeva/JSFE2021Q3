@@ -1,7 +1,13 @@
+
+
 body {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color:#ffffff;
   min-height: 100vh;
-  color: white;
-  text-transform: uppercase;
   background-color: #363636;
 }
 
@@ -9,10 +15,65 @@ h1 { color: #e6c300; }
 
 header {
   padding-bottom: 30px;
+  padding-top: 15px;
 }
 
 .form {
-  margin-bottom: 15px;
+  width: 400px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.input {
+  height: 30px;
+  width: 225px;
+  border: 0;
+  border-radius: 4px;
+}
+.color {
+  height: 30px;
+  border: 0;
+  border-radius: 4px;
+}
+
+.button {
+  display: inline-block;
+  width: 111px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+  font-size: 18px;
+	font-weight: 500;
+	text-decoration: none;
+  color: #000;
+	background-color: #cad2db;
+}
+/*
+.button:hover {
+	box-shadow: 0 1px 1px 0  #cfcfcf, 0 2px 5px 0  #cfcfcf;
+}*/
+.button:disabled {
+  color: gray;
+  cursor: auto;
+  background-color: #6e6e6e;
+}
+.generate-button {
+  width: 168px;
+}
+.controls {
+  margin-top: 10px;
+  margin-bottom: 60px;
+
+  display: flex;
+  align-items: center;
+}
+.controls .button {
+  margin-right: 6px;
 }
 .car-wrapper {
   display: flex;
@@ -33,7 +94,9 @@ li {
 }
 
 .car-name {
+  font-size: 20px;
   color: #e6c300;
+  font-weight: bold;
   margin-left: 10px;
 }
 
@@ -47,16 +110,16 @@ li {
 .flag {
   position: absolute;
   top:0;
-  right: 50px;
-  margin-top: -20px;
+  right: 140px;
+  margin-top: 10px;
   font-size: 60px;
   color: red;
 }
 .icon {
+  font-size: 22px;
   background: transparent;
   border: 2px solid;
   border-radius: 5px;
-  font-size: 22px;
   cursor: pointer;
 }
 .icon:disabled {
@@ -69,7 +132,65 @@ li {
 .stop-engine-button.enabling {
   color: red;
 }
+.message {
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 200px);
+  width: 500px;
+  font-size: 40px;
+  line-height: 60px;
+  color: #fff;
+  padding:20px 10px;
+  border-radius: 10px;
+  text-align: center;
+}
 
+.pagination {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
 .hide {
   display: none;
 }
+
+table {
+  font-size: 18px;
+  border-radius: 10px;
+  border-spacing: 0;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+th {
+  font-weight: 500;
+  background: #4471a4;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+th,
+td {
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  border-color: #808080;
+  font-weight: bold;
+}
+
+td {
+  padding: 10px 15px;
+  background: #525158;
+}
+
+.table-button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-button.asc::after {
+  content: '↑';
+}
+
+.table-button.desc::after {
+  content: '↓';
+}
+
