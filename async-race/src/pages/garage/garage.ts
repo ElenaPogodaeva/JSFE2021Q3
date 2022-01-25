@@ -1,5 +1,5 @@
-import store from '../../store'
-import {Car, CarModel} from '../../api';
+import store from '../../store';
+import { Car, CarModel } from '../../api';
 
 const renderCarImage = (color: string) => `
 <?xml version="1.0" standalone="no"?>
@@ -102,7 +102,7 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 </g>
 </svg>`;
 
-const renderCar = ({id, name, color}: CarModel) => `
+const renderCar = ({ id, name, color }: CarModel) => `
 <div class="car-buttons">
   <button class="button select-button" id="select-car-${id}">Select</button>
   <button class="button remove-button" id="remove-car-${id}">Remove</button>
@@ -135,8 +135,8 @@ export const renderWinners = () => `
     ${store.cars.map((car: CarModel) => `<li>${renderCar(car)}</li>`).join('')}
   </ul>`;
 
-  export const render = async () => {
-    const html = `
+export const render = async () => {
+  const html = `
     <header>
       <nav class="menu">
         <button class="button garage-menu-button" id="garage-menu">To garage</button>
@@ -169,11 +169,9 @@ export const renderWinners = () => `
     </div>
     `;
 
-    const root = document.createElement('div');
-    root.innerHTML = html;
-    document.body.appendChild(root);
-  }
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  document.body.appendChild(div);
+};
 
-  //render();
-
-
+//render();

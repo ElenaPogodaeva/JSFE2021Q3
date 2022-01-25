@@ -1,8 +1,3 @@
-import {render} from './pages/garage/garage';
-import { getCars, getCar, createCar, updateCar, deleteCar, updateGarage} from './api'
-import { getRandomCars} from './utils';
-import { renderGarage} from './pages/garage/garage';
-import store from './store';
 import App from './controller/app';
 import View from './view/app.view';
 import Garage from './model/garage.model';
@@ -98,7 +93,7 @@ document.addEventListener('click', async (e) => {
   }
 });
 */
-  //console.log(createForm);
+//console.log(createForm);
 /*import image from './images/lazy.png';
 
 const createImage = (src: string) => new Promise<HTMLImageElement>((res, rej) => {

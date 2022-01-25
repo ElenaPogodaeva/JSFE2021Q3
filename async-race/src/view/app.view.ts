@@ -1,16 +1,19 @@
-import {CarModel, CarWinner} from '../api';
+import { CarModel, CarWinner } from '../api';
 import Garage from '../model/garage.model';
 import Winners from '../model/winners.model';
 
 export default class View {
   garage: Garage;
+
   winners: Winners;
+
   constructor(garage: Garage, winners: Winners) {
     this.garage = garage;
     this.winners = winners;
   }
+
   render(cars: CarModel[], winners: CarWinner[], page: number) {
-    console.log(cars, page);
+    // console.log(cars, page);
     const html = `
     <header>
       <nav class="menu">
@@ -21,12 +24,12 @@ export default class View {
     <div class="" id="garage-view">
       <form class="form" id="create-form">
         <input class="input" id="create-name" name="name" type="text">
-        <input class="color" id="create-color" name="color" type="color" value="#fff">
+        <input class="color" id="create-color" name="color" type="color" value="#ffffff">
         <button class="button" type="submit">Create</button>
       </form>
       <form class="form" id="update-form">
         <input class="input" id="update-name" name="name" type="text" disabled>
-        <input class="color" id="update-color" name="color" type="color" value="#fff" disabled>
+        <input class="color" id="update-color" name="color" type="color" value="#ffffff" disabled>
         <button class="button" type="submit" id="update-submit" disabled>Update</button>
       </form>
       <div class="controls">
@@ -37,7 +40,9 @@ export default class View {
       <div id="garage">
         ${this.renderGarage(cars, page)}
       </div>
-      <p class="message" id="message"></p>
+      <div>
+        <p class="message hide" id="message"></p>
+      </div>
     </div>
     <div id="winners-view" class="hide">
         ${this.renderWinners(winners)}
@@ -53,8 +58,8 @@ export default class View {
     document.body.appendChild(div);
   }
 
-   renderGarage(cars: CarModel[], carsPage: number) {
-     /*
+  renderGarage(cars: CarModel[], carsPage: number) {
+    /*
     const h1 = document.createElement('h1');
     h1.textContent = `Garage (${cars.length})`;
     const h2 = document.createElement('h1');
@@ -109,7 +114,7 @@ export default class View {
    console.log(garageView)
    return garageView; */
 
-   return `
+    return `
    <h1>Winners (${this.winners.getCount()})</h1>
    <h2>Page #${this.winners.winnersPage}</h2>
    <table>
@@ -122,12 +127,14 @@ export default class View {
           this.winners.sortBy === 'wins' ? this.winners.sortOrder : ''
         }" id="sort-by-wins">Wins</th>
         <th class="table-button table-time ${
-          this.winners.sortBy === 'time'? this.winners.sortOrder : ''
+          this.winners.sortBy === 'time' ? this.winners.sortOrder : ''
         }" id="sort-by-time">Best time (sec)</th>
       </tr>
     </thead>
     <tbody>
-        ${winners.map((item, index) => `
+        ${winners
+          .map(
+            (item, index) => `
         <tr>
           <td>${index + 1}</td>
           <td>${this.renderCarImage(item.car.color)}</td>
@@ -135,34 +142,31 @@ export default class View {
           <td>${item.wins}</td>
           <td>${item.time}</td>
         </tr>
-        `).join('')}
+        `
+          )
+          .join('')}
     </tbody>
     </table>`;
- }
+  }
 
- listen() {
-  document.addEventListener('click', async (e) => {
-    if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
-      const id = (e.target as HTMLElement).id.split('-')[2];
-      console.log(id);
-      this.garage.startDriving(+id);
-    }
-    if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
-      const id = (e.target as HTMLElement).id.split('-')[2];
-      console.log(id);
-      this.garage.stopDriving(+id);
-    }
+  listen() {
+    document.addEventListener('click', async (e) => {
+      if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        this.garage.startDriving(+id);
+      }
+      if ((e.target as HTMLElement).classList.contains('stop-engine-button')) {
+        const id = (e.target as HTMLElement).id.split('-')[2];
+        this.garage.stopDriving(+id);
+      }
 
-    if ((e.target as HTMLElement).classList.contains('race-button')) {
+      if ((e.target as HTMLElement).classList.contains('race-button')) {
+        await this.garage.race(this.garage.startDriving);
+      }
+    });
+  }
 
-      await this.garage.race(this.garage.startDriving);
-
-    }
-
-  });
-}
   renderCarButton(car: CarModel) {
-
     const carButtons = document.createElement('div');
     carButtons.classList.add('car-buttons');
 
@@ -250,15 +254,23 @@ export default class View {
 
     return `
     <div class="car-buttons">
-      <button class="button select-button" id="select-car-${car.id}">Select</button>
-      <button class="button remove-button" id="remove-car-${car.id}">Remove</button>
+      <button class="button select-button" id="select-car-${
+        car.id
+      }">Select</button>
+      <button class="button remove-button" id="remove-car-${
+        car.id
+      }">Remove</button>
       <span class="car-name">${car.name}</span>
     </div>
     <div class="road">
       <div class="car-wrapper">
         <div class="control-panel">
-          <button class="icon start-engine-button enabling" id="start-car-${car.id}">A</button>
-          <button class="icon stop-engine-button" id="stop-car-${car.id}" disabled>B</button>
+          <button class="icon start-engine-button enabling" id="start-car-${
+            car.id
+          }">A</button>
+          <button class="icon stop-engine-button" id="stop-car-${
+            car.id
+          }" disabled>B</button>
         </div>
         <div class="car" id="car-${car.id}">
           ${this.renderCarImage(car.color)}
@@ -370,5 +382,4 @@ l-15 -73 3006 7 c1653 4 3007 8 3009 9 1 1 -8 37 -20 81 -19 67 -22 105 -22
 </g>
 </svg>`;
   }
-
 }
