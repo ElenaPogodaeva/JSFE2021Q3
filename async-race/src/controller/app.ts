@@ -45,7 +45,7 @@ export default class App {
       await this.garage.createCar({ name: name, color: color });
       await this.garage.updateGarage(this.garage.carsPage);
       (document.getElementById('garage') as HTMLElement).innerHTML =
-        this.view.renderGarage(this.garage._cars, this.page);
+        this.view.renderGarage(this.garage.getCars(), this.garage.carsPage);
       (document.getElementById('create-name') as HTMLInputElement).value = '';
       (document.getElementById('create-color') as HTMLInputElement).value =
         '#ffffff';
@@ -56,7 +56,6 @@ export default class App {
     ) as HTMLFormElement;
     updateForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      //const data = new FormData(this);
       const name = (updateForm.elements[0] as HTMLInputElement).value;
       const color = (updateForm.elements[1] as HTMLInputElement).value;
       await this.garage.updateCar(+this.garage.selectedCarId, {
@@ -65,7 +64,7 @@ export default class App {
       });
       await this.garage.updateGarage(this.garage.carsPage);
       (document.getElementById('garage') as HTMLElement).innerHTML =
-        this.view.renderGarage(this.garage._cars, this.page);
+        this.view.renderGarage(this.garage.getCars(), this.garage.carsPage);
       (document.getElementById('update-name') as HTMLInputElement).value = '';
       (document.getElementById('update-color') as HTMLInputElement).value =
         '#ffffff';
@@ -88,7 +87,7 @@ export default class App {
           const garage = document.getElementById('garage') as HTMLElement;
 
           garage.innerHTML = this.view.renderGarage(
-            this.garage._cars,
+            this.garage.getCars(),
             this.garage.carsPage
           );
           break;
@@ -100,7 +99,7 @@ export default class App {
             'winners-view'
           ) as HTMLElement;
 
-          winners.innerHTML = this.view.renderWinners(this.winners.winners);
+          winners.innerHTML = this.view.renderWinners(this.winners.getWinners());
           break;
         }
       }
@@ -114,7 +113,7 @@ export default class App {
           const garage = document.getElementById('garage') as HTMLElement;
 
           garage.innerHTML = this.view.renderGarage(
-            this.garage._cars,
+            this.garage.getCars(),
             this.garage.carsPage
           );
 
@@ -127,7 +126,7 @@ export default class App {
             'winners-view'
           ) as HTMLElement;
 
-          winners.innerHTML = this.view.renderWinners(this.winners.winners);
+          winners.innerHTML = this.view.renderWinners(this.winners.getWinners());
           break;
         }
       }
@@ -153,10 +152,11 @@ export default class App {
     const onRemoveBtnClick = async (e: Event) => {
       this.garage.selectedCarId = (e.target as HTMLElement).id.split('-')[2];
       await this.garage.deleteCar(+this.garage.selectedCarId);
+      await this.winners.deleteWinner(+this.garage.selectedCarId);
       await this.garage.updateGarage(this.garage.carsPage);
       const garage = document.getElementById('garage') as HTMLElement;
       garage.innerHTML = this.view.renderGarage(
-        this.garage._cars,
+        this.garage.getCars(),
         this.garage.carsPage
       );
     };
@@ -168,7 +168,7 @@ export default class App {
       await this.garage.updateGarage(this.garage.carsPage);
       const garage = document.getElementById('garage') as HTMLElement;
       garage.innerHTML = this.view.renderGarage(
-        this.garage._cars,
+        this.garage.getCars(),
         this.garage.carsPage
       );
     };
@@ -190,7 +190,7 @@ export default class App {
     const onResetBtnClick = async (e: Event) => {
       const resetBtn = e.target as HTMLButtonElement;
       resetBtn.disabled = true;
-      this.garage._cars.map(({ id }) => this.garage.stopDriving(id));
+      this.garage.getCars().map(({ id }) => this.garage.stopDriving(id));
 
       const message = document.getElementById('message') as HTMLElement;
       message.classList.add('hide');
@@ -220,7 +220,7 @@ export default class App {
 
       await this.winners.updateWinners();
       this.viewName = 'winners';
-      winnersPage.innerHTML = this.view.renderWinners(this.winners.winners);
+      winnersPage.innerHTML = this.view.renderWinners(this.winners.getWinners());
       garagePage.classList.add('hide');
       winnersPage.classList.remove('hide');
     };
@@ -243,21 +243,10 @@ export default class App {
         onSelectBtnClick(e);
       }
       if ((e.target as HTMLElement).classList.contains('remove-button')) {
-        /*
-        this.garage.selectedCarId = (e.target as HTMLElement).id.split('-')[2];
-        await this.garage.deleteCar(+this.garage.selectedCarId);
-        await this.garage.updateGarage(this.page);
-        const garage = document.getElementById('garage') as HTMLElement;
-        garage.innerHTML = this.view.renderGarage(this.garage._cars, this.page);*/
         onRemoveBtnClick(e);
       }
       if ((e.target as HTMLElement).classList.contains('generate-button')) {
-        /*
-        const cars = getRandomCars();
-        await Promise.all(cars.map(async (item: Car) => await this.garage.createCar(item)));
-        await this.garage.updateGarage(this.page);
-        const garage = document.getElementById('garage') as HTMLElement;
-        garage.innerHTML = this.view.renderGarage(this.garage._cars, this.page);*/
+
         onGenerateBtnClick();
       }
       if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
@@ -281,7 +270,7 @@ export default class App {
           'winners-view'
         ) as HTMLElement;
 
-        winnersView.innerHTML = this.view.renderWinners(this.winners.winners);
+        winnersView.innerHTML = this.view.renderWinners(this.winners.getWinners());
       }
       if ((e.target as HTMLElement).classList.contains('table-time')) {
         await this.winners.setSortOrder('time');
@@ -289,7 +278,7 @@ export default class App {
           'winners-view'
         ) as HTMLElement;
 
-        winnersView.innerHTML = this.view.renderWinners(this.winners.winners);
+        winnersView.innerHTML = this.view.renderWinners(this.winners.getWinners());
       }
     });
   }
