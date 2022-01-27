@@ -3,7 +3,6 @@ import store from './store';
 const baseUrl = 'http://127.0.0.1:3000';
 
 const path = {
-  //enum
   garage: '/garage',
   engine: '/engine',
   winners: '/winners',
@@ -53,6 +52,7 @@ export type Race = {
   color: string;
   time: number;
 };
+
 //[{key: '', value: ''}]
 /*
 const generateQueryString = (queryParams = []) => queryParams.length
