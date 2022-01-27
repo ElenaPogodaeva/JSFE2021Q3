@@ -7,6 +7,7 @@ const path = {
   engine: '/engine',
   winners: '/winners',
 };
+const maxWinnersPerPage = 10;
 
 export default class Winners {
   public winners: CarWinner[];
@@ -47,7 +48,7 @@ export default class Winners {
 
   async fetchWinners({
     page,
-    limit = 10,
+    limit = maxWinnersPerPage,
     sort,
     order,
   }: {
@@ -151,7 +152,7 @@ export default class Winners {
       sort: this.sortBy,
       order: this.sortOrder,
     });
-    if (this.winnersPage * 10 < this.count) {
+    if (this.winnersPage * maxWinnersPerPage < this.count) {
       (document.getElementById('next-btn') as HTMLButtonElement).disabled =
         false;
     } else {

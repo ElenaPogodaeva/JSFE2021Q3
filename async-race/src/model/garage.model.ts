@@ -9,6 +9,8 @@ const path = {
   winners: '/winners',
 };
 
+const maxCarsPerPage = 7;
+
 export default class Garage {
   public _cars: CarModel[];
 
@@ -31,7 +33,7 @@ export default class Garage {
     this.animation = { 0: { id: 0 } };
   }
 
-  async fetchCars(page: number, limit = 7) {
+  async fetchCars(page: number, limit = maxCarsPerPage) {
     const response = await fetch(
       `${baseUrl}${path.garage}?_page=${page}&_limit=${limit}`
     );
@@ -98,7 +100,7 @@ export default class Garage {
   async updateGarage(page: number) {
     await this.fetchCars(page);
 
-    if (page * 7 < this.count) {
+    if (page * maxCarsPerPage < this.count) {
       (document.getElementById('next-btn') as HTMLButtonElement).disabled =
         false;
     } else {
@@ -216,7 +218,7 @@ export default class Garage {
     stopButton.disabled = true;
     stopButton.classList.toggle('enabling', true);
     await this.stopEngine(id);
-    //console.log(await this.startEngine(id));
+
     stopButton.classList.toggle('enabling', false);
     const startButton = document.getElementById(
       `start-car-${id}`
@@ -226,9 +228,7 @@ export default class Garage {
 
     const car = document.getElementById(`car-${id}`) as HTMLElement;
 
-    // console.log(htmlDistance)
     car.style.transform = 'translateX(0)';
-    // console.log( animation(car, htmlDistance, time).id);
 
     if (this.animation[id]) window.cancelAnimationFrame(this.animation[id].id);
   }
