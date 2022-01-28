@@ -99,7 +99,9 @@ export default class App {
             'winners-view'
           ) as HTMLElement;
 
-          winners.innerHTML = this.view.renderWinners(this.winners.getWinners());
+          winners.innerHTML = this.view.renderWinners(
+            this.winners.getWinners()
+          );
           break;
         }
       }
@@ -126,7 +128,9 @@ export default class App {
             'winners-view'
           ) as HTMLElement;
 
-          winners.innerHTML = this.view.renderWinners(this.winners.getWinners());
+          winners.innerHTML = this.view.renderWinners(
+            this.winners.getWinners()
+          );
           break;
         }
       }
@@ -220,7 +224,9 @@ export default class App {
 
       await this.winners.updateWinners();
       this.viewName = 'winners';
-      winnersPage.innerHTML = this.view.renderWinners(this.winners.getWinners());
+      winnersPage.innerHTML = this.view.renderWinners(
+        this.winners.getWinners()
+      );
       garagePage.classList.add('hide');
       winnersPage.classList.remove('hide');
     };
@@ -246,7 +252,6 @@ export default class App {
         onRemoveBtnClick(e);
       }
       if ((e.target as HTMLElement).classList.contains('generate-button')) {
-
         onGenerateBtnClick();
       }
       if ((e.target as HTMLElement).classList.contains('start-engine-button')) {
@@ -270,7 +275,9 @@ export default class App {
           'winners-view'
         ) as HTMLElement;
 
-        winnersView.innerHTML = this.view.renderWinners(this.winners.getWinners());
+        winnersView.innerHTML = this.view.renderWinners(
+          this.winners.getWinners()
+        );
       }
       if ((e.target as HTMLElement).classList.contains('table-time')) {
         await this.winners.setSortOrder('time');
@@ -278,7 +285,9 @@ export default class App {
           'winners-view'
         ) as HTMLElement;
 
-        winnersView.innerHTML = this.view.renderWinners(this.winners.getWinners());
+        winnersView.innerHTML = this.view.renderWinners(
+          this.winners.getWinners()
+        );
       }
     });
   }
